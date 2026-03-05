@@ -1,0 +1,170 @@
+.main {
+    padding-top: 96px;
+    min-height: 100vh;
+    padding-bottom: 64px;
+}
+
+.header {
+    padding: 48px 0 40px;
+    border-bottom: 1px solid var(--bg-3);
+    margin-bottom: 48px;
+}
+
+/* ── SCORES ──────────────────────────────────── */
+.scoresGrid {
+    margin-bottom: 64px;
+    align-items: stretch;
+}
+
+.scoreCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 20px;
+}
+
+.metricCard {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ── SECTIONS ────────────────────────────────── */
+.section {
+    padding: 56px 0;
+    border-top: 1px solid var(--bg-3);
+}
+
+.sectionTitle {
+    margin-bottom: 32px;
+}
+
+/* ── OPPORTUNITIES ───────────────────────────── */
+.opportunitiesList {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.opCard {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.opNum {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 4px;
+    min-width: 28px;
+}
+
+.opContent {
+    flex: 1;
+}
+
+.opHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.impactBadge {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+}
+
+/* ── ROADMAP ─────────────────────────────────── */
+.roadmap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.faseCard {}
+
+.faseHeader {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.faseDot {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-top: 6px;
+}
+
+/* ── CTA ─────────────────────────────────────── */
+.ctaSection {
+    border-top: 1px solid var(--bg-3);
+}
+
+.ctaBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 16px 0;
+}
+
+.ctaGlow {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(212, 175, 55, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ── RESPONSIVE ──────────────────────────────── */
+@media (max-width: 1024px) {
+    .roadmap {
+        grid-template-columns: 1fr;
+    }
+
+    .scoresGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding-top: 80px;
+    }
+
+    .header {
+        padding: 32px 0 28px;
+    }
+
+    .scoresGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .opCard {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .opHeader {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .scoresGrid {
+        grid-template-columns: 1fr;
+    }
+}
