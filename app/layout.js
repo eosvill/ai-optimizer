@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'AI Operations Optimizer — Diagnóstico de IA para tu empresa',
-  description: 'Recibí un diagnóstico personalizado y un plan de implementación de IA en menos de 5 minutos. Identificá procesos automatizables y conocé qué asistentes implementar primero.',
+  title: 'OptimaIA — Diagnóstico de Optimización con IA',
+  description: 'Obtené un diagnóstico personalizado y un plan de implementación de IA en menos de 5 minutos con OptimaIA. Identificá procesos automatizables hoy mismo.',
 };
 
 export default function RootLayout({ children }) {

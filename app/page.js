@@ -8,7 +8,7 @@ export default function Home() {
       {/* NAVBAR */}
       <nav className="navbar">
         <div className="container">
-          <span className="nav-logo">AI Operations <span>Optimizer</span></span>
+          <span className="nav-logo">Optima<span>IA</span></span>
           <Link href="/lead" className="btn-primary hide-mobile" style={{ padding: '10px 20px', fontSize: '0.85rem' }}>
             Obtener mi diagnóstico
           </Link>
@@ -96,7 +96,7 @@ export default function Home() {
             <div className={`grid-4 ${styles.areaGrid}`} style={{ marginTop: 48 }}>
               {[
                 { area: 'Operaciones', desc: 'Reportes automáticos, gestión de datos y flujos de trabajo internos.' },
-                { area: 'Ventas', desc: 'Calificación de leads, seguimiento automático y actualización de CRM.' },
+                { area: 'Ventas', desc: 'Calificación de leads - clientes potenciales, seguimiento automático y actualización de CRM.' },
                 { area: 'Marketing', desc: 'Generación de contenido, planificación de campañas y análisis.' },
                 { area: 'Soporte', desc: 'Respuestas automáticas, clasificación de tickets y base de conocimiento.' },
               ].map((item, i) => (

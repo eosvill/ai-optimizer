@@ -13,8 +13,8 @@ const QUESTIONS = [
     { id: 'generacion_reportes', section: 'Operaciones', label: '¿Cómo generan los reportes internos actualmente?', type: 'radio', options: ['Manualmente en Excel/Sheets', 'Con herramientas de BI (Tableau, Power BI)', 'Delegado a un área específica', 'No generamos reportes regularmente'] },
     { id: 'procesos_documentados', section: 'Operaciones', label: '¿Tienen procesos operativos documentados?', type: 'radio', options: ['Sí, la mayoría está documentada', 'Algunos están documentados', 'Muy pocos', 'No tenemos documentación'] },
     // Ventas
-    { id: 'gestion_leads', section: 'Ventas', label: '¿Cómo gestionan actualmente los leads o potenciales clientes?', type: 'radio', options: ['CRM dedicado', 'Planillas de cálculo', 'Email y notas manuales', 'No tenemos un proceso formal'] },
-    { id: 'frecuencia_seguimiento', section: 'Ventas', label: '¿Con qué frecuencia hacen seguimiento a sus leads?', type: 'radio', options: ['Seguimiento automático', 'Manual, de forma consistente', 'Manual, pero irregular', 'Casi no hacemos seguimiento'] },
+    { id: 'gestion_leads', section: 'Ventas', label: '¿Cómo gestionan actualmente los leads - clientes potenciales?', type: 'radio', options: ['CRM dedicado', 'Planillas de cálculo', 'Email y notas manuales', 'No tenemos un proceso formal'] },
+    { id: 'frecuencia_seguimiento', section: 'Ventas', label: '¿Con qué frecuencia hacen seguimiento a sus leads - clientes potenciales?', type: 'radio', options: ['Seguimiento automático', 'Manual, de forma consistente', 'Manual, pero irregular', 'Casi no hacemos seguimiento'] },
     // Marketing
     { id: 'generacion_contenido', section: 'Marketing', label: '¿Cómo generan contenido de marketing?', type: 'radio', options: ['Equipo interno dedicado', 'Agencia externa', 'El equipo lo hace como tarea secundaria', 'No generamos contenido regularmente'] },
     { id: 'canales_marketing', section: 'Marketing', label: '¿Qué canales de marketing utilizan actualmente?', type: 'checkbox', options: ['Redes sociales', 'Email marketing', 'Google Ads / SEO', 'WhatsApp', 'Referidos', 'Eventos / presencial', 'Ninguno formal'] },
@@ -22,7 +22,7 @@ const QUESTIONS = [
     { id: 'consultas_semana', section: 'Soporte al cliente', label: '¿Cuántas consultas de clientes reciben por semana?', type: 'radio', options: ['Menos de 20', '20 a 50', '50 a 150', 'Más de 150'] },
     { id: 'canal_soporte', section: 'Soporte al cliente', label: '¿Por qué canal atienden la mayoría de las consultas?', type: 'radio', options: ['WhatsApp', 'Email', 'Teléfono', 'Chat en web', 'Redes sociales', 'Presencial'] },
     // Automatización
-    { id: 'procesos_automatizar', section: 'Automatización', label: '¿Qué procesos te gustaría automatizar con mayor urgencia?', type: 'checkbox', options: ['Respuestas a consultas frecuentes', 'Seguimiento de leads', 'Generación de reportes', 'Gestión de redes sociales', 'Facturación y cobranzas', 'Onboarding de clientes', 'Gestión de tareas internas', 'Otro'] },
+    { id: 'procesos_automatizar', section: 'Automatización', label: '¿Qué procesos te gustaría automatizar con mayor urgencia?', type: 'checkbox', options: ['Respuestas a consultas frecuentes', 'Seguimiento de leads - clientes potenciales', 'Generación de reportes', 'Gestión de redes sociales', 'Facturación y cobranzas', 'Onboarding de clientes', 'Gestión de tareas internas', 'Otro'] },
     { id: 'experiencia_ia', section: 'Automatización', label: '¿Cuál es tu nivel de experiencia con herramientas de IA?', type: 'radio', options: ['Nunca usé IA en mi empresa', 'Uso ChatGPT u otras herramientas básicas', 'Tenemos algunas automatizaciones básicas', 'Usamos IA de forma estructurada'] },
 ];
 
@@ -99,7 +99,7 @@ export default function CuestionarioPage() {
         <>
             <nav className="navbar">
                 <div className="container">
-                    <Link href="/" className="nav-logo">AI Operations <span>Optimizer</span></Link>
+                    <Link href="/" className="nav-logo">Optima<span>IA</span></Link>
                     <span style={{ fontSize: '0.83rem', color: 'var(--text-3)' }}>{step + 1} / {total}</span>
                 </div>
             </nav>
@@ -187,7 +187,7 @@ function LoadingScreen() {
         <>
             <nav className="navbar">
                 <div className="container">
-                    <span className="nav-logo">AI Operations <span>Optimizer</span></span>
+                    <span className="nav-logo">Optima<span>IA</span></span>
                 </div>
             </nav>
             <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32, textAlign: 'center', padding: '0 24px', paddingTop: 64 }}>

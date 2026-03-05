@@ -88,7 +88,7 @@ export default function LeadPage() {
         <>
             <nav className="navbar">
                 <div className="container">
-                    <Link href="/" className="nav-logo">AI Operations <span>Optimizer</span></Link>
+                    <Link href="/" className="nav-logo">Optima<span>IA</span></Link>
                 </div>
             </nav>
 

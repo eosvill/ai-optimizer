@@ -8,6 +8,10 @@
     padding: 48px 0 40px;
     border-bottom: 1px solid var(--bg-3);
     margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 /* ── SCORES ──────────────────────────────────── */
@@ -38,6 +42,10 @@
 
 .sectionTitle {
     margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 /* ── OPPORTUNITIES ───────────────────────────── */

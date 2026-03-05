@@ -34,7 +34,7 @@ export default function ResultadosPage() {
         <>
             <nav className="navbar">
                 <div className="container">
-                    <Link href="/" className="nav-logo">AI Operations <span>Optimizer</span></Link>
+                    <Link href="/" className="nav-logo">Optima<span>IA</span></Link>
                     <div className="badge hide-mobile">Diagnóstico completo</div>
                 </div>
             </nav>
@@ -58,16 +58,16 @@ export default function ResultadosPage() {
                     {/* ── SCORES ──────────────────────────────── */}
                     <div className={`grid-4 ${styles.scoresGrid} animate-fade-up`}>
                         <ScoreCard
-                            label="AI Readiness Score"
+                            label="Nivel de Preparación"
                             value={blueprint.ai_readiness_score}
                             suffix="/100"
                             description="Madurez tecnológica de tu empresa"
                         />
                         <ScoreCard
-                            label="Automation Score"
+                            label="Potencial de Automatización"
                             value={blueprint.automation_score}
                             suffix="/100"
-                            description="Potencial de automatización"
+                            description="Capacidad de automatizar procesos"
                         />
                         <MetricCard
                             label="Ahorro estimado"
@@ -207,7 +207,7 @@ export default function ResultadosPage() {
                                 rel="noopener noreferrer"
                                 className="btn-primary"
                                 style={{ marginTop: 32, fontSize: '1rem', padding: '16px 32px' }}>
-                                Agendar una sesión estratégica de optimización con IA
+                                Agendar una cita
                             </a>
                             <p style={{ marginTop: 16, fontSize: '0.78rem', color: 'var(--text-4)' }}>
                                 Sin costo. Sin compromiso. 60 minutos enfocados en tu empresa.
@@ -220,7 +220,7 @@ export default function ResultadosPage() {
 
             <footer className="footer">
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-                    <span className="nav-logo">AI Operations <span>Optimizer</span></span>
+                    <span className="nav-logo">Optima<span>IA</span></span>
                     <p style={{ color: 'var(--text-4)', fontSize: '0.83rem' }}>Diagnóstico generado por IA</p>
                 </div>
             </footer>
