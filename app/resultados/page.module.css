@@ -176,3 +176,29 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ── MODAL ─────────────────────────────────────── */
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modalContent {
+    width: 100%;
+    max-width: 460px;
+    background: var(--bg-1);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--bg-3);
+    padding: 40px 32px;
+}

@@ -1,0 +1,462 @@
+{
+    "name": "Agente IA Calendario - OptimaIA (Sesiones Persistentes)",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "whatsapp-webhook-entrada",
+                "options": {}
+            },
+            "id": "e44d51b3-f2f2-45e0-9bc2-3c812d8a55e2",
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                200,
+                340
+            ],
+            "webhookId": "9f9a2bca-4b2a-4f51-8d2a-1c9f8a8b1c2b"
+        },
+        {
+            "parameters": {
+                "operation": "read",
+                "fileName": "={{ '/home/node/.n8n/sessions/' + $json.body.data.key.remoteJid + '.txt' }}",
+                "options": {}
+            },
+            "id": "0d8d5dfd-1aa2-4c27-acaf-cb1e6a188f1c",
+            "name": "Check Session File",
+            "type": "n8n-nodes-base.readWriteFile",
+            "typeVersion": 1,
+            "position": [
+                420,
+                340
+            ],
+            "onError": "continueErrorOutput"
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "boolean": [
+                        {
+                            "value1": "={{ $json.data ? true : false }}",
+                            "value2": true
+                        }
+                    ]
+                }
+            },
+            "id": "1d8d5dfd-1aa2-4c27-acaf-cb1e6a188f1d",
+            "name": "Has Session?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                640,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "rules": {
+                    "values": [
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": false,
+                                    "leftValue": "",
+                                    "typeValidation": "strict"
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "764eaace-3eb4-44cf-abd1-b6a3862923f6",
+                                        "leftValue": "={{ $('Webhook').item.json.body.data.message.conversation || $('Webhook').item.json.body.data.message.extendedTextMessage.text }}",
+                                        "rightValue": "hice el diagn[oó]stico en l[ií]nea",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "regex"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "Pasar_a_IA"
+                        }
+                    ]
+                },
+                "options": {
+                    "fallbackOutput": 1
+                }
+            },
+            "id": "3be2b36a-2d3b-4654-bdee-ebbb3cfac4c8",
+            "name": "Check Keyword",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 3.1,
+            "position": [
+                860,
+                540
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "write",
+                "fileName": "={{ '/home/node/.n8n/sessions/' + $('Webhook').item.json.body.data.key.remoteJid + '.txt' }}",
+                "dataPropertyName": "blankData",
+                "options": {
+                    "append": true
+                }
+            },
+            "id": "2d8d5dfd-1aa2-4c27-acaf-cb1e6a188f1e",
+            "name": "Create Session",
+            "type": "n8n-nodes-base.readWriteFile",
+            "typeVersion": 1,
+            "position": [
+                1080,
+                540
+            ]
+        },
+        {
+            "parameters": {
+                "promptType": "define",
+                "text": "={{ $('Webhook').item.json.body.data.message.conversation || $('Webhook').item.json.body.data.message.extendedTextMessage.text }}",
+                "options": {
+                    "systemMessage": "Sos Sofía, la asistente virtual de OptimaIA (agencia especializada en optimización con IA para empresas).\n\nTu único objetivo es: Agendar una \"Sesión Estratégica Gratuita de 60 minutos\" con leads que acaban de completar nuestro Diagnóstico de IA.\n\nREGLAS ESTRICTAS:\n1. HORARIOS HÁBILES: Solo podés ofrecer o agendar turnos de LUNES a VIERNES, entre las 11:00 hs y las 18:00 hs (hora local Argentina UTC-3).\n2. DURACIÓN: Todos los turnos duran exactamente 60 minutos.\n3. DATOS OBLIGATORIOS: Antes de confirmar cualquier reserva en la agenda, NECESITÁS tener y confirmar con el usuario su NOMBRE y su EMAIL. Si el primer mensaje que te manda el usuario ya dice \"Hola! soy Juan de LaEmpresa...\", asimilá ese nombre pero decile: \"¡Hola Juan! Un placer. Para agendarte y mandarte la invitación a tu calendario, ¿me pasarías por acá tu mejor dirección de email?\"\n4. VALIDACIÓN DE AGENDA: JAMÁS confirmes un turno sin antes usar tu herramienta 'CheckCalendarTool' para ver si ese espacio está libre en Google Calendar.\n5. FLUJO DE RESERVA:\n   - Si el horario que te piden está LIBRE (después de chequearlo): Usá la herramienta 'BookAppointmentTool' para crearlo. Inmediatamente después, usá 'SendConfirmationEmail' para mandarle el mail. Y respondé: \"¡Listo! Tu sesión de 60 minutos está agendada para el [Día y Hora]. Ya te envié la invitación y el link de la reunión a tu correo.\"\n   - Si está OCUPADO: Respondé pidiendo disculpas y ofrecele 2 o 3 alternativas concretas cercanas a ese horario o en los días siguientes.\n6. MODO DE HABLAR: Sé cálida, profesional y concisa (estás por WhatsApp). No uses Párrafos largos. Usá emojis pero sin abusar.\n7. RECHAZO: Si te preguntan cosas que no sean sobre agendar la reunión, respondé amablemente que tu función exclusiva es coordinar la agenda de los asesores."
+                }
+            },
+            "id": "a4d31e97-15c2-48e2-b1ee-823eaecbd449",
+            "name": "AI Agent",
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 1.6,
+            "position": [
+                1380,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "modelName": "models/gemini-2.5-flash",
+                "options": {
+                    "temperature": 0.4
+                }
+            },
+            "id": "f8a098cb-d1cc-42b7-8da7-eb7d7bd7e77a",
+            "name": "Google Gemini Model",
+            "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+            "typeVersion": 1,
+            "position": [
+                1360,
+                560
+            ],
+            "credentials": {
+                "googleApi": {
+                    "id": "YOUR_GEMINI_CREDENTIAL_ID",
+                    "name": "Gemini Agente IA"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "sessionId": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+            },
+            "id": "e6a17277-c916-4dcd-9ff2-80de2113eb7a",
+            "name": "Window Buffer Memory",
+            "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+            "typeVersion": 1.2,
+            "position": [
+                1500,
+                560
+            ]
+        },
+        {
+            "parameters": {
+                "name": "CheckCalendarTool",
+                "description": "Llama a esta herramienta ANTES de confirmar cualquier turno. Recibe un rango de tiempo para revisar si hay eventos en la agenda. Retorna la lista de eventos ocupados, si devuelve vacío, está libre.",
+                "workflowId": "REPLACE_WITH_SUBCALL_IF_NEEDED",
+                "calendar": "primary",
+                "timeMin": "={{ $parameter.startTime }}",
+                "timeMax": "={{ $parameter.endTime }}",
+                "operation": "getAll",
+                "limit": 10
+            },
+            "id": "1ad3cb75-9b16-43b9-8e45-f0eeec2ac8f7",
+            "name": "Check Calendar",
+            "type": "n8n-nodes-base.googleCalendarTool",
+            "typeVersion": 1.1,
+            "position": [
+                1680,
+                540
+            ],
+            "credentials": {
+                "googleCalendarOAuth2Api": {
+                    "id": "YOUR_GOOGLE_CREDENTIAL_ID",
+                    "name": "Cuenta Google Calendar Agencia"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "name": "BookAppointmentTool",
+                "description": "Llama a esta herramienta ÚNICAMENTE cuando estés seguro de que el horario está libre y tenés el email del usuario. Crea el evento de 60 minutos.",
+                "calendar": "primary",
+                "start": "={{ $parameter.startTime }}",
+                "end": "={{ $parameter.endTime }}",
+                "title": "Sesión Estratégica OptimIA - {{ $parameter.leadName }}",
+                "descriptionText": "Sesión estratégica de diagnóstico de IA.\nEmail del lead: {{ $parameter.leadEmail }}",
+                "attendees": [
+                    "={{ $parameter.leadEmail }}"
+                ],
+                "operation": "create",
+                "sendUpdates": "all"
+            },
+            "id": "bfa861d8-0e86-42d7-9ba7-dfcc4ac1f72a",
+            "name": "Book Calendar Event",
+            "type": "n8n-nodes-base.googleCalendarTool",
+            "typeVersion": 1.1,
+            "position": [
+                1820,
+                540
+            ],
+            "credentials": {
+                "googleCalendarOAuth2Api": {
+                    "id": "YOUR_GOOGLE_CREDENTIAL_ID",
+                    "name": "Cuenta Google Calendar Agencia"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "name": "SendConfirmationEmail",
+                "description": "Llama a esta herramienta DESPUÉS de haber agendado el turno en el Calendar para enviarle el correo oficial de bienvenida y confirmación.",
+                "sendTo": "={{ $parameter.leadEmail }}",
+                "subject": "¡Reserva Confirmada! Tu Sesión Estratégica con OptimaIA",
+                "message": "¡Hola {{ $parameter.leadName }}!<br><br>Te confirmo que agendamos con éxito tu Sesión Estratégica Gratuita para revisar tu Diagnóstico de IA.<br><br>Ya tenés la invitación en tu calendario de Google.<br><br>¡Nos vemos pronto!<br>El equipo de OptimaIA.",
+                "appendAttribution": false
+            },
+            "id": "d0e1b219-c6aa-4d8b-9e85-3e28ce1cc1c9",
+            "name": "Send Gmail",
+            "type": "n8n-nodes-base.gmailTool",
+            "typeVersion": 2.1,
+            "position": [
+                1960,
+                540
+            ],
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_GOOGLE_CREDENTIAL_ID",
+                    "name": "Cuenta Google Calendar Agencia"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://ai-optimazer-evolution-api.ot80ss.easypanel.host/message/sendText/OptimaIA",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "apikey",
+                            "value": "429683C4C977415CAAFCCE10F7D57E11"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "number",
+                            "value": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+                        },
+                        {
+                            "name": "text",
+                            "value": "={{ $json.output }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "cdfc0fbb-5441-4770-b746-8dd3d65a6c1e",
+            "name": "Responder Evolution API",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                1680,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "keepOnlySet": true,
+                "values": {
+                    "string": [
+                        {
+                            "name": "blankData",
+                            "value": "started"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "set-blank-data",
+            "name": "Set Blank Data",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 2,
+            "position": [
+                970,
+                540
+            ]
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Check Session File",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check Session File": {
+            "main": [
+                [
+                    {
+                        "node": "Has Session?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Has Session?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Has Session?": {
+            "main": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Check Keyword",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check Keyword": {
+            "main": [
+                [
+                    {
+                        "node": "Set Blank Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                []
+            ]
+        },
+        "Set Blank Data": {
+            "main": [
+                [
+                    {
+                        "node": "Create Session",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Create Session": {
+            "main": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Google Gemini Model": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Window Buffer Memory": {
+            "ai_memory": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_memory",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check Calendar": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Book Calendar Event": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Send Gmail": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "AI Agent": {
+            "main": [
+                [
+                    {
+                        "node": "Responder Evolution API",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "active": false,
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "versionId": "f0fe1136-1c70-4f51-bded-eafbd8a83425"
+}

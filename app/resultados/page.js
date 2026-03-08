@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { ArrowRight, CheckCircle2, ChevronRight, MessageCircle, Calendar } from 'lucide-react';
 import styles from './page.module.css';
 
 const IMPACT_COLORS = { Alto: 'impact-alto', Medio: 'impact-medio', Bajo: 'impact-bajo' };
@@ -10,6 +11,7 @@ const PRIORITY_COLORS = { 'Inmediata': 'impact-alto', 'Corto plazo': 'impact-med
 export default function ResultadosPage() {
     const router = useRouter();
     const [blueprint, setBlueprint] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [leadData, setLeadData] = useState(null);
     const [mounted, setMounted] = useState(false);
 
@@ -201,14 +203,12 @@ export default function ResultadosPage() {
                             <p style={{ color: 'var(--text-3)', marginTop: 16, maxWidth: 480, lineHeight: 1.7 }}>
                                 En una sesión estratégica de 60 minutos revisamos tu diagnóstico, validamos las oportunidades identificadas y definimos juntos el plan de implementación para tu empresa.
                             </p>
-                            <a
-                                href="https://calendly.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <button
+                                onClick={() => setIsModalOpen(true)}
                                 className="btn-primary"
-                                style={{ marginTop: 32, fontSize: '1rem', padding: '16px 32px' }}>
+                                style={{ marginTop: 32, fontSize: '1rem', padding: '16px 32px', cursor: 'pointer' }}>
                                 Agendar una cita
-                            </a>
+                            </button>
                             <p style={{ marginTop: 16, fontSize: '0.78rem', color: 'var(--text-4)' }}>
                                 Sin costo. Sin compromiso. 60 minutos enfocados en tu empresa.
                             </p>
@@ -224,6 +224,64 @@ export default function ResultadosPage() {
                     <p style={{ color: 'var(--text-4)', fontSize: '0.83rem' }}>Diagnóstico generado por IA</p>
                 </div>
             </footer>
+
+            {/* ── MODAL DE AGENDAMIENTO ───────────────────────── */}
+            {isModalOpen && (
+                <div
+                    className={styles.modalBackdrop}
+                    onClick={() => setIsModalOpen(false)}
+                >
+                    <div
+                        className={`card animate-fade-up ${styles.modalContent}`}
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <h3 className="heading-md" style={{ marginBottom: 12, textAlign: 'center' }}>¿Cómo preferís avanzar?</h3>
+                        <p style={{ color: 'var(--text-3)', textAlign: 'center', marginBottom: 32, fontSize: '0.9rem' }}>
+                            Elegí la opción más cómoda para coordinar tu sesión estratégica gratuita de 60 minutos.
+                        </p>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                            <a
+                                href="https://calendly.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-primary"
+                                style={{ justifyContent: 'center', gap: 12, padding: '18px 24px' }}
+                            >
+                                <Calendar size={20} />
+                                Elegir horario para hablar
+                            </a>
+
+                            <a
+                                href={`https://wa.me/541157083080?text=${encodeURIComponent(`Hola! soy ${leadData?.nombre || ''} de ${leadData?.empresa || ''}, hice el diagnóstico en línea y quería más información`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-secondary"
+                                style={{ justifyContent: 'center', gap: 12, padding: '18px 24px', background: '#222222', borderColor: '#333333', color: '#FFFFFF', borderRadius: '12px' }}
+                            >
+                                <MessageCircle size={20} color="#25D366" />
+                                Hablar por WhatsApp ahora
+                            </a>
+                        </div>
+
+                        <button
+                            onClick={() => setIsModalOpen(false)}
+                            style={{
+                                marginTop: 24,
+                                background: 'transparent',
+                                border: 'none',
+                                color: 'var(--text-4)',
+                                cursor: 'pointer',
+                                width: '100%',
+                                textAlign: 'center',
+                                fontSize: '0.85rem'
+                            }}
+                        >
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            )}
         </>
     );
 }

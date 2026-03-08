@@ -1,0 +1,408 @@
+{
+    "name": "Agente IA Calendario - OptimaIA (Hand-off con JS NATIVO)",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "whatsapp-webhook-entrada",
+                "options": {}
+            },
+            "id": "e44d51b3-f2f2-45e0-9bc2-3c812d8a55e2",
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                200,
+                340
+            ],
+            "webhookId": "9f9a2bca-4b2a-4f51-8d2a-1c9f8a8b1c2b"
+        },
+        {
+            "parameters": {
+                "rules": {
+                    "values": [
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": false,
+                                    "leftValue": "",
+                                    "typeValidation": "strict"
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "764eaace-3eb4-44cf-abd1-b6a3862923f6",
+                                        "leftValue": "={{ $('Webhook').item.json.body.data.message.conversation || $('Webhook').item.json.body.data.message.extendedTextMessage.text }}",
+                                        "rightValue": "hice el diagn[oó]stico en l[ií]nea",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "regex"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "Pasar_a_IA"
+                        }
+                    ]
+                },
+                "options": {
+                    "fallbackOutput": 1
+                }
+            },
+            "id": "3be2b36a-2d3b-4654-bdee-ebbb3cfac4c8",
+            "name": "Check Keyword",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 3.1,
+            "position": [
+                420,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "jsCode": "const fs = require('fs');\nconst dir = '/home/node/.n8n/sessions';\nif (!fs.existsSync(dir)){\n    fs.mkdirSync(dir, { recursive: true });\n}\n\nfor (const item of $input.all()) {\n  const remoteJid = item.json.body.data.key.remoteJid;\n  const path = dir + '/' + remoteJid + '.txt';\n  fs.writeFileSync(path, 'active_session');\n}\nreturn $input.all();"
+            },
+            "id": "cfa3f412-fbee-41d3-a44e-379e9533a0ea",
+            "name": "Create Session JS",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                720,
+                220
+            ]
+        },
+        {
+            "parameters": {
+                "jsCode": "const fs = require('fs');\nconst dir = '/home/node/.n8n/sessions';\nconst filteredItems = [];\n\nfor (const item of $input.all()) {\n  const remoteJid = item.json.body.data.key.remoteJid;\n  const path = dir + '/' + remoteJid + '.txt';\n  \n  // Si el archivo existe, dejamos pasar el mensaje hacia la IA\n  if (fs.existsSync(path)) {\n    filteredItems.push(item);\n  }\n}\n// Si el array queda vacio, n8n detiene la ejecucion (que es lo que queremos para mensajes personales ignorados)\nreturn filteredItems;"
+            },
+            "id": "e4dfd8da-370c-4fae-b2d9-1ac1bbdeec6f",
+            "name": "Check Session JS",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                720,
+                460
+            ]
+        },
+        {
+            "parameters": {
+                "promptType": "define",
+                "text": "={{ $('Webhook').item.json.body.data.message.conversation || $('Webhook').item.json.body.data.message.extendedTextMessage.text }}",
+                "options": {
+                    "systemMessage": "Sos Sofía, la asistente virtual de OptimaIA (agencia especializada en optimización con IA para empresas).\n\nTu único objetivo es: Agendar una \"Sesión Estratégica Gratuita de 60 minutos\" con leads que acaban de completar nuestro Diagnóstico de IA.\n\nREGLAS ESTRICTAS:\n1. HORARIOS HÁBILES: Solo podés ofrecer o agendar turnos de LUNES a VIERNES, entre las 11:00 hs y las 18:00 hs (hora local Argentina UTC-3).\n2. DURACIÓN: Todos los turnos duran exactamente 60 minutos.\n3. DATOS OBLIGATORIOS: Antes de confirmar cualquier reserva en la agenda, NECESITÁS tener y confirmar con el usuario su NOMBRE y su EMAIL. \n4. VALIDACIÓN DE AGENDA: JAMÁS confirmes un turno sin antes usar tu herramienta 'CheckCalendarTool' para ver si ese espacio está libre en Google Calendar.\n\nFLUJO DE RESERVA Y FINALIZACIÓN (HAND-OFF):\n- SI SE AGENDA CON ÉXITO: Usá 'BookAppointmentTool', luego 'SendConfirmationEmail'. Inmediatamente después, despedite amablemente e INVOCA LA HERRAMIENTA 'RemoveSessionTool' para cerrar tu atención.\n- SI NO SE PUEDE AGENDAR (el usuario no quiere, da vueltas, no le sirven los horarios después de 3 intentos, o hace preguntas complejas que no podés responder): Pedí disculpas, decile que le vas a transferir la conversación a un asesor humano de OptimaIA para que lo ayude mejor, e INVOCA LA HERRAMIENTA 'RemoveSessionTool' inmediatamente para desconectarte."
+                }
+            },
+            "id": "a4d31e97-15c2-48e2-b1ee-823eaecbd449",
+            "name": "AI Agent",
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 1.6,
+            "position": [
+                1000,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "modelName": "models/gemini-2.5-flash",
+                "options": {
+                    "temperature": 0.4
+                }
+            },
+            "id": "f8a098cb-d1cc-42b7-8da7-eb7d7bd7e77a",
+            "name": "Google Gemini Model",
+            "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+            "typeVersion": 1,
+            "position": [
+                980,
+                560
+            ],
+            "credentials": {
+                "googleApi": {
+                    "id": "YOUR_GEMINI_CREDENTIAL_ID",
+                    "name": "Gemini Agente IA"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "sessionKey": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+            },
+            "id": "e6a17277-c916-4dcd-9ff2-80de2113eb7a",
+            "name": "Window Buffer Memory",
+            "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+            "typeVersion": 1.2,
+            "position": [
+                1120,
+                560
+            ]
+        },
+        {
+            "parameters": {
+                "name": "CheckCalendarTool",
+                "description": "Llama a esta herramienta ANTES de confirmar cualquier turno. Recibe un rango de tiempo para revisar si hay eventos en la agenda. Retorna la lista de eventos ocupados, si devuelve vacío, está libre.",
+                "workflowId": "REPLACE_WITH_SUBCALL_IF_NEEDED",
+                "calendar": "primary",
+                "timeMin": "={{ $parameter.startTime }}",
+                "timeMax": "={{ $parameter.endTime }}",
+                "operation": "getAll",
+                "limit": 10
+            },
+            "id": "1ad3cb75-9b16-43b9-8e45-f0eeec2ac8f7",
+            "name": "Check Calendar",
+            "type": "n8n-nodes-base.googleCalendarTool",
+            "typeVersion": 1.1,
+            "position": [
+                1260,
+                540
+            ],
+            "credentials": {
+                "googleCalendarOAuth2Api": {
+                    "id": "YOUR_GOOGLE_CREDENTIAL_ID",
+                    "name": "Cuenta Google Calendar Agencia"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "name": "BookAppointmentTool",
+                "description": "Llama a esta herramienta ÚNICAMENTE cuando estés seguro de que el horario está libre y tenés el email del usuario. Crea el evento de 60 minutos.",
+                "calendar": "primary",
+                "start": "={{ $parameter.startTime }}",
+                "end": "={{ $parameter.endTime }}",
+                "title": "Sesión Estratégica OptimIA - {{ $parameter.leadName }}",
+                "descriptionText": "Sesión estratégica de diagnóstico de IA.\nEmail del lead: {{ $parameter.leadEmail }}",
+                "attendees": [
+                    "={{ $parameter.leadEmail }}"
+                ],
+                "operation": "create",
+                "sendUpdates": "all"
+            },
+            "id": "bfa861d8-0e86-42d7-9ba7-dfcc4ac1f72a",
+            "name": "Book Calendar Event",
+            "type": "n8n-nodes-base.googleCalendarTool",
+            "typeVersion": 1.1,
+            "position": [
+                1400,
+                540
+            ],
+            "credentials": {
+                "googleCalendarOAuth2Api": {
+                    "id": "YOUR_GOOGLE_CREDENTIAL_ID",
+                    "name": "Cuenta Google Calendar Agencia"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "name": "SendConfirmationEmail",
+                "description": "Llama a esta herramienta DESPUÉS de haber agendado el turno en el Calendar para enviarle el correo oficial de bienvenida y confirmación.",
+                "sendTo": "={{ $parameter.leadEmail }}",
+                "subject": "¡Reserva Confirmada! Tu Sesión Estratégica con OptimaIA",
+                "message": "¡Hola {{ $parameter.leadName }}!<br><br>Te confirmo que agendamos con éxito tu Sesión Estratégica Gratuita para revisar tu Diagnóstico de IA.<br><br>Ya tenés la invitación en tu calendario de Google.<br><br>¡Nos vemos pronto!<br>El equipo de OptimaIA.",
+                "appendAttribution": false
+            },
+            "id": "d0e1b219-c6aa-4d8b-9e85-3e28ce1cc1c9",
+            "name": "Send Gmail",
+            "type": "n8n-nodes-base.gmailTool",
+            "typeVersion": 2.1,
+            "position": [
+                1540,
+                540
+            ],
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_GOOGLE_CREDENTIAL_ID",
+                    "name": "Cuenta Google Calendar Agencia"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "name": "RemoveSessionTool",
+                "description": "Llama a esta herramienta SÍ O SÍ cuando hayas terminado de agendar la reunión con éxito, O BIEN cuando el usuario no se decida a agendar o pida hablar con un humano. Esta herramienta le borra la sesión para que el Agente IA deje de responderle.",
+                "jsCode": "const fs = require('fs');\nconst path = '/home/node/.n8n/sessions/' + $('Webhook').item.json.body.data.key.remoteJid + '.txt';\ntry {\n  if (fs.existsSync(path)) {\n    fs.unlinkSync(path);\n    return { success: true, message: 'La sesión se eliminó correctamente. Te has desconectado de este usuario.' };\n  }\n} catch (error) {\n  return { success: false, error: error.message };\n}\nreturn { success: true, message: 'No había sesión activa para este usuario.' };"
+            },
+            "id": "d0e1b219-c6aa-4d8b-9e85-3e28ce1cc1d0",
+            "name": "Remove Session",
+            "type": "@n8n/n8n-nodes-langchain.toolCode",
+            "typeVersion": 1,
+            "position": [
+                1680,
+                540
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://ai-optimazer-evolution-api.ot80ss.easypanel.host/message/sendText/OptimaIA",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "apikey",
+                            "value": "429683C4C977415CAAFCCE10F7D57E11"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "number",
+                            "value": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+                        },
+                        {
+                            "name": "text",
+                            "value": "={{ $json.output }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "cdfc0fbb-5441-4770-b746-8dd3d65a6c1e",
+            "name": "Responder Evolution API",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                1400,
+                340
+            ]
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Check Keyword",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check Keyword": {
+            "main": [
+                [
+                    {
+                        "node": "Create Session JS",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Check Session JS",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Create Session JS": {
+            "main": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check Session JS": {
+            "main": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Google Gemini Model": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Window Buffer Memory": {
+            "ai_memory": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_memory",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check Calendar": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Book Calendar Event": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Send Gmail": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Remove Session": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "AI Agent": {
+            "main": [
+                [
+                    {
+                        "node": "Responder Evolution API",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "active": false,
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "versionId": "f0fe1136-1c70-4f51-bded-eafbd8a83425"
+}
