@@ -55,7 +55,7 @@ export default function AgencyHome() {
                         <a href="#contacto" className="btn-secondary hide-mobile" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>
                             Más información
                         </a>
-                        <a href="#contacto" className="btn-primary" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>
+                        <a href="https://wa.me/541157083080?text=Hola%2C%20quiero%20agendar%20una%20cita%20para%20informarme%20como%20automatizar%20los%20procesos%20de%20mi%20empresa%2Fnegocio" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>
                             Agendar Cita
                         </a>
                     </div>
@@ -77,7 +77,7 @@ export default function AgencyHome() {
                                 Ayudamos a PyMEs, comercios y emprendedores a agilizar sus procesos, mejorar sus ventas y delegar tareas repetitivas en asistentes virtuales inteligentes.
                             </p>
                             <div className={`animate-fade-up ${styles.heroCtas}`} style={{ animationDelay: '240ms' }}>
-                                <a href="#contacto" className="btn-primary">Agendar Cita Gratis</a>
+                                <a href="https://wa.me/541157083080?text=Hola%2C%20quiero%20agendar%20una%20cita%20para%20informarme%20como%20automatizar%20los%20procesos%20de%20mi%20empresa%2Fnegocio" target="_blank" rel="noopener noreferrer" className="btn-primary">Agendar Cita Gratis</a>
                                 <a href="#servicios" className="btn-secondary">Ver Servicios</a>
                             </div>
                         </div>
@@ -252,12 +252,9 @@ export default function AgencyHome() {
                             </p>
 
                             <div style={{ display: 'flex', gap: 16, marginBottom: 32 }}>
-                                <a href="#contacto" className="btn-primary" style={{ flex: 1, justifyContent: 'center' }}>
+                                <a href="https://wa.me/541157083080?text=Hola%2C%20quiero%20agendar%20una%20cita%20para%20informarme%20como%20automatizar%20los%20procesos%20de%20mi%20empresa%2Fnegocio" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ flex: 1, justifyContent: 'center' }}>
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 8 }}>
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                        <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"></path>
                                     </svg>
                                     Agendar Cita Directa
                                 </a>
