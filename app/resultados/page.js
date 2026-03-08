@@ -14,6 +14,7 @@ export default function ResultadosPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [leadData, setLeadData] = useState(null);
     const [mounted, setMounted] = useState(false);
+    const [schedulingSent, setSchedulingSent] = useState(false);
 
     useEffect(() => {
         const raw = sessionStorage.getItem('blueprint');
@@ -250,16 +251,18 @@ export default function ResultadosPage() {
                         </p>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                            <a
-                                href="https://calendly.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn-primary"
-                                style={{ justifyContent: 'center', gap: 12, padding: '18px 24px' }}
-                            >
-                                <Calendar size={20} />
-                                Elegir horario para hablar
-                            </a>
+                            {
+                                <a
+                                    href={`https://wa.me/541157083080?text=${encodeURIComponent('Hola hice el diagnostico en linea y me interesa')}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn-primary"
+                                    style={{ justifyContent: 'center', gap: 12, padding: '18px 24px', textDecoration: 'none' }}
+                                >
+                                    <Calendar size={20} />
+                                    Elegir horario para hablar
+                                </a>
+                            }
 
                             <a
                                 href={`https://wa.me/541157083080?text=${encodeURIComponent(`Hola! soy ${leadData?.nombre || ''} de ${leadData?.empresa || ''}, hice el diagnóstico en línea y quería más información`)}`}
