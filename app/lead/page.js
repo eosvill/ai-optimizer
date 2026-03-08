@@ -87,8 +87,15 @@ export default function LeadPage() {
     return (
         <>
             <nav className="navbar">
-                <div className="container">
+                <div className="container" style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
                     <Link href="/" className="nav-logo">Optima<span>IA</span></Link>
+                    <Link href="/" style={{ color: 'var(--text-3)', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        Volver a Inicio
+                    </Link>
                 </div>
             </nav>
 
@@ -165,6 +172,12 @@ export default function LeadPage() {
                     </div>
                 </div>
             </main>
+            <footer className="footer">
+                <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+                    <img src="/images/logo-elbufalo.png" alt="Elbufalo IA" style={{ height: 56, width: 'auto' }} />
+                    <p style={{ color: 'var(--text-4)', fontSize: '0.78rem' }}>Producto desarrollado por Elbufalo IA</p>
+                </div>
+            </footer>
         </>
     );
 }

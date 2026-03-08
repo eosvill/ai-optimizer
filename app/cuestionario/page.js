@@ -98,8 +98,17 @@ export default function CuestionarioPage() {
     return (
         <>
             <nav className="navbar">
-                <div className="container">
-                    <Link href="/" className="nav-logo">Optima<span>IA</span></Link>
+                <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+                        <Link href="/" className="nav-logo">Optima<span>IA</span></Link>
+                        <Link href="/" style={{ color: 'var(--text-3)', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                            Inicio
+                        </Link>
+                    </div>
                     <span style={{ fontSize: '0.83rem', color: 'var(--text-3)' }}>{step + 1} / {total}</span>
                 </div>
             </nav>
@@ -178,6 +187,12 @@ export default function CuestionarioPage() {
                     </div>
                 </div>
             </main>
+            <footer className="footer">
+                <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+                    <img src="/images/logo-elbufalo.png" alt="Elbufalo IA" style={{ height: 56, width: 'auto' }} />
+                    <p style={{ color: 'var(--text-4)', fontSize: '0.78rem' }}>Producto desarrollado por Elbufalo IA</p>
+                </div>
+            </footer>
         </>
     );
 }
@@ -187,7 +202,7 @@ function LoadingScreen() {
         <>
             <nav className="navbar">
                 <div className="container">
-                    <span className="nav-logo">Optima<span>IA</span></span>
+                    <Link href="/" className="nav-logo">Optima<span>IA</span></Link>
                 </div>
             </nav>
             <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32, textAlign: 'center', padding: '0 24px', paddingTop: 64 }}>
@@ -205,6 +220,12 @@ function LoadingScreen() {
                     ))}
                 </div>
             </div>
+            <footer className="footer" style={{ borderTop: 'none', background: 'transparent' }}>
+                <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+                    <img src="/images/logo-elbufalo.png" alt="Elbufalo IA" style={{ height: 48, width: 'auto' }} />
+                    <p style={{ color: 'var(--text-4)', fontSize: '0.75rem' }}>Producto desarrollado por Elbufalo IA</p>
+                </div>
+            </footer>
         </>
     );
 }

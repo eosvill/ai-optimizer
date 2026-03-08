@@ -1,8 +1,11 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'OptimaIA — Diagnóstico de Optimización con IA',
-  description: 'Obtené un diagnóstico personalizado y un plan de implementación de IA en menos de 5 minutos con OptimaIA. Identificá procesos automatizables hoy mismo.',
+  title: 'Elbufalo IA — Agencia de Inteligencia Artificial',
+  description: 'Ayudamos a PyMEs y empresas a optimizar sus procesos y ventas con Inteligencia Artificial.',
+  icons: {
+    icon: '/images/favicon_neg.png',
+  },
 };
 
 export default function RootLayout({ children }) {
