@@ -29,7 +29,7 @@ export default function Home() {
         <section className={styles.hero}>
           <div className="container">
             <div className={styles.heroInner}>
-              <div className={`badge animate-fade-up`} style={{ animationDelay: '0ms' }}>
+              <div className={`animate-fade-up`} style={{ animationDelay: '0ms', display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(8,181,214,0.12)', border: '1px solid rgba(8,181,214,0.4)', borderRadius: 9999, padding: '6px 16px', fontSize: '0.78rem', fontWeight: 600, letterSpacing: '0.08em', color: '#08B5D6', textTransform: 'uppercase' }}>
                 Diagnóstico personalizado en 5 minutos
               </div>
               <h1 className={`heading-xl animate-fade-up ${styles.heroTitle}`} style={{ animationDelay: '80ms' }}>
@@ -39,7 +39,7 @@ export default function Home() {
                 Recibí un diagnóstico personalizado y un plan de implementación en menos de 5 minutos.
               </p>
               <div className={`animate-fade-up ${styles.heroCtas}`} style={{ animationDelay: '240ms' }}>
-                <Link href="/lead" className="btn-primary">Obtener mi diagnóstico</Link>
+                <Link href="/lead" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'linear-gradient(135deg, #08B5D6, #0891B2)', color: '#fff', fontWeight: 700, fontSize: '1rem', padding: '14px 28px', borderRadius: 9999, textDecoration: 'none', boxShadow: '0 0 24px rgba(8,181,214,0.4)', transition: 'transform 0.2s, box-shadow 0.2s' }}>Obtener mi diagnóstico</Link>
                 <a href="#como-funciona" className="btn-secondary">Ver cómo funciona</a>
               </div>
               <div className={`animate-fade-up ${styles.heroStats}`} style={{ animationDelay: '320ms' }}>
