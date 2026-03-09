@@ -260,7 +260,7 @@ export default function ResultadosPage() {
                                     style={{ justifyContent: 'center', gap: 12, padding: '18px 24px', textDecoration: 'none' }}
                                 >
                                     <Calendar size={20} />
-                                    Agendar llamada telefónica
+                                    Agendar cita telefónica
                                 </a>
                             }
 
