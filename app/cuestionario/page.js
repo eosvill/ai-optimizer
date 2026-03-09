@@ -30,22 +30,48 @@ export default function CuestionarioPage() {
     const router = useRouter();
     const [step, setStep] = useState(0);
     const [answers, setAnswers] = useState({});
+    const [personalForm, setPersonalForm] = useState({
+        nombre: '', email: '', whatsapp: '', empresa: ''
+    });
+    const [personalErrors, setPersonalErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [showValidationModal, setShowValidationModal] = useState(false);
 
-    const q = QUESTIONS[step];
+    const isFinalStep = step === QUESTIONS.length;
+    const q = isFinalStep ? null : QUESTIONS[step];
     const total = QUESTIONS.length;
-    const progress = Math.round(((step) / total) * 100);
+    // Progress goes up to 100% when on the final personal info step
+    const progress = Math.round((step / total) * 100);
 
-    const currentAnswer = answers[q.id];
+    const currentAnswer = !isFinalStep ? answers[q.id] : null;
+
     const isValid = () => {
+        if (isFinalStep) return true; // Handled separately
         if (q.type === 'textarea') return currentAnswer?.trim()?.length > 0;
         if (q.type === 'radio') return !!currentAnswer;
         if (q.type === 'checkbox') return Array.isArray(currentAnswer) && currentAnswer.length > 0;
         return true;
     };
 
-    const handleRadio = (val) => setAnswers(prev => ({ ...prev, [q.id]: val }));
+    const validatePersonalForm = () => {
+        const e = {};
+        if (!personalForm.nombre.trim()) e.nombre = 'El nombre es requerido';
+        if (!personalForm.email.trim()) e.email = 'El email es requerido';
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(personalForm.email)) e.email = 'Email inválido';
+        if (!personalForm.empresa.trim()) e.empresa = 'El nombre de la empresa es requerido';
+        return e;
+    };
+
+    const handlePersonalChange = (field, value) => {
+        setPersonalForm(prev => ({ ...prev, [field]: value }));
+        if (personalErrors[field]) setPersonalErrors(prev => ({ ...prev, [field]: null }));
+    };
+
+    const handleRadio = (val) => {
+        setAnswers(prev => ({ ...prev, [q.id]: val }));
+    };
+
     const handleCheckbox = (val) => {
         const current = answers[q.id] || [];
         const next = current.includes(val) ? current.filter(v => v !== val) : [...current, val];
@@ -54,35 +80,73 @@ export default function CuestionarioPage() {
     const handleTextarea = (val) => setAnswers(prev => ({ ...prev, [q.id]: val }));
 
     const handleNext = () => {
-        if (step < total - 1) { setStep(s => s + 1); window.scrollTo(0, 0); }
-        else handleSubmit();
+        if (!isFinalStep && !isValid()) {
+            setShowValidationModal(true);
+            return;
+        }
+        if (step < total) {
+            setStep(s => s + 1);
+            window.scrollTo(0, 0);
+        }
     };
 
-    const handleBack = () => { if (step > 0) { setStep(s => s - 1); window.scrollTo(0, 0); } };
+    const handleBack = () => {
+        if (step > 0) {
+            setStep(s => s - 1);
+            window.scrollTo(0, 0);
+        }
+    };
 
     const handleSubmit = async () => {
+        const validationErrs = validatePersonalForm();
+        if (Object.keys(validationErrs).length > 0) {
+            setPersonalErrors(validationErrs);
+            return;
+        }
+
         setLoading(true);
         setError(null);
         try {
-            const userId = sessionStorage.getItem('user_id');
-            const leadData = JSON.parse(sessionStorage.getItem('lead_data') || '{}');
+            // 1. Get partial data from step 1
+            const leadDataPartial = JSON.parse(sessionStorage.getItem('lead_data_partial') || '{}');
+            const fullLeadData = { ...leadDataPartial, ...personalForm };
 
-            const formattedAnswers = {};
-            QUESTIONS.forEach(q => {
-                if (answers[q.id] !== undefined) formattedAnswers[q.label] = answers[q.id];
-            });
-
-            const res = await fetch('/api/diagnostico', {
+            // 2. Create lead in backend to get user_id
+            const leadRes = await fetch('/api/lead', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user_id: userId, lead_data: leadData, respuestas: formattedAnswers }),
+                body: JSON.stringify(fullLeadData),
             });
-            const data = await res.json();
-            if (data.success) {
-                sessionStorage.setItem('blueprint', JSON.stringify(data.blueprint));
+            const leadDataResponse = await leadRes.json();
+
+            if (!leadDataResponse.success) {
+                setError(leadDataResponse.error || 'Ocurrió un error al guardar tus datos.');
+                setLoading(false);
+                return;
+            }
+
+            const userId = leadDataResponse.user_id;
+            sessionStorage.setItem('user_id', userId);
+            sessionStorage.setItem('lead_data', JSON.stringify(fullLeadData));
+
+            // 3. Format answers and request blueprint
+            const formattedAnswers = {};
+            QUESTIONS.forEach(qst => {
+                if (answers[qst.id] !== undefined) formattedAnswers[qst.label] = answers[qst.id];
+            });
+
+            const diagRes = await fetch('/api/diagnostico', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, lead_data: fullLeadData, respuestas: formattedAnswers }),
+            });
+            const diagData = await diagRes.json();
+
+            if (diagData.success) {
+                sessionStorage.setItem('blueprint', JSON.stringify(diagData.blueprint));
                 router.push('/resultados');
             } else {
-                setError(data.error || 'Ocurrió un error. Intentá de nuevo.');
+                setError(diagData.error || 'Ocurrió un error al generar tu diagnóstico.');
             }
         } catch {
             setError('Error de conexión. Intentá de nuevo.');
@@ -120,7 +184,7 @@ export default function CuestionarioPage() {
                         <div className={styles.progressSection}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                                 <span style={{ fontSize: '0.78rem', color: 'var(--text-4)', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                                    {q.section}
+                                    {isFinalStep ? 'Datos de contacto' : q.section}
                                 </span>
                                 <span style={{ fontSize: '0.78rem', color: 'var(--text-4)' }}>{progress}%</span>
                             </div>
@@ -129,48 +193,83 @@ export default function CuestionarioPage() {
                             </div>
                         </div>
 
-                        {/* Question */}
-                        <div className={styles.questionBlock}>
-                            <h2 className="heading-md">{q.label}</h2>
+                        {/* Content Area */}
+                        {!isFinalStep ? (
+                            <div className={styles.questionBlock}>
+                                <h2 className="heading-md">{q.label}</h2>
 
-                            <div className={styles.answerArea}>
-                                {q.type === 'radio' && q.options.map(opt => (
-                                    <button key={opt} type="button"
-                                        className={`${styles.optionBtn} ${currentAnswer === opt ? styles.optionBtnActive : ''}`}
-                                        onClick={() => handleRadio(opt)}>
-                                        <span className={styles.optionDot} />
-                                        {opt}
-                                    </button>
-                                ))}
-
-                                {q.type === 'checkbox' && q.options.map(opt => {
-                                    const checked = (currentAnswer || []).includes(opt);
-                                    return (
+                                <div className={styles.answerArea}>
+                                    {q.type === 'radio' && q.options.map(opt => (
                                         <button key={opt} type="button"
-                                            className={`${styles.optionBtn} ${checked ? styles.optionBtnActive : ''}`}
-                                            onClick={() => handleCheckbox(opt)}>
-                                            <span className={`${styles.optionCheck} ${checked ? styles.optionCheckActive : ''}`}>
-                                                {checked && <svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5L4.5 7.5L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" /></svg>}
-                                            </span>
+                                            className={`${styles.optionBtn} ${currentAnswer === opt ? styles.optionBtnActive : ''}`}
+                                            onClick={() => handleRadio(opt)}>
+                                            <span className={styles.optionDot} />
                                             {opt}
                                         </button>
-                                    );
-                                })}
+                                    ))}
 
-                                {q.type === 'textarea' && (
-                                    <textarea className={`form-input ${styles.textarea}`}
-                                        placeholder={q.placeholder}
-                                        value={currentAnswer || ''}
-                                        onChange={e => handleTextarea(e.target.value)}
-                                        rows={4}
-                                    />
+                                    {q.type === 'checkbox' && q.options.map(opt => {
+                                        const checked = (currentAnswer || []).includes(opt);
+                                        return (
+                                            <button key={opt} type="button"
+                                                className={`${styles.optionBtn} ${checked ? styles.optionBtnActive : ''}`}
+                                                onClick={() => handleCheckbox(opt)}>
+                                                <span className={`${styles.optionCheck} ${checked ? styles.optionCheckActive : ''}`}>
+                                                    {checked && <svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5L4.5 7.5L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" /></svg>}
+                                                </span>
+                                                {opt}
+                                            </button>
+                                        );
+                                    })}
+
+                                    {q.type === 'textarea' && (
+                                        <textarea className={`form-input ${styles.textarea}`}
+                                            placeholder={q.placeholder}
+                                            value={currentAnswer || ''}
+                                            onChange={e => handleTextarea(e.target.value)}
+                                            rows={4}
+                                        />
+                                    )}
+                                </div>
+
+                                {q.type === 'checkbox' && (
+                                    <p style={{ fontSize: '0.78rem', color: 'var(--text-4)', marginTop: 8 }}>Podés seleccionar varias opciones.</p>
                                 )}
                             </div>
+                        ) : (
+                            <div className={styles.questionBlock}>
+                                <h2 className="heading-md">Para poder enviarte tu diagnóstico personalizado, enviános los siguientes datos:</h2>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 24 }}>
 
-                            {q.type === 'checkbox' && (
-                                <p style={{ fontSize: '0.78rem', color: 'var(--text-4)', marginTop: 8 }}>Podés seleccionar varias opciones.</p>
-                            )}
-                        </div>
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-2)', marginBottom: 6 }}>Nombre *</label>
+                                        <input className="form-input" type="text" placeholder="Tu nombre" value={personalForm.nombre}
+                                            onChange={e => handlePersonalChange('nombre', e.target.value)} />
+                                        {personalErrors.nombre && <div style={{ color: '#f87171', fontSize: '0.8rem', marginTop: 4 }}>{personalErrors.nombre}</div>}
+                                    </div>
+
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-2)', marginBottom: 6 }}>Email *</label>
+                                        <input className="form-input" type="email" placeholder="tu@empresa.com" value={personalForm.email}
+                                            onChange={e => handlePersonalChange('email', e.target.value)} />
+                                        {personalErrors.email && <div style={{ color: '#f87171', fontSize: '0.8rem', marginTop: 4 }}>{personalErrors.email}</div>}
+                                    </div>
+
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-2)', marginBottom: 6 }}>WhatsApp (opcional)</label>
+                                        <input className="form-input" type="tel" placeholder="+54 11 1234-5678" value={personalForm.whatsapp}
+                                            onChange={e => handlePersonalChange('whatsapp', e.target.value)} />
+                                    </div>
+
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-2)', marginBottom: 6 }}>Nombre de tu Empresa *</label>
+                                        <input className="form-input" type="text" placeholder="Tu empresa" value={personalForm.empresa}
+                                            onChange={e => handlePersonalChange('empresa', e.target.value)} />
+                                        {personalErrors.empresa && <div style={{ color: '#f87171', fontSize: '0.8rem', marginTop: 4 }}>{personalErrors.empresa}</div>}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
                         {error && <div style={{ padding: '12px 16px', background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.25)', borderRadius: 'var(--radius-sm)', color: '#f87171', fontSize: '0.88rem', marginBottom: 16 }}>{error}</div>}
 
@@ -179,14 +278,41 @@ export default function CuestionarioPage() {
                             {step > 0 && (
                                 <button className="btn-secondary" onClick={handleBack}>Anterior</button>
                             )}
-                            <button className="btn-primary" onClick={handleNext} disabled={!isValid()}
-                                style={{ marginLeft: 'auto', opacity: isValid() ? 1 : 0.45 }}>
-                                {step === total - 1 ? 'Ver mi diagnóstico' : 'Continuar'}
+                            <button className="btn-primary" onClick={!isFinalStep ? handleNext : handleSubmit}
+                                style={{ marginLeft: 'auto' }}>
+                                {!isFinalStep ? 'Continuar' : 'Ver mi diagnóstico'}
                             </button>
                         </div>
                     </div>
                 </div>
             </main>
+
+            {/* Validation Modal */}
+            {showValidationModal && (
+                <div
+                    className={styles.modalBackdrop}
+                    onClick={() => setShowValidationModal(false)}
+                    style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: 24, backdropFilter: 'blur(8px)' }}
+                >
+                    <div
+                        className={`card animate-fade-up ${styles.modalContent}`}
+                        onClick={e => e.stopPropagation()}
+                        style={{ background: 'var(--surface)', padding: 32, borderRadius: 16, border: '1px solid var(--border)', maxWidth: 400, textAlign: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}
+                    >
+                        <h3 className="heading-md" style={{ marginBottom: 16 }}>Falta seleccionar una opción 🤔</h3>
+                        <p style={{ color: 'var(--text-3)', marginBottom: 28, fontSize: '0.95rem', lineHeight: 1.5 }}>
+                            Para que la IA pueda darte un diagnóstico preciso, seleccioná o escribí tu respuesta antes de pasar al siguiente paso.
+                        </p>
+                        <button
+                            className="btn-primary"
+                            onClick={() => setShowValidationModal(false)}
+                            style={{ width: '100%', justifyContent: 'center' }}
+                        >
+                            Entendido
+                        </button>
+                    </div>
+                </div>
+            )}
             <footer className="footer">
                 <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
                     <img src="/images/logo-elbufalo.png" alt="Elbufalo IA" style={{ height: 56, width: 'auto' }} />
