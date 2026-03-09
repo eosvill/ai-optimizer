@@ -7,13 +7,14 @@ export default function AgencyHome() {
     const [formData, setFormData] = useState({ name: '', phone: '', email: '' });
     const [submitted, setSubmitted] = useState(false);
     const carouselRef = useRef(null);
+    const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
         const isMobile = window.innerWidth <= 768;
         if (!isMobile) return;
 
         const interval = setInterval(() => {
-            if (carouselRef.current) {
+            if (carouselRef.current && !isHovered) {
                 const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
                 const maxScroll = scrollWidth - clientWidth;
 
@@ -23,10 +24,10 @@ export default function AgencyHome() {
                     carouselRef.current.scrollBy({ left: 374, behavior: 'smooth' });
                 }
             }
-        }, 4000);
+        }, 6000); // Slower interval (was 4000)
 
         return () => clearInterval(interval);
-    }, []);
+    }, [isHovered]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -128,7 +129,14 @@ export default function AgencyHome() {
                             </h2>
                         </div>
 
-                        <div className={styles.servicesCarousel} ref={carouselRef}>
+                        <div
+                            className={styles.servicesCarousel}
+                            ref={carouselRef}
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            onTouchStart={() => setIsHovered(true)}
+                            onTouchEnd={() => setIsHovered(false)}
+                        >
                             {[
                                 {
                                     num: '1',
