@@ -253,14 +253,14 @@ export default function ResultadosPage() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                             {
                                 <a
-                                    href={`https://wa.me/541157083080?text=${encodeURIComponent('Hola hice el diagnostico en linea y me interesa')}`}
+                                    href={`https://wa.me/541157083080?text=${encodeURIComponent(`Hola! Soy ${leadData?.nombre || ''} de la empresa ${leadData?.empresa || ''}. Acabo de hacer el diagnóstico de IA y me gustaría agendar una llamada telefónica para ver los resultados.`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="btn-primary"
                                     style={{ justifyContent: 'center', gap: 12, padding: '18px 24px', textDecoration: 'none' }}
                                 >
                                     <Calendar size={20} />
-                                    Elegir horario para hablar
+                                    Agendar llamada telefónica
                                 </a>
                             }
 
