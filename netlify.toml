@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "cp -r webs_proyect/* public/ && npm run build"
   publish = ".next"
 
 [[plugins]]
