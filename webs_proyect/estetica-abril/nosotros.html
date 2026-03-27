@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosotros — Centro de Estética Abril · Cecilia Palomo · Gijón</title>
+  <meta name="description" content="Conoce a Cecilia Palomo y el Centro de Estética Abril en Gijón. Profesionalidad, experiencia y las mejores marcas del sector." />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #8e1f7a; --color-primary-dark: #5a1050; --color-primary-light: #b83da0;
+      --color-accent: #c9a0b8; --color-accent-light: #f0d8ea;
+      --color-dark: #1a0f1a; --color-text: #3a2a38; --color-light: #fdf6fb;
+      --color-white: #ffffff; --color-muted: #9a7d95;
+      --font-serif: 'Playfair Display', Georgia, serif; --font-sans: 'Nunito', sans-serif;
+      --transition: 0.3s ease; --shadow: 0 4px 20px rgba(142,31,122,0.1);
+      --shadow-hover: 0 8px 32px rgba(142,31,122,0.18); --radius: 6px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); color: var(--color-text); background: var(--color-white); line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--color-primary-dark); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo img { height: 48px; }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.75); transition: color var(--transition); }
+    nav a:hover, nav a.active { color: var(--color-accent-light); }
+    .header-phone { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--color-accent-light); }
+    .header-phone svg { width: 16px; height: 16px; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); margin: 5px 0; }
+
+    .page-hero { background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary)); padding: 140px 24px 80px; text-align: center; color: white; }
+    .page-hero-label { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-accent-light); margin-bottom: 16px; font-weight: 600; }
+    .page-hero h1 { font-family: var(--font-serif); font-size: clamp(38px, 5vw, 60px); font-weight: 400; margin-bottom: 16px; }
+    .page-hero h1 em { font-style: italic; color: var(--color-accent-light); }
+    .page-hero p { font-size: 16px; opacity: 0.8; max-width: 540px; margin: 0 auto; }
+
+    section { padding: 96px 24px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 14px; }
+    .section-title { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 48px); font-weight: 400; line-height: 1.2; color: var(--color-dark); margin-bottom: 16px; }
+    .section-title em { font-style: italic; color: var(--color-primary); }
+    .divider { width: 48px; height: 2px; background: linear-gradient(to right, var(--color-primary), var(--color-accent)); margin: 16px 0; }
+
+    .bio-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; align-items: start; }
+    .bio-placeholder { background: linear-gradient(135deg, var(--color-light), #f0d8ea); border-radius: var(--radius); aspect-ratio: 3/4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--color-muted); position: relative; }
+    .bio-badge { position: absolute; bottom: -16px; right: -16px; background: var(--color-primary); color: white; padding: 18px 22px; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow); }
+    .bio-badge-num { font-family: var(--font-serif); font-size: 32px; font-weight: 400; line-height: 1; }
+    .bio-badge-text { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; opacity: 0.85; }
+    .bio-text p { font-size: 15px; line-height: 1.85; color: var(--color-text); margin-bottom: 18px; }
+    .bio-text p:first-of-type { font-family: var(--font-serif); font-size: 19px; color: var(--color-dark); }
+    .marcas-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .marca-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 16px; background: var(--color-light); color: var(--color-primary); border-radius: 20px; border: 1px solid rgba(142,31,122,0.15); }
+
+    .valores-section { background: var(--color-light); }
+    .valores-list { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
+    .valor-item { display: flex; align-items: flex-start; gap: 20px; padding: 24px 0; border-bottom: 1px solid rgba(142,31,122,0.08); }
+    .valor-item:last-child { border-bottom: none; }
+    .valor-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .valor-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 1.6; }
+    .valor-item-text h3 { font-family: var(--font-serif); font-size: 20px; color: var(--color-dark); margin-bottom: 6px; }
+    .valor-item-text p { font-size: 14px; color: var(--color-muted); line-height: 1.65; }
+
+    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
+    .testimonial-big { background: white; border: 1px solid rgba(142,31,122,0.08); padding: 36px; border-radius: var(--radius); box-shadow: var(--shadow); transition: all var(--transition); }
+    .testimonial-big:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .t-stars { color: #f0a500; font-size: 14px; letter-spacing: 2px; margin-bottom: 12px; }
+    .t-text { font-family: var(--font-serif); font-size: 16px; font-style: italic; line-height: 1.8; color: var(--color-text); margin-bottom: 20px; }
+    .t-author { font-size: 13px; font-weight: 700; color: var(--color-primary); }
+    .t-date { font-size: 11px; color: var(--color-muted); margin-top: 2px; }
+
+    .cta-section { background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary)); color: white; text-align: center; }
+    .cta-section .section-title { color: white; }
+    .cta-section .section-title em { color: var(--color-accent-light); }
+    .cta-section p { color: rgba(255,255,255,0.8); font-size: 16px; max-width: 500px; margin: 0 auto 36px; }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 40px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: all var(--transition); border: none; cursor: pointer; }
+    .btn-primary { background: var(--color-accent-light); color: var(--color-primary-dark); }
+    .btn-primary:hover { background: white; transform: translateY(-2px); }
+    .btn-outline-wh { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.5); }
+    .btn-outline-wh:hover { background: rgba(255,255,255,0.1); border-color: white; transform: translateY(-2px); }
+
+    footer { background: var(--color-dark); color: rgba(255,255,255,0.65); padding: 64px 24px 32px; }
+    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 44px; margin-bottom: 16px; }
+    .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 260px; }
+    footer h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: white; margin-bottom: 18px; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 9px; }
+    footer ul a { font-size: 13px; transition: color var(--transition); }
+    footer ul a:hover { color: var(--color-accent-light); }
+    .f-contact-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; align-items: flex-start; }
+    .f-contact-item svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; stroke: var(--color-accent); fill: none; stroke-width: 1.5; }
+    .footer-social { display: flex; gap: 10px; margin-top: 16px; }
+    .footer-social a { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+    .footer-social a:hover { background: var(--color-primary); border-color: var(--color-primary); }
+    .footer-social svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 10px; }
+
+    @media (max-width: 768px) {
+      section { padding: 64px 20px; }
+      .nav-desktop { display: none; }
+      .nav-desktop.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--color-primary-dark); padding: 20px 24px 28px; border-top: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 20px rgba(0,0,0,0.3); gap: 20px; }
+      .nav-toggle { display: block; }
+      .header-phone span { display: none; }
+      .bio-grid { grid-template-columns: 1fr; gap: 48px; }
+      .bio-badge { bottom: 12px; right: 12px; }
+      .valores-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><img src="assets/logo_abril.png" alt="Estética Abril" /></a>
+      <nav class="nav-desktop" id="nav-menu">
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html">Tratamientos</a>
+        <a href="nosotros.html" class="active">Nosotros</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+      <a href="tel:+34985391267" class="header-phone">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.69A2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        <span>985 39 12 67</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <p class="page-hero-label">Quiénes somos</p>
+    <h1>Cecilia <em>Palomo</em></h1>
+    <p>Pasión por la belleza, vocación por el cuidado. Conoce el centro y la persona detrás de cada tratamiento.</p>
+  </div>
+
+  <!-- BIO -->
+  <section>
+    <div class="container">
+      <div class="bio-grid">
+        <div style="position:relative;">
+          <img src="https://www.esteticaabril.es/wp-content/uploads/2020/05/IMAGEN-ABRIL-WHATSAPP2.jpeg" alt="Cecilia Palomo — Estética Abril Gijón" style="width:100%; border-radius:var(--radius); display:block; object-fit:cover; aspect-ratio:3/4;" />
+          <div class="bio-badge"><div class="bio-badge-num">87</div><div class="bio-badge-text">Reseñas ★★★★★</div></div>
+        </div>
+        <div class="bio-text">
+          <p class="section-label">Sobre Cecilia</p>
+          <h2 class="section-title">Profesionalidad y<br /><em>cercanía</em></h2>
+          <div class="divider"></div>
+          <p>Soy Cecilia Palomo y en mi centro de Estética situado en Gijón, te ofrezco tratamientos estéticos y de salud de la mejor calidad. Trabajo con primeras marcas del mercado, tratamientos innovadores y toda la experiencia de mi trayectoria profesional.</p>
+          <p>En mi centro te ofrezco las últimas novedades en tratamientos y productos de alta cosmética para que cuides y mejores tu belleza. Cada persona es única y merece un enfoque personalizado, por eso la primera evaluación siempre es gratuita.</p>
+          <p>Mi filosofía es sencilla: resultados reales, con técnicas avanzadas, en un ambiente cálido y profesional donde te sientas cuidada desde el primer momento.</p>
+          <div style="margin-top:28px;">
+            <h4 style="font-size:12px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-primary); margin-bottom:14px;">Marcas con las que trabajo</h4>
+            <div class="marcas-grid">
+              <span class="marca-tag">INDIBA</span>
+              <span class="marca-tag">MASSADA</span>
+              <span class="marca-tag">CASMARA</span>
+              <span class="marca-tag">Beelfeté</span>
+              <span class="marca-tag">Depileve</span>
+              <span class="marca-tag">MC CM</span>
+              <span class="marca-tag">Jorge de la Garza</span>
+              <span class="marca-tag">Utsukusy</span>
+              <span class="marca-tag">ROSS</span>
+              <span class="marca-tag">Jaldun</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section class="valores-section">
+    <div class="container">
+      <div style="text-align:center;"><p class="section-label" style="display:inline-block;">Mi forma de trabajar</p></div>
+      <h2 class="section-title" style="text-align:center; margin-top:8px;">Los valores del<br /><em>centro</em></h2>
+      <div class="divider" style="margin:14px auto;"></div>
+      <div class="valores-list">
+        <div class="valor-item">
+          <div class="valor-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="valor-item-text"><h3>Personalización</h3><p>Cada tratamiento se diseña para cada persona. No hay protocolos fijos: hay diagnósticos individuales y soluciones a medida.</p></div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="valor-item-text"><h3>Calidad sin compromiso</h3><p>Solo trabajamos con las primeras marcas del sector. Porque la piel merece lo mejor: INDIBA, MASSADA, CASMARA y más.</p></div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="valor-item-text"><h3>Resultados reales</h3><p>No prometemos milagros, pero sí resultados visibles y duraderos. El trabajo constante y la técnica correcta marcan la diferencia.</p></div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="valor-item-text"><h3>Innovación continua</h3><p>Formación continua y adopción de las últimas tecnologías para ofrecer siempre lo más avanzado en tratamientos estéticos.</p></div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+          <div class="valor-item-text"><h3>Trato cercano</h3><p>Amabilidad, escucha activa y un ambiente donde te sientas cómoda desde el primer momento. Eso es lo que nos diferencia.</p></div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="valor-item-text"><h3>Confianza</h3><p>87 reseñas de 5 estrellas avalan nuestro trabajo. La confianza de nuestras clientas es el mejor indicador de que hacemos bien las cosas.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section>
+    <div class="container">
+      <p class="section-label">Lo que dicen</p>
+      <h2 class="section-title">Testimonios <em>reales</em></h2>
+      <div class="divider"></div>
+      <div class="testimonials-grid">
+        <div class="testimonial-big">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">Hace un año que entré por primera vez con la cara hecha un mapa de rojeces y mal color a pesar de echar cremas caras. Seguí los consejos de Cecilia y en un par de meses mi piel ya parecía otra. Sin duda el mejor centro estético de Gijón, yo no vivo por esa zona pero no me importa desplazarme, merece la pena.</p>
+          <div class="t-author">Carmen Álvarez</div>
+          <div class="t-date">Noviembre 2025</div>
+        </div>
+        <div class="testimonial-big">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">Cecilia es una combinación perfecta de profesionalidad y dulzura. Soy de Madrid y durante muchos años fui fiel a la misma esteticista. Aquí me sentí un poco huérfana hasta que el azar me cruzó con Cecilia. Recomendable 100%.</p>
+          <div class="t-author">Eva Fernández</div>
+          <div class="t-date">Junio 2025</div>
+        </div>
+        <div class="testimonial-big">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">Entrar en el Centro de Estética Abril es traspasar una puerta a la profesionalidad y amabilidad. Ponerte en manos de Cecilia es toda una experiencia de lo más gratificante y eficaz. Totalmente recomendable.</p>
+          <div class="t-author">Eduardo</div>
+          <div class="t-date">Octubre 2025</div>
+        </div>
+        <div class="testimonial-big">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">Hacia tiempo que buscaba un centro de estética profesional y con personalidad propia y lo encontré. Cecilia es muy experta en el cuidado de la piel y se nota en todo momento. Te aconseja lo mejor para tu piel y lo que más valoro es como te hace 'sentir'.</p>
+          <div class="t-author">Angels Ortega</div>
+          <div class="t-date">Febrero 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <p class="section-label" style="color:var(--color-accent-light); display:block; text-align:center;">¿Nos conocemos?</p>
+      <h2 class="section-title">Primera visita<br /><em>completamente gratuita</em></h2>
+      <div class="divider" style="margin:14px auto;"></div>
+      <p>Ven a conocernos sin compromiso. Evaluación facial o corporal gratuita y propuesta de tratamiento personalizado.</p>
+      <div class="cta-actions">
+        <a href="index.html#contacto" class="btn btn-primary">Reservar evaluación</a>
+        <a href="tel:+34985391267" class="btn btn-outline-wh">985 39 12 67</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo_abril.png" alt="Estética Abril" />
+        <p>Centro de estética en Gijón especializado en INDIBA, tratamientos faciales, corporales, capilares y rituales.</p>
+        <div class="footer-social" style="margin-top:16px;">
+          <a href="https://www.facebook.com/esteticaabril" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" fill="none" stroke-width="1.5"/></svg></a>
+          <a href="https://www.instagram.com/centroesteticaabril/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" fill="none" stroke-width="1.5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor" fill="none" stroke-width="1.5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a href="https://www.tiktok.com/@centrodeesteticaabril" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5" stroke="currentColor" fill="none" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+      <div><h4>Navegación</h4><ul><li><a href="index.html">Inicio</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="nosotros.html">Nosotros</a></li><li><a href="index.html#contacto">Contacto</a></li></ul></div>
+      <div><h4>Tratamientos</h4><ul><li><a href="servicios.html">INDIBA Facial</a></li><li><a href="servicios.html">INDIBA Corporal</a></li><li><a href="servicios.html">Capilares</a></li><li><a href="servicios.html">Rituales</a></li></ul></div>
+      <div>
+        <h4>Contacto</h4>
+        <div class="f-contact-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.12 2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg><a href="tel:+34985391267">985 39 12 67</a></div>
+        <div class="f-contact-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@esteticaabril.es">info@esteticaabril.es</a></div>
+        <div class="f-contact-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>C/ Filósofo José Gaos, 2 · Gijón</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Centro de Estética Abril · Cecilia Palomo · Gijón</span><span>esteticaabril.es</span></div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plastina & Asociados — Abogados Penalistas · Buenos Aires</title>
+  <meta name="description" content="Plastina & Asociados, estudio jurídico dedicado exclusivamente al Derecho Penal en Buenos Aires. Dr. Iván Ariel Plastina, egresado con Diploma de Honor de la UBA." />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #111111;
+      --color-primary-mid: #1c1c1c;
+      --color-primary-soft: #2a2a2a;
+      --color-accent: #ffba00;
+      --color-accent-dark: #c99100;
+      --color-accent-light: #ffd04d;
+      --color-dark: #080808;
+      --color-text: #2e2e2e;
+      --color-text-light: #5a5a5a;
+      --color-light: #f6f5f0;
+      --color-white: #ffffff;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', sans-serif;
+      --transition: 0.3s ease;
+      --shadow: 0 4px 24px rgba(0,0,0,0.12);
+      --shadow-hover: 0 10px 40px rgba(0,0,0,0.2);
+      --radius: 2px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); color: var(--color-text); background: var(--color-white); line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--color-dark);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: box-shadow var(--transition);
+    }
+    header.scrolled { box-shadow: 0 2px 30px rgba(0,0,0,0.6); }
+    .header-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between; height: 76px;
+    }
+    .logo img { height: 48px; width: auto; }
+    nav { display: flex; align-items: center; gap: 40px; }
+    nav a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.65);
+      transition: color var(--transition); position: relative;
+    }
+    nav a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--color-accent); transform: scaleX(0);
+      transition: transform var(--transition);
+    }
+    nav a:hover { color: white; }
+    nav a:hover::after { transform: scaleX(1); }
+    .header-cta {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--color-dark); background: var(--color-accent);
+      padding: 10px 24px; border-radius: var(--radius);
+      transition: background var(--transition), transform var(--transition);
+    }
+    .header-cta:hover { background: var(--color-accent-light); transform: translateY(-1px); }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); margin: 5px 0; transition: all var(--transition); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 660px;
+      display: flex; align-items: center; justify-content: flex-start; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('assets/hero_web.jpg');
+      background-size: cover; background-position: center;
+    }
+    @media (max-width: 768px) { .hero-bg { background-image: url('assets/hero_mobile.jpg'); } }
+    #hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1.4s ease; }
+    #hero-video.fade-out { opacity: 0; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, rgba(5,5,5,0.88) 0%, rgba(5,5,5,0.55) 50%, rgba(5,5,5,0.2) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; color: white;
+      padding: 0 32px 120px; max-width: 1280px; margin: 0 auto; width: 100%;
+    }
+    .hero-content-inner { max-width: 620px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--color-accent); margin-bottom: 24px;
+    }
+    .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--color-accent); }
+    .hero-title {
+      font-family: var(--font-serif); font-size: clamp(52px, 7vw, 96px);
+      font-weight: 600; line-height: 1.0; margin-bottom: 12px; letter-spacing: -0.01em;
+    }
+    .hero-title em { font-style: italic; font-weight: 400; color: var(--color-accent); }
+    .hero-tagline {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-bottom: 28px;
+    }
+    .hero-subtitle { font-size: 15px; font-weight: 300; line-height: 1.8; opacity: 0.78; margin-bottom: 44px; max-width: 480px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute; bottom: 36px; right: 32px; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.35); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+    }
+    .scroll-line { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--color-accent), transparent); animation: sp 2.2s ease-in-out infinite; }
+    @keyframes sp { 0%,100%{opacity:.35} 50%{opacity:.9} }
+
+    /* ── BUTTONS ── */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 34px; border-radius: var(--radius); font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; transition: all var(--transition); cursor: pointer; border: none; }
+    .btn-gold { background: var(--color-accent); color: var(--color-dark); }
+    .btn-gold:hover { background: var(--color-accent-light); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(255,186,0,0.4); }
+    .btn-outline { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.45); }
+    .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: white; transform: translateY(-2px); }
+    .btn-dark { background: var(--color-primary); color: white; }
+    .btn-dark:hover { background: var(--color-primary-soft); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+    .btn-outline-dark { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .btn-outline-dark:hover { background: var(--color-primary); color: white; transform: translateY(-2px); }
+
+    /* ── SECTIONS ── */
+    section { padding: 104px 32px; }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .section-label {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--color-accent); margin-bottom: 16px;
+    }
+    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--color-accent); }
+    .section-title { font-family: var(--font-serif); font-size: clamp(34px, 4.5vw, 58px); font-weight: 500; line-height: 1.1; color: var(--color-dark); margin-bottom: 0; }
+    .section-title em { font-style: italic; font-weight: 400; color: var(--color-primary-soft); }
+    .divider { width: 48px; height: 1px; background: var(--color-accent); margin: 20px 0; }
+
+    /* ── FIRMA INTRO ── */
+    .firma-section { background: var(--color-light); }
+    .firma-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; }
+    .firma-text p { font-size: 15px; line-height: 1.9; color: var(--color-text-light); margin-bottom: 20px; }
+    .firma-text p:first-of-type { font-family: var(--font-serif); font-size: 21px; color: var(--color-dark); font-style: italic; line-height: 1.65; }
+    .firma-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .firma-stat {
+      background: var(--color-dark); padding: 36px 28px; text-align: center;
+    }
+    .firma-stat:nth-child(2) { background: var(--color-accent); }
+    .firma-stat:nth-child(3) { background: var(--color-primary-soft); }
+    .firma-stat:nth-child(4) { background: var(--color-primary-mid); }
+    .firma-stat-val { font-family: var(--font-serif); font-size: 48px; font-weight: 600; line-height: 1; margin-bottom: 8px; color: white; }
+    .firma-stat:nth-child(2) .firma-stat-val { color: var(--color-dark); }
+    .firma-stat-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+    .firma-stat:nth-child(2) .firma-stat-label { color: rgba(0,0,0,0.55); }
+
+    /* ── VIDEO INSTITUCIONAL ── */
+    .video-section { background: var(--color-dark); }
+    .video-section-header { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 52px; }
+    .video-section .section-title { color: white; }
+    .video-section .section-title em { color: var(--color-accent); }
+    .video-section-desc { font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.55); padding-bottom: 4px; }
+    .video-embed-wrap { border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.5); }
+    .video-embed-wrap video { width: 100%; display: block; max-height: 560px; background: #000; }
+
+    /* ── SOBRE PLASTINA ── */
+    .about-section { background: var(--color-dark); padding: 0; overflow: hidden; }
+    .about-grid { display: grid; grid-template-columns: 42% 58%; min-height: 720px; }
+    .about-img-col { position: relative; overflow: hidden; }
+    .about-img-col img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+    }
+    .about-img-col::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 65%, var(--color-dark) 100%);
+    }
+    .about-text-col {
+      padding: 96px 80px 96px 56px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .about-text-col .section-label { color: var(--color-accent); }
+    .about-text-col .section-title { color: white; }
+    .about-text-col .section-title em { color: var(--color-accent); }
+    .about-quote {
+      font-family: var(--font-serif); font-size: 19px; font-style: italic;
+      color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 24px;
+      padding-left: 20px; border-left: 2px solid var(--color-accent);
+    }
+    .about-body { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.55); margin-bottom: 32px; }
+    .about-creds { display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
+    .about-cred-item { display: flex; align-items: center; gap: 12px; font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 500; }
+    .about-cred-item::before { content: ''; width: 5px; height: 1px; background: var(--color-accent); flex-shrink: 0; }
+
+    /* ── ÁREAS DE PRÁCTICA ── */
+    .areas-section { background: var(--color-white); }
+    .areas-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 64px; }
+    .areas-header-right { text-align: right; }
+    .areas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.06); }
+    .area-card {
+      background: var(--color-white); padding: 36px 32px;
+      transition: background var(--transition), color var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .area-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--color-accent); transform: scaleX(0);
+      transition: transform 0.4s ease; transform-origin: left;
+    }
+    .area-card:hover { background: var(--color-dark); }
+    .area-card:hover::before { transform: scaleX(1); }
+    .area-number { font-family: var(--font-serif); font-size: 52px; font-weight: 600; color: rgba(0,0,0,0.06); line-height: 1; margin-bottom: 16px; transition: color var(--transition); }
+    .area-card:hover .area-number { color: rgba(255,186,0,0.15); }
+    .area-card h3 { font-family: var(--font-serif); font-size: 19px; font-weight: 600; color: var(--color-dark); margin-bottom: 12px; transition: color var(--transition); line-height: 1.3; }
+    .area-card:hover h3 { color: var(--color-accent); }
+    .area-card p { font-size: 13px; color: var(--color-text-light); line-height: 1.7; transition: color var(--transition); }
+    .area-card:hover p { color: rgba(255,255,255,0.55); }
+
+    /* ── PRENSA ── */
+    .prensa-section { background: var(--color-light); overflow: hidden; }
+    .prensa-header { margin-bottom: 48px; }
+    .carousel-wrap { position: relative; }
+    .carousel-track-outer { overflow: hidden; }
+    .carousel-track {
+      display: flex; gap: 24px;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .prensa-card {
+      flex: 0 0 calc(33.333% - 16px);
+      background: white; border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .prensa-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+    .prensa-card-img { background: #f0ece4; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .prensa-card-img img { width: 100%; height: auto; object-fit: contain; display: block; }
+    .prensa-card-img .play-btn {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.35);
+    }
+    .prensa-card-img .play-btn svg { width: 52px; height: 52px; transition: transform var(--transition); }
+    .prensa-card:hover .play-btn svg { transform: scale(1.12); }
+    .prensa-card-foot { padding: 14px 20px; border-top: 1px solid rgba(0,0,0,0.06); text-align: center; }
+    .prensa-card-link { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-primary); transition: gap var(--transition); }
+    .prensa-card:hover .prensa-card-link { gap: 10px; }
+    .carousel-controls { display: flex; align-items: center; gap: 12px; margin-top: 36px; }
+    .carousel-btn {
+      width: 44px; height: 44px; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 50%;
+      background: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition); box-shadow: var(--shadow);
+    }
+    .carousel-btn:hover { background: var(--color-dark); border-color: var(--color-dark); }
+    .carousel-btn:hover svg { stroke: white; }
+    .carousel-btn svg { width: 16px; height: 16px; stroke: var(--color-dark); fill: none; stroke-width: 2; transition: stroke var(--transition); }
+    .carousel-dots { display: flex; gap: 8px; margin-left: 8px; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.15); cursor: pointer; transition: background var(--transition), transform var(--transition); }
+    .carousel-dot.active { background: var(--color-accent); transform: scale(1.2); }
+
+    /* ── EL ESTUDIO + MAPA ── */
+    .estudio-section { background: var(--color-dark); }
+    .estudio-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+    .estudio-text .section-label { color: var(--color-accent); }
+    .estudio-text .section-title { color: white; }
+    .estudio-text .section-title em { color: var(--color-accent); }
+    .estudio-text .divider { background: var(--color-accent); }
+    .estudio-text p { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.55); margin-bottom: 20px; }
+    .estudio-contact { display: flex; flex-direction: column; gap: 14px; margin: 32px 0; }
+    .e-contact-item { display: flex; gap: 14px; align-items: flex-start; }
+    .e-contact-item svg { width: 16px; height: 16px; stroke: var(--color-accent); fill: none; stroke-width: 1.6; flex-shrink: 0; margin-top: 3px; }
+    .e-contact-item span, .e-contact-item a { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+    .e-contact-item a:hover { color: var(--color-accent); }
+    .map-embed { border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .map-embed iframe { width: 100%; height: 440px; border: none; display: block; }
+
+    /* ── CTA ── */
+    .cta-section { background: #E9E0CD; padding: 80px 32px; }
+    .cta-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .cta-text h2 { font-family: var(--font-serif); font-size: clamp(34px, 4vw, 54px); font-weight: 600; color: var(--color-dark); line-height: 1.15; margin-bottom: 12px; }
+    .cta-text h2 em { font-style: italic; font-weight: 400; }
+    .cta-text p { font-size: 15px; color: rgba(0,0,0,0.65); line-height: 1.8; margin-bottom: 28px; }
+    .cta-phones { display: flex; gap: 16px; flex-wrap: wrap; }
+    .cta-form-wrap { background: var(--color-dark); border-radius: var(--radius); padding: 44px 40px; box-shadow: 0 24px 64px rgba(0,0,0,0.35); }
+    .cta-form h3 { font-family: var(--font-serif); font-size: 24px; color: white; margin-bottom: 4px; }
+    .cta-form > p { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 28px; }
+    .form-field { margin-bottom: 14px; }
+    .form-field label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+    .form-field input, .form-field textarea, .form-field select {
+      width: 100%; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius); background: rgba(255,255,255,0.06);
+      font-family: var(--font-sans); font-size: 13px; color: white; outline: none;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .form-field input:focus, .form-field textarea:focus { border-color: var(--color-accent); background: rgba(255,186,0,0.05); }
+    .form-field textarea { height: 100px; resize: none; }
+    .form-success { display: none; margin-top: 14px; padding: 12px 16px; background: rgba(255,186,0,0.12); color: var(--color-accent); border-radius: var(--radius); font-size: 13px; font-weight: 700; text-align: center; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--color-dark); color: rgba(255,255,255,0.45); padding: 72px 32px 36px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 56px; margin-bottom: 56px; }
+    .footer-brand img { height: 44px; margin-bottom: 18px; }
+    .footer-brand p { font-size: 13px; line-height: 1.75; max-width: 280px; }
+    footer h4 { font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: white; margin-bottom: 20px; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 10px; }
+    footer ul a { font-size: 13px; transition: color var(--transition); }
+    footer ul a:hover { color: var(--color-accent); }
+    .f-item { display: flex; gap: 10px; margin-bottom: 12px; font-size: 13px; align-items: flex-start; }
+    .f-item svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px; stroke: var(--color-accent); fill: none; stroke-width: 1.5; }
+    .f-item a:hover { color: var(--color-accent); }
+    .footer-assoc { display: flex; gap: 16px; align-items: center; margin-top: 20px; opacity: 0.5; filter: grayscale(1); transition: opacity var(--transition); }
+    .footer-assoc:hover { opacity: 0.8; filter: grayscale(0); }
+    .footer-assoc img { height: 36px; width: auto; }
+    .footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; font-size: 11px; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom a:hover { color: var(--color-accent); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 1024px) {
+      .areas-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      section { padding: 72px 20px; }
+      .nav-desktop { display: none; }
+      .nav-desktop.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 76px; left: 0; right: 0;
+        background: var(--color-dark); padding: 24px 28px 32px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.5); gap: 22px;
+      }
+      .nav-desktop.open .header-cta { display: none; }
+      .header-cta { display: none; }
+      .nav-toggle { display: block; }
+      .hero-content { padding: 0 20px 100px; }
+      .firma-inner { grid-template-columns: 1fr; gap: 48px; }
+      .video-section-header { grid-template-columns: 1fr; gap: 24px; }
+      .about-grid { grid-template-columns: 1fr; min-height: unset; }
+      .about-img-col { height: 420px; position: relative; }
+      .about-img-col::after { background: linear-gradient(to bottom, transparent 60%, var(--color-dark) 100%); }
+      .about-text-col { padding: 48px 24px 64px; }
+      .areas-header { grid-template-columns: 1fr; gap: 24px; }
+      .areas-header-right { text-align: left; }
+      .areas-grid { grid-template-columns: 1fr; }
+      .prensa-card, .video-card { flex: 0 0 85vw; }
+      .estudio-inner { grid-template-columns: 1fr; gap: 48px; }
+      .cta-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .firma-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/logo.png" alt="Plastina & Asociados" />
+      </a>
+      <nav class="nav-desktop" id="nav-menu">
+        <a href="#quienes-somos">Quiénes somos</a>
+        <a href="#plastina">El Dr. Plastina</a>
+        <a href="#areas">Áreas de práctica</a>
+        <a href="#prensa">Prensa</a>
+        <a href="#estudio">El estudio</a>
+        <a href="#contacto" class="header-cta">Consultar</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:0;">
+    <div class="hero-bg"></div>
+    <video id="hero-video" autoplay muted playsinline preload="auto"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-content-inner">
+        <p class="hero-eyebrow">Abogados Penalistas · Buenos Aires</p>
+        <h1 class="hero-title">Plastina<br /><em>&amp; Asociados</em></h1>
+        <p class="hero-tagline">Derecho Penal · Excelencia Profesional</p>
+        <p class="hero-subtitle">Estudio jurídico dedicado exclusivamente al ejercicio del Derecho Penal. Defendemos los derechos de personas y empresas con rigor, experiencia y compromiso.</p>
+        <div class="hero-actions">
+          <a href="#contacto" class="btn btn-gold">Consultar ahora</a>
+          <a href="#areas" class="btn btn-outline">Áreas de práctica</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+  </section>
+
+  <!-- QUIÉNES SOMOS -->
+  <section class="firma-section" id="quienes-somos">
+    <div class="container">
+      <div class="firma-inner">
+        <div class="firma-text">
+          <p class="section-label">Quiénes somos</p>
+          <h2 class="section-title">Un estudio con<br /><em>vocación de excelencia</em></h2>
+          <div class="divider"></div>
+          <p>"Plastina &amp; Asociados" es un estudio jurídico dedicado exclusivamente al ejercicio del Derecho Penal. Cuenta con un equipo de Abogados Penalistas con formación profesional de excelencia.</p>
+          <p>Somos capaces de satisfacer las necesidades jurídicas tanto de empresas como de particulares que acuden a nuestro estudio en busca de una rápida respuesta a sus conflictos jurídicos.</p>
+          <p>Defendemos y asesoramos a nuestros clientes en base a nuestra solvencia profesional y vasta experiencia en Derecho Penal, para que puedan tomar las decisiones adecuadas en busca de los más rápidos y eficientes resultados.</p>
+          <div style="margin-top:36px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="#contacto" class="btn btn-dark">Consulta gratuita</a>
+            <a href="#areas" class="btn btn-outline-dark">Áreas de práctica</a>
+          </div>
+        </div>
+        <div class="firma-stats">
+          <div class="firma-stat">
+            <div class="firma-stat-val">CABA</div>
+            <div class="firma-stat-label">Capital Federal y PBA</div>
+          </div>
+          <div class="firma-stat">
+            <div class="firma-stat-val">100%</div>
+            <div class="firma-stat-label">Especialización penal</div>
+          </div>
+          <div class="firma-stat">
+            <div class="firma-stat-val">UBA</div>
+            <div class="firma-stat-label">Diploma de honor</div>
+          </div>
+          <div class="firma-stat">
+            <div class="firma-stat-val">CIDH</div>
+            <div class="firma-stat-label">Sistema interamericano</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EL ESTUDIO: VIDEO INSTITUCIONAL -->
+  <section class="video-section">
+    <div class="container">
+      <div class="video-section-header">
+        <div>
+          <p class="section-label">Video institucional</p>
+          <h2 class="section-title">El<br /><em>Estudio</em></h2>
+          <div class="divider"></div>
+        </div>
+        <p class="video-section-desc">Nuestras oficinas se encuentran ubicadas en una zona estratégica de la Ciudad Autónoma de Buenos Aires, siendo de fácil acceso para todos aquellos clientes que quieran visitarnos de forma presencial.</p>
+      </div>
+      <div class="video-embed-wrap">
+        <video controls preload="metadata" poster="">
+          <source src="https://estudioplastina.com.ar/wp-content/uploads/2024/08/Video-Institucional.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE EL DR. IVAN PLASTINA -->
+  <section class="about-section" id="plastina" style="padding:0;">
+    <div class="about-grid">
+      <div class="about-img-col">
+        <img src="https://estudioplastina.com.ar/wp-content/uploads/2024/09/Foto-nueva-entrevista.png" alt="Dr. Iván Ariel Plastina" />
+      </div>
+      <div class="about-text-col">
+        <p class="section-label">Sobre el</p>
+        <h2 class="section-title">Dr. Iván Ariel<br /><em>Plastina</em></h2>
+        <div class="divider"></div>
+        <p class="about-quote">"La formación y especialización permanente, junto al compromiso humano con cada cliente, es lo que garantiza la excelencia en el resultado final."</p>
+        <p class="about-body">El Dr. Iván Ariel Plastina es abogado Penalista egresado de la Universidad de Buenos Aires, finalizando sus estudios con Diploma de Honor, obteniendo uno de los promedios más altos en la orientación Penal. Con una trayectoria consolidada en el Derecho Penal nacional e internacional, lidera un equipo de profesionales altamente capacitados para defender los derechos de sus clientes.</p>
+        <div class="about-creds">
+          <div class="about-cred-item">Egresado con Diploma de Honor — Universidad de Buenos Aires (UBA)</div>
+          <div class="about-cred-item">Especialista en Derecho Penal y Procesal Penal</div>
+          <div class="about-cred-item">Actuación en Capital Federal, Provincia de Buenos Aires y delitos federales</div>
+          <div class="about-cred-item">Asesoramiento en Derecho Penal Internacional y Extradiciones</div>
+          <div class="about-cred-item">Representación ante la Comisión Interamericana de Derechos Humanos (CIDH)</div>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="#contacto" class="btn btn-gold">Consultar al Dr. Plastina</a>
+          <a href="https://estudioplastina.com.ar/cvplastina/" target="_blank" rel="noopener" class="btn btn-outline">Ver CV completo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÁREAS DE PRÁCTICA -->
+  <section class="areas-section" id="areas">
+    <div class="container">
+      <div class="areas-header">
+        <div>
+          <p class="section-label">Especialización</p>
+          <h2 class="section-title">Áreas de<br /><em>práctica</em></h2>
+          <div class="divider"></div>
+        </div>
+        <div class="areas-header-right">
+          <p style="font-size:14px; color:var(--color-text-light); line-height:1.8;">Litigamos en la Capital Federal y en toda la Provincia de Buenos Aires. En delitos federales, en todo el territorio nacional.</p>
+          <div style="margin-top:20px;"><a href="#contacto" class="btn btn-dark">Consultar caso</a></div>
+        </div>
+      </div>
+      <div class="areas-grid">
+        <div class="area-card">
+          <div class="area-number">01</div>
+          <h3>Delitos Económicos</h3>
+          <p>Estafas, evasión impositiva, defraudaciones, lavado de dinero, usura, quiebra fraudulenta, malversación, enriquecimiento ilícito, delitos financieros.</p>
+        </div>
+        <div class="area-card">
+          <div class="area-number">02</div>
+          <h3>Delitos Sexuales</h3>
+          <p>Abuso sexual, violación, ciberdelitos sexuales, pornografía infantil, exhibiciones obscenas, estupro, corrupción de menores, trata de personas.</p>
+        </div>
+        <div class="area-card">
+          <div class="area-number">03</div>
+          <h3>Violencia de Género</h3>
+          <p>Actuamos en todos los delitos que impliquen a la mujer: amenazas, lesiones, acoso, hostigamiento, homicidio, privación de la libertad, discriminación.</p>
+        </div>
+        <div class="area-card">
+          <div class="area-number">04</div>
+          <h3>Extradiciones</h3>
+          <p>Litigamos en todo tipo de extradiciones con equipo altamente capacitado para representar derechos en procesos de alta complejidad internacional.</p>
+        </div>
+        <div class="area-card">
+          <div class="area-number">05</div>
+          <h3>Actuación Procesal</h3>
+          <p>Indagatoria, excarcelaciones, testimoniales, juicios orales, probations, juicios abreviados, denuncias, defensas, querellas, pericias, recursos, nulidades.</p>
+        </div>
+        <div class="area-card">
+          <div class="area-number">06</div>
+          <h3>Delitos Informáticos</h3>
+          <p>Especialización en todo tipo de ciberdelitos y delitos cometidos en entornos digitales. Enfoque actualizado frente a las nuevas tecnologías.</p>
+        </div>
+        <div class="area-card">
+          <div class="area-number">07</div>
+          <h3>Derecho Penal Internacional</h3>
+          <p>Asesoramiento en Derecho Penal Internacional, tratados, cooperación jurídica internacional y procesos de extradición a nivel global.</p>
+        </div>
+        <div class="area-card">
+          <div class="area-number">08</div>
+          <h3>Sistema Interamericano</h3>
+          <p>Asesoramos y acompañamos a clientes en peticiones y denuncias ante la Comisión Interamericana de Derechos Humanos (CIDH).</p>
+        </div>
+        <div class="area-card">
+          <div class="area-number">09</div>
+          <h3>Otros Delitos</h3>
+          <p>Hurto, robo, usurpación, asociación ilícita, tenencia de armas, extorsión, daños, encubrimiento, falsificación de documentos y más.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRENSA -->
+  <section class="prensa-section" id="prensa">
+    <div class="container">
+      <div class="prensa-header">
+        <p class="section-label">Medios y publicaciones</p>
+        <h2 class="section-title">Presencia en<br /><em>prensa</em></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="carousel-wrap">
+        <div class="carousel-track-outer">
+          <div class="carousel-track" id="carousel-track">
+
+            <!-- Clip 1 -->
+            <div class="prensa-card">
+              <div class="prensa-card-img">
+                <img src="assets/prensa1.jpg" alt="Falsas denuncias de abuso sexual" loading="lazy" />
+              </div>
+              <div class="prensa-card-foot">
+                <a href="https://www.perfil.com/noticias/guia-de-profesionales-pnt/falsas-denuncias-de-abuso-sexual-el-dr-ivan-plastina-abre-un-debate-necesario-sin-caer-en-simplificaciones.phtml" target="_blank" rel="noopener" class="prensa-card-link">Leer nota →</a>
+              </div>
+            </div>
+
+            <!-- Clip 2 -->
+            <div class="prensa-card">
+              <div class="prensa-card-img">
+                <img src="assets/prensa2.jpg" alt="Caras Magazine" loading="lazy" />
+              </div>
+              <div class="prensa-card-foot">
+                <a href="https://caras.perfil.com/noticias/caras-like/plastina.phtml" target="_blank" rel="noopener" class="prensa-card-link">Leer nota →</a>
+              </div>
+            </div>
+
+            <!-- Clip 3 -->
+            <div class="prensa-card">
+              <div class="prensa-card-img">
+                <img src="assets/prensa3.jpg" alt="Noticias Perfil" loading="lazy" />
+              </div>
+              <div class="prensa-card-foot">
+                <a href="https://noticias.perfil.com/noticias/empresas-y-protagonistas/dr-ivan-ariel-plastina-abogado-penalista-de-raza-fuerte.phtml" target="_blank" rel="noopener" class="prensa-card-link">Leer nota →</a>
+              </div>
+            </div>
+
+            <!-- Clip 4 -->
+            <div class="prensa-card">
+              <div class="prensa-card-img">
+                <img src="assets/prensa4.jpg" alt="Inteligencia Artificial y ciberdelito" loading="lazy" />
+              </div>
+              <div class="prensa-card-foot">
+                <a href="https://noticias.perfil.com/noticias/espacio-no-editorial/dr-ivan-plastina-la-inteligencia-artificial-frente-al-ciberdelito-implica-oportunidades-y-riesgos-para-la-justicia-penal.phtml" target="_blank" rel="noopener" class="prensa-card-link">Leer nota →</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="carousel-prev" aria-label="Anterior">
+            <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+          </button>
+          <button class="carousel-btn" id="carousel-next" aria-label="Siguiente">
+            <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
+          </button>
+          <div class="carousel-dots" id="carousel-dots"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EL ESTUDIO + MAPA -->
+  <section class="estudio-section" id="estudio">
+    <div class="container">
+      <div class="estudio-inner">
+        <div class="estudio-text">
+          <p class="section-label">Dónde encontrarnos</p>
+          <h2 class="section-title">El<br /><em>Estudio</em></h2>
+          <div class="divider"></div>
+          <p>Nuestras oficinas se encuentran ubicadas en una zona estratégica de la Ciudad Autónoma de Buenos Aires, siendo de fácil acceso para todos aquellos clientes que quieran visitarnos de forma presencial.</p>
+          <p>Atendemos consultas de manera presencial y a distancia para clientes de todo el país y del exterior.</p>
+          <div class="estudio-contact">
+            <div class="e-contact-item">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Maipú 1210, Piso 8° — CABA, Buenos Aires, Argentina</span>
+            </div>
+            <div class="e-contact-item">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.12 2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              <div>
+                <a href="tel:+541149783239">(11) 4978-3239</a><br />
+                <a href="tel:+5491131344182">+54 9 11 3134-4182</a>
+              </div>
+            </div>
+            <div class="e-contact-item">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:contacto@estudioplastina.com.ar">contacto@estudioplastina.com.ar</a>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="#contacto" class="btn btn-gold">Solicitar consulta</a>
+            <a href="https://wa.me/5491131344182" target="_blank" rel="noopener" class="btn btn-outline">WhatsApp</a>
+          </div>
+        </div>
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.5!2d-58.3768!3d-34.5941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccb9bd4fe7b5b%3A0x0!2sMaip%C3%BA+1210%2C+Buenos+Aires%2C+Argentina!5e0!3m2!1ses!2sar!4v1"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación Plastina & Asociados">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + FORMULARIO -->
+  <section class="cta-section" id="contacto" style="padding:80px 32px;">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <h2>¿Tiene alguna <em>duda?</em></h2>
+        <p>No dude en contactarse con nosotros ante cualquier inconveniente judicial que se le presente. Le ofrecemos una primera consulta sin compromiso.</p>
+        <div class="cta-phones">
+          <a href="tel:+541149783239" class="btn btn-dark">(11) 4978-3239</a>
+          <a href="https://wa.me/5491131344182" target="_blank" rel="noopener" class="btn btn-outline-dark">WhatsApp</a>
+        </div>
+      </div>
+      <div class="cta-form-wrap">
+        <form class="cta-form" onsubmit="handleForm(event)">
+          <h3>Consulta al estudio</h3>
+          <p>Respondemos a la brevedad</p>
+          <div class="form-field">
+            <label for="f-name">Nombre y apellido</label>
+            <input type="text" id="f-name" name="nombre" placeholder="Su nombre completo" required />
+          </div>
+          <div class="form-field">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" placeholder="su@email.com" required />
+          </div>
+          <div class="form-field">
+            <label for="f-tel">Teléfono</label>
+            <input type="tel" id="f-tel" name="telefono" placeholder="+54 11 ..." required />
+          </div>
+          <div class="form-field">
+            <label for="f-msg">Mensaje</label>
+            <textarea id="f-msg" name="mensaje" placeholder="Describa brevemente su consulta" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center; margin-top:6px;">Enviar consulta</button>
+          <div class="form-success" id="form-success">✓ Consulta recibida. Le contactaremos a la brevedad.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Plastina & Asociados" />
+        <p>Estudio jurídico dedicado exclusivamente al Derecho Penal. Buenos Aires, Argentina.</p>
+        <div class="footer-assoc">
+          <img src="https://estudioplastina.com.ar/wp-content/uploads/2024/07/adip-1.jpg" alt="ADIP" />
+          <img src="https://estudioplastina.com.ar/wp-content/uploads/2024/07/sidc-1.jpg" alt="SIDC" />
+        </div>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#quienes-somos">Quiénes somos</a></li>
+          <li><a href="#plastina">El Dr. Plastina</a></li>
+          <li><a href="#areas">Áreas de práctica</a></li>
+          <li><a href="#prensa">Prensa</a></li>
+          <li><a href="#estudio">El Estudio</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Áreas de práctica</h4>
+        <ul>
+          <li><a href="#areas">Delitos económicos</a></li>
+          <li><a href="#areas">Delitos sexuales</a></li>
+          <li><a href="#areas">Violencia de género</a></li>
+          <li><a href="#areas">Extradiciones</a></li>
+          <li><a href="#areas">Delitos informáticos</a></li>
+          <li><a href="#areas">D. Penal Internacional</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <div class="f-item">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Maipú 1210, Piso 8°<br />CABA, Buenos Aires</span>
+        </div>
+        <div class="f-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.12 2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          <div><a href="tel:+541149783239">(11) 4978-3239</a><br /><a href="tel:+5491131344182">+54 9 11 3134-4182</a></div>
+        </div>
+        <div class="f-item">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:contacto@estudioplastina.com.ar">contacto@estudioplastina.com.ar</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Plastina &amp; Asociados — Abogados Penalistas · Buenos Aires</span>
+      <a href="http://www.estudioplastina.com.ar">estudioplastina.com.ar</a>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
+
+    // Mobile nav
+    const toggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+    navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+    // Hero video
+    const heroVideo = document.getElementById('hero-video');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    heroVideo.src = isMobile ? 'assets/hero_mobile_video.mp4' : 'assets/hero_web_video.mp4';
+    heroVideo.addEventListener('ended', () => {
+      heroVideo.classList.add('fade-out');
+      heroVideo.addEventListener('transitionend', () => heroVideo.remove(), { once: true });
+    });
+
+    // Carousel
+    const track = document.getElementById('carousel-track');
+    const cards = track.children;
+    const dotsContainer = document.getElementById('carousel-dots');
+    let currentIdx = 0;
+    const visibleCount = () => window.innerWidth <= 768 ? 1 : 3;
+
+    function totalSlides() {
+      return Math.ceil(cards.length / visibleCount());
+    }
+
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalSlides(); i++) {
+        const dot = document.createElement('div');
+        dot.className = 'carousel-dot' + (i === currentIdx ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function getCardWidth() {
+      if (cards.length === 0) return 0;
+      const gap = 24;
+      const container = track.parentElement.offsetWidth;
+      const v = visibleCount();
+      return (container - gap * (v - 1)) / v;
+    }
+
+    function goTo(idx) {
+      const total = totalSlides();
+      currentIdx = Math.max(0, Math.min(idx, total - 1));
+      const w = getCardWidth() + 24;
+      track.style.transform = `translateX(-${currentIdx * w * visibleCount()}px)`;
+      dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === currentIdx));
+    }
+
+    document.getElementById('carousel-prev').addEventListener('click', () => goTo(currentIdx - 1));
+    document.getElementById('carousel-next').addEventListener('click', () => goTo(currentIdx + 1));
+
+    buildDots();
+    window.addEventListener('resize', () => { buildDots(); goTo(0); });
+
+    // Form
+    function handleForm(e) {
+      e.preventDefault();
+      document.getElementById('form-success').style.display = 'block';
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marian Inn — Técnicas Corporales de Integración en Vitoria-Gasteiz</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <meta name="description" content="Técnicas corporales de Integración en Vitoria-Gasteiz. Alivia estrés y mejora tu bienestar con Arun Tacto Consciente, quiromasaje, reiki y cráneo sacral." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #2d5a4e;
+      --color-primary-dark: #1a3a30;
+      --color-accent: #c9a84c;
+      --color-accent-light: #e8c97a;
+      --color-dark: #1a1a1a;
+      --color-text: #3a3a3a;
+      --color-light: #f7f4ef;
+      --color-white: #ffffff;
+      --color-muted: #8a8a8a;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Raleway', sans-serif;
+      --transition: 0.3s ease;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 32px rgba(0,0,0,0.14);
+      --radius: 4px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--color-text);
+      background: var(--color-white);
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--color-primary-dark);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: box-shadow var(--transition);
+    }
+    header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .logo img { height: 52px; width: auto; }
+
+    nav { display: flex; align-items: center; gap: 36px; }
+
+    nav a {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      transition: color var(--transition);
+    }
+    nav a:hover, nav a.active { color: var(--color-accent-light); }
+
+    .header-phone {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-accent-light);
+      transition: color var(--transition);
+    }
+    .header-phone:hover { color: white; }
+    .header-phone svg { width: 16px; height: 16px; }
+
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span {
+      display: block;
+      width: 22px; height: 2px;
+      background: rgba(255,255,255,0.8);
+      margin: 5px 0;
+      transition: var(--transition);
+    }
+
+    /* ── HERO ── */
+    /* SCROLL-VIDEO-SECTION */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/hero.jpg');
+      background-size: cover;
+      background-position: center;
+      transition: opacity 1s ease;
+    }
+    @media (max-width: 768px) {
+      .hero-bg { background-image: url('assets/hero_mobile.jpg'); }
+    }
+
+    #hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+    #hero-video.fade-out { opacity: 0; }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 20, 16, 0.55) 0%,
+        rgba(10, 20, 16, 0.65) 60%,
+        rgba(10, 20, 16, 0.75) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--color-white);
+      padding: 0 24px;
+      max-width: 800px;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent-light);
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+    .hero-title em { font-style: italic; color: var(--color-accent-light); }
+
+    .hero-subtitle {
+      font-size: clamp(15px, 2vw, 18px);
+      font-weight: 300;
+      line-height: 1.7;
+      opacity: 0.88;
+      margin-bottom: 48px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--color-accent);
+      color: var(--color-dark);
+    }
+    .btn-primary:hover {
+      background: var(--color-accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(201,168,76,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-white);
+      border: 1.5px solid rgba(255,255,255,0.6);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--color-white);
+      transform: translateY(-2px);
+    }
+
+    .btn-dark {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+    .btn-dark:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(45,90,78,0.4);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.5);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.5; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ── SECTIONS BASE ── */
+    section { padding: 96px 24px; }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--color-dark);
+      margin-bottom: 20px;
+    }
+    .section-title em { font-style: italic; color: var(--color-primary); }
+
+    .section-desc {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--color-muted);
+      max-width: 560px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: var(--color-accent);
+      margin: 24px 0;
+    }
+
+    /* ── POR QUÉ ELEGIRNOS ── */
+    .why-section { background: var(--color-light); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      margin-top: 56px;
+    }
+
+    .why-card {
+      background: var(--color-white);
+      padding: 40px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+      border-bottom: 3px solid transparent;
+    }
+    .why-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-bottom-color: var(--color-accent);
+    }
+
+    .why-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .why-icon svg { width: 22px; height: 22px; color: white; stroke: white; fill: none; stroke-width: 1.5; }
+
+    .why-card h3 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--color-dark);
+      margin-bottom: 10px;
+    }
+    .why-card p { font-size: 14px; line-height: 1.7; color: var(--color-muted); }
+
+    /* ── SERVICIOS ── */
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .service-card {
+      position: relative;
+      background: var(--color-white);
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 0;
+      background: linear-gradient(to bottom, var(--color-accent), var(--color-primary));
+      transition: height 0.4s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .service-card:hover::before { height: 100%; }
+
+    .service-num {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      font-weight: 300;
+      color: rgba(201,168,76,0.15);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .service-card h3 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--color-dark);
+      margin-bottom: 12px;
+    }
+
+    .service-card p { font-size: 14px; line-height: 1.7; color: var(--color-muted); margin-bottom: 20px; }
+
+    .service-link {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap var(--transition);
+    }
+    .service-card:hover .service-link { gap: 10px; }
+
+    /* ── NUMEROS ── */
+    .numbers-section {
+      background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+      color: var(--color-white);
+    }
+
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 48px;
+      text-align: center;
+    }
+
+    .number-item { text-align: center; }
+    .number-val {
+      font-family: var(--font-serif);
+      font-size: clamp(48px, 6vw, 72px);
+      font-weight: 300;
+      color: var(--color-accent-light);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .number-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.75;
+    }
+
+    /* ── TESTIMONIOS ── */
+    .testimonials-section { background: var(--color-light); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .testimonial-card {
+      background: var(--color-white);
+      padding: 36px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+      position: relative;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .quote-mark {
+      font-family: var(--font-serif);
+      font-size: 80px;
+      line-height: 0.8;
+      color: rgba(201,168,76,0.2);
+      margin-bottom: 16px;
+    }
+
+    .testimonial-text {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-style: italic;
+      line-height: 1.8;
+      color: var(--color-text);
+      margin-bottom: 24px;
+    }
+
+    .testimonial-stars {
+      color: var(--color-accent);
+      font-size: 14px;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+
+    .testimonial-author {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-primary);
+      letter-spacing: 0.05em;
+    }
+
+    .google-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 48px;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--color-muted);
+    }
+    .google-badge strong { color: var(--color-dark); }
+
+    /* ── BLOG ── */
+    .blog-section { background: var(--color-white); }
+
+    .blog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 24px;
+    }
+
+    /* Banner principal */
+    .blog-featured {
+      position: relative;
+      background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 60%, #3d7a6a 100%);
+      border-radius: var(--radius);
+      padding: 56px 48px;
+      color: white;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 440px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .blog-featured:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .blog-featured::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .blog-featured::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -20px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.08);
+    }
+    .blog-featured-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--color-accent);
+      color: var(--color-dark);
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      width: fit-content;
+      position: relative;
+      z-index: 1;
+    }
+    .blog-featured h3 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .blog-featured p {
+      font-size: 14px;
+      line-height: 1.7;
+      opacity: 0.8;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+      max-width: 420px;
+    }
+    .blog-featured-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent-light);
+      position: relative;
+      z-index: 1;
+      transition: gap var(--transition);
+    }
+    .blog-featured:hover .blog-featured-link { gap: 12px; }
+
+    /* Cards secundarias */
+    .blog-secondary {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .blog-card {
+      background: var(--color-light);
+      border-radius: var(--radius);
+      padding: 28px 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: all var(--transition);
+      border: 1px solid transparent;
+      text-decoration: none;
+      color: inherit;
+    }
+    .blog-card:hover {
+      background: white;
+      border-color: rgba(0,0,0,0.07);
+      box-shadow: var(--shadow);
+      transform: translateX(4px);
+    }
+    .blog-card-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: white;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: var(--shadow);
+    }
+    .blog-card-icon svg { width: 20px; height: 20px; stroke: var(--color-primary); fill: none; stroke-width: 1.5; }
+    .blog-card-content { flex: 1; }
+    .blog-card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 6px;
+    }
+    .blog-card h4 {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--color-dark);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .blog-card p { font-size: 13px; color: var(--color-muted); line-height: 1.6; }
+
+    /* ── CTA FINAL ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+      color: white;
+    }
+    .cta-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .cta-text .section-title { color: white; }
+    .cta-text .section-title em { color: var(--color-accent-light); }
+    .cta-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-outline-wh {
+      background: transparent;
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all var(--transition);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-outline-wh:hover { background: rgba(255,255,255,0.1); border-color: white; transform: translateY(-2px); }
+
+    /* Formulario CTA */
+    .cta-form-wrap {
+      background: white;
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .cta-form h3 {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--color-dark);
+      margin-bottom: 4px;
+    }
+    .cta-form > p {
+      font-size: 13px;
+      color: var(--color-muted);
+      margin-bottom: 28px;
+    }
+    .form-field { margin-bottom: 16px; }
+    .form-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      margin-bottom: 6px;
+    }
+    .form-field input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid rgba(0,0,0,0.12);
+      border-radius: var(--radius);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--color-dark);
+      background: var(--color-white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .form-field input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(45,90,78,0.1);
+    }
+    .form-field input::placeholder { color: var(--color-muted); }
+    .form-success {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: rgba(45,90,78,0.1);
+      color: var(--color-primary);
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--color-dark);
+      color: rgba(255,255,255,0.7);
+      padding: 64px 24px 32px;
+    }
+
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand img { height: 48px; margin-bottom: 20px; filter: brightness(0) invert(1) opacity(0.9); }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
+
+    footer h4 {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-white);
+      margin-bottom: 20px;
+    }
+
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 10px; }
+    footer ul a { font-size: 14px; transition: color var(--transition); }
+    footer ul a:hover { color: var(--color-accent-light); }
+
+    .footer-contact-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      align-items: flex-start;
+    }
+    .footer-contact-item svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; stroke: var(--color-accent); fill: none; stroke-width: 1.5; }
+    .footer-contact-item a:hover { color: var(--color-accent-light); }
+
+    .footer-social { display: flex; gap: 12px; margin-top: 16px; }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition);
+    }
+    .footer-social a:hover { background: var(--color-accent); border-color: var(--color-accent); }
+    .footer-social svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      section { padding: 64px 20px; }
+
+      .nav-desktop { display: none; }
+      .nav-desktop.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--color-primary-dark); padding: 20px 24px 28px; border-top: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 20px rgba(0,0,0,0.3); gap: 20px; }
+      .nav-toggle { display: block; }
+
+      .header-phone span { display: none; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      .services-header { flex-direction: column; align-items: flex-start; }
+      .blog-header { flex-direction: column; align-items: flex-start; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .cta-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/logo_marinainn_transp.png" alt="Marian Inn" />
+      </a>
+      <nav class="nav-desktop" id="nav-menu">
+        <a href="index.html" class="active">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="blog.html">Blog</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a href="tel:+34679991164" class="header-phone">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.69A2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+        <span>679 991 164</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <!-- SCROLL-VIDEO-SECTION -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <video id="hero-video" autoplay muted playsinline preload="auto"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Vitoria-Gasteiz · Técnicas Corporales de Integración</p>
+      <h1 class="hero-title">Marian <em>Inn</em></h1>
+      <p class="hero-subtitle">Escucha a tu cuerpo y dale lo que necesita. Descubre cómo las técnicas corporales de integración pueden ayudarte a recuperar tu bienestar.</p>
+      <div class="hero-actions">
+        <a href="contacto.html" class="btn btn-primary">Solicitar cita</a>
+        <a href="tel:+34679991164" class="btn btn-outline">
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8" width="16" height="16">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.69A2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+          679 991 164
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Descubre</span>
+    </div>
+  </section>
+
+  <!-- POR QUÉ ELEGIRNOS -->
+  <section class="why-section">
+    <div class="container">
+      <p class="section-label">Por qué elegirnos</p>
+      <h2 class="section-title">Tu bienestar,<br /><em>nuestra vocación</em></h2>
+      <div class="divider"></div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Formación continua</h3>
+          <p>Marian Ruiz Castellano lleva más de 22 años perfeccionando su trabajo corporal con formación constante y dedicación a cada técnica.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3>Atención personalizada</h3>
+          <p>Cada sesión es única y adaptada a lo que tu cuerpo necesita en ese momento. No hay protocolos fijos, hay personas reales.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <h3>Enfoque integral</h3>
+          <p>Trabajamos cuerpo y alma como una unidad. Desde dolores físicos hasta bloqueos emocionales, con técnicas que van a la raíz.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3>43 reseñas positivas</h3>
+          <p>Más de 43 pacientes han compartido su experiencia en Google con valoraciones de 5 estrellas. Su confianza es nuestro mejor aval.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section>
+    <div class="container">
+      <div class="services-header">
+        <div>
+          <p class="section-label">Técnicas corporales</p>
+          <h2 class="section-title">Servicios que<br /><em>te transforman</em></h2>
+          <div class="divider"></div>
+        </div>
+        <a href="servicios.html" class="btn btn-dark">Ver todos los servicios</a>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-num">01</div>
+          <h3>Arun Tacto Consciente</h3>
+          <p>Técnica de masaje terapéutico que combina el tacto consciente con la conciencia corporal profunda para liberar tensiones físicas y emocionales.</p>
+          <a href="servicios.html" class="service-link">Saber más →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-num">02</div>
+          <h3>Terapia Cráneo Sacral</h3>
+          <p>Técnica suave y profunda que trabaja el sistema cráneo sacral para aliviar dolores de cabeza, migrañas y tensiones del sistema nervioso.</p>
+          <a href="servicios.html" class="service-link">Saber más →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-num">03</div>
+          <h3>Quiromasaje</h3>
+          <p>Masaje terapéutico especializado en contracturas, dolores cervicales, problemas circulatorios y tensiones musculares acumuladas.</p>
+          <a href="servicios.html" class="service-link">Saber más →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-num">04</div>
+          <h3>Armonización Energética · Reiki</h3>
+          <p>Trabajo energético para equilibrar el sistema vital, reducir el estrés, aliviar la ansiedad y restaurar la energía natural del cuerpo.</p>
+          <a href="servicios.html" class="service-link">Saber más →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-num">05</div>
+          <h3>Esencias Triunidad®</h3>
+          <p>Sistema de esencias florales y vibracionales de alta frecuencia que complementa el trabajo corporal y emocional de las sesiones.</p>
+          <a href="servicios.html" class="service-link">Saber más →</a>
+        </div>
+        <div class="service-card" style="background: var(--color-primary); color: white;">
+          <div class="service-num" style="color: rgba(255,255,255,0.15);">✦</div>
+          <h3 style="color: white;">¿No sabes qué necesitas?</h3>
+          <p style="color: rgba(255,255,255,0.8);">Cuéntame qué te duele o qué necesitas y juntos encontraremos la técnica más adecuada para ti.</p>
+          <a href="contacto.html" class="service-link" style="color: var(--color-accent-light);">Consultar gratis →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NÚMEROS -->
+  <section class="numbers-section">
+    <div class="container">
+      <div class="numbers-grid">
+        <div class="number-item">
+          <div class="number-val">22+</div>
+          <div class="number-label">Años de experiencia</div>
+        </div>
+        <div class="number-item">
+          <div class="number-val">5</div>
+          <div class="number-label">Técnicas especializadas</div>
+        </div>
+        <div class="number-item">
+          <div class="number-val">43</div>
+          <div class="number-label">Reseñas en Google</div>
+        </div>
+        <div class="number-item">
+          <div class="number-val">★ 5</div>
+          <div class="number-label">Valoración media</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div style="text-align:center; margin-bottom: 8px;">
+        <p class="section-label" style="display:inline-block;">Lo que dicen mis pacientes</p>
+      </div>
+      <h2 class="section-title" style="text-align:center;">Experiencias <em>reales</em></h2>
+      <div class="divider" style="margin: 16px auto 0;"></div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">Todo comenzó hace 22 años cuando decidí regalarme un masaje con Marian. Me abrió la puerta al cuerpo sutil. Desde entonces me ha acompañado en procesos de lesiones, duelos, embarazos... Todo un viaje.</p>
+          <div class="testimonial-author">Nuria Alonso</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">Las sesiones de Marian son un reencuentro con la calma, la dulzura, la presencia y el bienestar. Marian es una persona con mucha escucha, formación y respeto en el contacto. Un gusto.</p>
+          <div class="testimonial-author">Leire B.</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">Marian es un grandísima profesional con un trato al paciente excepcional. No conozco persona más cualificada en el trabajo corporal. Agradezco siempre su atención personalizada.</p>
+          <div class="testimonial-author">Diego Velasco</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">A mi hijo pequeño, con un trabajo cráneo sacral, le ayudó con el gateo ya que tenía algunos problemas consecuencia del proceso de parto. Al salir la sensación de ligereza y bienestar es increíble.</p>
+          <div class="testimonial-author">Ainara A.A.</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">Excelente profesional y compañera. Muchos años de experiencia y formación continua, que se siente en la calidad y presencia de cada toque. 100% recomendable.</p>
+          <div class="testimonial-author">Irma Mier</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">Desde las primeras veces que acudí a la consulta tuve resultados muy positivos y desde entonces no he dejado de ir. Una excelente profesional que me está ayudando muchísimo.</p>
+          <div class="testimonial-author">Natalia Castresana</div>
+        </div>
+      </div>
+      <div class="google-badge">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        <span>Más de <strong>43 reseñas verificadas</strong> en Google · Valoración media <strong>5 estrellas</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="blog-section">
+    <div class="container">
+      <div class="blog-header">
+        <div>
+          <p class="section-label">Blog & Bienestar</p>
+          <h2 class="section-title">Aprende sobre tu<br /><em>cuerpo y tu salud</em></h2>
+          <div class="divider"></div>
+        </div>
+        <a href="blog.html" class="btn btn-dark">Ver todos los artículos</a>
+      </div>
+      <div class="blog-grid">
+
+        <!-- Banner destacado -->
+        <a href="blog.html" class="blog-featured">
+          <span class="blog-featured-tag">✦ Destacado</span>
+          <h3>¿Qué es el Arun Tacto Consciente y para qué sirve?</h3>
+          <p>Descubre en qué consiste esta técnica única, cómo trabaja con la conciencia corporal y por qué cada vez más personas la eligen para liberar tensiones profundas.</p>
+          <span class="blog-featured-link">Leer artículo →</span>
+        </a>
+
+        <!-- Cards secundarias -->
+        <div class="blog-secondary">
+          <a href="blog.html" class="blog-card">
+            <div class="blog-card-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 12v8M8 20h8"/></svg>
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-card-tag">Cráneo Sacral</div>
+              <h4>Cómo la terapia cráneo sacral ayudó a mi hijo con el gateo</h4>
+              <p>Una técnica suave con resultados sorprendentes en bebés y niños.</p>
+            </div>
+          </a>
+          <a href="blog.html" class="blog-card">
+            <div class="blog-card-icon">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-card-tag">Reiki & Energía</div>
+              <h4>5 señales de que tu cuerpo necesita una armonización energética</h4>
+              <p>El cansancio crónico, la irritabilidad y el insomnio pueden tener origen energético.</p>
+            </div>
+          </a>
+          <a href="blog.html" class="blog-card">
+            <div class="blog-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-card-tag">Bienestar</div>
+              <h4>Escucha a tu cuerpo: las señales que ignoramos cada día</h4>
+              <p>Aprender a detectar lo que el cuerpo intenta decirnos es el primer paso hacia el bienestar.</p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL + FORMULARIO -->
+  <section class="cta-section" id="contacto">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <p class="section-label" style="color:var(--color-accent-light);">¿Empezamos?</p>
+          <h2 class="section-title">Tu cuerpo sabe<br /><em>lo que necesita</em></h2>
+          <div class="divider" style="margin:16px 0;"></div>
+          <p style="font-size:15px; opacity:0.82; line-height:1.8;">Llámame o escríbeme y hablamos de lo que te pasa. Sin compromiso. Atiendo de lunes a viernes de 9:00 a 21:00.</p>
+          <div class="cta-actions" style="margin-top:28px;">
+            <a href="tel:+34679991164" class="btn btn-primary">Llamar ahora</a>
+            <a href="https://wa.me/34679991164" target="_blank" rel="noopener" class="btn btn-outline-wh">WhatsApp</a>
+          </div>
+        </div>
+        <div class="cta-form-wrap">
+          <form class="cta-form" onsubmit="handleForm(event)">
+            <h3>Solicita tu cita</h3>
+            <p>Te contacto en menos de 24h</p>
+            <div class="form-field">
+              <label for="f-name">Nombre</label>
+              <input type="text" id="f-name" name="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-field">
+              <label for="f-email">Email</label>
+              <input type="email" id="f-email" name="email" placeholder="tu@email.com" required />
+            </div>
+            <div class="form-field">
+              <label for="f-wa">WhatsApp</label>
+              <input type="tel" id="f-wa" name="whatsapp" placeholder="679 000 000" />
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:4px;">Enviar solicitud</button>
+            <div class="form-success" id="form-success">✓ ¡Mensaje recibido! Te escribo pronto.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo_marinainn_transp.png" alt="Marian Inn" />
+        <p>Técnicas corporales de integración en Vitoria-Gasteiz. Arun, cráneo sacral, reiki y quiromasaje para tu bienestar físico y emocional.</p>
+        <div class="footer-social" style="margin-top:20px;">
+          <a href="https://www.facebook.com/masajesintegrativos/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+          </a>
+          <a href="https://www.instagram.com/marian.ruiz.752861/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" fill="none" stroke-width="1.5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor" fill="none" stroke-width="1.5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Técnicas</h4>
+        <ul>
+          <li><a href="servicios.html">Arun Tacto Consciente</a></li>
+          <li><a href="servicios.html">Terapia Cráneo Sacral</a></li>
+          <li><a href="servicios.html">Quiromasaje</a></li>
+          <li><a href="servicios.html">Reiki</a></li>
+          <li><a href="servicios.html">Esencias Triunidad®</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.12 2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          <a href="tel:+34679991164">+34 679 991 164</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Vitoria-Gasteiz</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          <span>Lun–Vie · 9:00 a 21:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Marian Inn — Marian Ruiz Castellano. Todos los derechos reservados.</span>
+      <span>Vitoria-Gasteiz</span>
+    </div>
+  </footer>
+
+  <script>
+    // Hero video: seleccionar fuente según dispositivo, reproducir una vez y hacer fade a la imagen
+    const heroVideo = document.getElementById('hero-video');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    heroVideo.src = isMobile ? 'assets/hero_mobile_movie.mp4' : 'assets/hero_movie.mp4';
+    heroVideo.addEventListener('ended', () => {
+      heroVideo.classList.add('fade-out');
+      heroVideo.addEventListener('transitionend', () => heroVideo.remove(), { once: true });
+    });
+
+    // Header scroll effect
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+    // Mobile nav
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+    // Form submit
+    function handleForm(e) {
+      e.preventDefault();
+      document.getElementById('form-success').style.display = 'block';
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>

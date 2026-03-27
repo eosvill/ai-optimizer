@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosotros — Marian Inn · Marian Ruiz Castellano</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <meta name="description" content="Conoce a Marian Ruiz Castellano, terapeuta corporal con más de 22 años de experiencia en técnicas corporales de integración en Vitoria-Gasteiz." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #2d5a4e;
+      --color-primary-dark: #1a3a30;
+      --color-accent: #c9a84c;
+      --color-accent-light: #e8c97a;
+      --color-dark: #1a1a1a;
+      --color-text: #3a3a3a;
+      --color-light: #f7f4ef;
+      --color-white: #ffffff;
+      --color-muted: #8a8a8a;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Raleway', sans-serif;
+      --transition: 0.3s ease;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 32px rgba(0,0,0,0.14);
+      --radius: 4px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); color: var(--color-text); background: var(--color-white); line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--color-primary-dark); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+    .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo img { height: 52px; }
+    nav { display: flex; align-items: center; gap: 36px; }
+    nav a { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.75); transition: color var(--transition); }
+    nav a:hover, nav a.active { color: var(--color-primary); }
+    .header-phone { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--color-accent-light); }
+    .header-phone svg { width: 16px; height: 16px; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); margin: 5px 0; }
+
+    .page-hero { background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary)); padding: 140px 24px 80px; text-align: center; color: white; }
+    .page-hero-label { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-accent-light); margin-bottom: 16px; font-weight: 500; }
+    .page-hero h1 { font-family: var(--font-serif); font-size: clamp(40px, 5vw, 64px); font-weight: 300; margin-bottom: 20px; }
+    .page-hero h1 em { font-style: italic; color: var(--color-accent-light); }
+    .page-hero p { font-size: 17px; opacity: 0.8; max-width: 560px; margin: 0 auto; font-weight: 300; }
+
+    section { padding: 96px 24px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 16px; }
+    .section-title { font-family: var(--font-serif); font-size: clamp(32px, 4vw, 52px); font-weight: 300; line-height: 1.2; color: var(--color-dark); margin-bottom: 16px; }
+    .section-title em { font-style: italic; color: var(--color-primary); }
+    .divider { width: 48px; height: 2px; background: var(--color-accent); margin: 20px 0; }
+
+    /* MARIAN BIO */
+    .bio-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+    .bio-image-wrap { position: relative; }
+    .bio-image {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
+      border-radius: var(--radius);
+      background: var(--color-light);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .bio-image img { width: 100%; height: 100%; object-fit: cover; }
+    .bio-image-placeholder {
+      width: 100%; aspect-ratio: 3/4;
+      background: linear-gradient(135deg, var(--color-light) 0%, #ede9e3 100%);
+      border-radius: var(--radius);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+      color: var(--color-muted);
+    }
+    .bio-badge {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--color-accent);
+      color: var(--color-dark);
+      padding: 20px 24px;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .bio-badge-num { font-family: var(--font-serif); font-size: 36px; font-weight: 300; line-height: 1; }
+    .bio-badge-text { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+
+    .bio-text p { font-size: 15px; line-height: 1.9; color: var(--color-text); margin-bottom: 20px; }
+    .bio-text p:first-of-type { font-family: var(--font-serif); font-size: 20px; line-height: 1.7; color: var(--color-dark); }
+
+    .bio-associations { margin-top: 32px; padding: 28px 32px; background: var(--color-light); border-radius: var(--radius); border-left: 3px solid var(--color-accent); }
+    .bio-associations h4 { font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 12px; }
+    .bio-associations p { font-size: 14px; color: var(--color-muted); line-height: 1.6; }
+
+    /* VALORES */
+    .valores-section { background: var(--color-light); }
+    .valores-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; }
+    .valor-card { background: white; padding: 40px 32px; border-radius: var(--radius); box-shadow: var(--shadow); transition: all var(--transition); }
+    .valor-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .valor-num { font-family: var(--font-serif); font-size: 56px; font-weight: 300; color: rgba(201,168,76,0.2); line-height: 1; margin-bottom: 12px; }
+    .valor-card h3 { font-family: var(--font-serif); font-size: 22px; font-weight: 400; color: var(--color-dark); margin-bottom: 12px; }
+    .valor-card p { font-size: 14px; line-height: 1.7; color: var(--color-muted); }
+
+    /* TESTIMONIOS EXTENDIDOS */
+    .testimonials-big { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 56px; }
+    .testimonial-big {
+      background: white; border: 1px solid rgba(0,0,0,0.07);
+      padding: 40px; border-radius: var(--radius);
+      box-shadow: var(--shadow); transition: all var(--transition);
+    }
+    .testimonial-big:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .testimonial-big .quote { font-family: var(--font-serif); font-size: 64px; color: rgba(201,168,76,0.2); line-height: 0.8; margin-bottom: 16px; }
+    .testimonial-big .stars { color: var(--color-accent); margin-bottom: 16px; letter-spacing: 2px; }
+    .testimonial-big .text { font-family: var(--font-serif); font-size: 17px; font-style: italic; line-height: 1.8; color: var(--color-text); margin-bottom: 24px; }
+    .testimonial-big .author { font-size: 13px; font-weight: 600; color: var(--color-primary); }
+
+    /* CTA */
+    .cta-section { background: var(--color-primary); color: white; text-align: center; }
+    .cta-section .section-title { color: white; }
+    .cta-section .section-title em { color: var(--color-accent-light); }
+    .cta-section p { color: rgba(255,255,255,0.8); font-size: 16px; max-width: 500px; margin: 0 auto 40px; }
+    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: var(--radius); font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: all var(--transition); border: none; cursor: pointer; }
+    .btn-primary { background: var(--color-accent); color: var(--color-dark); }
+    .btn-primary:hover { background: var(--color-accent-light); transform: translateY(-2px); }
+    .btn-outline-white { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.5); }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: white; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--color-dark); color: rgba(255,255,255,0.7); padding: 64px 24px 32px; }
+    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 48px; margin-bottom: 20px; filter: brightness(0) invert(1) opacity(0.9); }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
+    footer h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: white; margin-bottom: 20px; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 10px; }
+    footer ul a { font-size: 14px; transition: color var(--transition); }
+    footer ul a:hover { color: var(--color-accent-light); }
+    .footer-contact-item { display: flex; gap: 10px; margin-bottom: 12px; font-size: 14px; align-items: flex-start; }
+    .footer-contact-item svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; stroke: var(--color-accent); fill: none; stroke-width: 1.5; }
+    .footer-social { display: flex; gap: 12px; margin-top: 16px; }
+    .footer-social a { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+    .footer-social a:hover { background: var(--color-accent); border-color: var(--color-accent); }
+    .footer-social svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 12px; }
+
+    @media (max-width: 768px) {
+      section { padding: 64px 20px; }
+      .nav-desktop { display: none; }
+      .nav-desktop.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--color-primary-dark); padding: 20px 24px 28px; border-top: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 20px rgba(0,0,0,0.3); gap: 20px; }
+      .nav-toggle { display: block; }
+      .header-phone span { display: none; }
+      .bio-grid { grid-template-columns: 1fr; gap: 48px; }
+      .bio-badge { bottom: 16px; right: 16px; }
+      .valores-grid { grid-template-columns: 1fr; }
+      .testimonials-big { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><img src="assets/logo_marinainn_transp.png" alt="Marian Inn" /></a>
+      <nav class="nav-desktop" id="nav-menu">
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="nosotros.html" class="active">Nosotros</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+      <a href="tel:+34679991164" class="header-phone">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.69A2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        <span>679 991 164</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <p class="page-hero-label">Quién soy</p>
+    <h1>Marian Ruiz <em>Castellano</em></h1>
+    <p>Más de 22 años acompañando a personas en su proceso de bienestar físico y emocional en Vitoria-Gasteiz.</p>
+  </div>
+
+  <!-- BIO -->
+  <section>
+    <div class="container">
+      <div class="bio-grid">
+        <div class="bio-image-wrap">
+          <!-- REVISAR: Añadir foto de Marian en assets/ -->
+          <div class="bio-image-placeholder">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="opacity:0.3;">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span style="font-size:13px; opacity:0.5;">Foto de Marian</span>
+          </div>
+          <div class="bio-badge">
+            <div class="bio-badge-num">22+</div>
+            <div class="bio-badge-text">Años de experiencia</div>
+          </div>
+        </div>
+        <div class="bio-text">
+          <p class="section-label">Sobre Marian</p>
+          <h2 class="section-title">Una terapeuta que<br /><em>escucha con las manos</em></h2>
+          <div class="divider"></div>
+          <p>"Bienvenid@s. Soy Marian Ruiz Castellano, terapeuta corporal en Vitoria-Gasteiz. Llevo más de 22 años acompañando a personas en su proceso de bienestar, siempre desde el respeto profundo al cuerpo y a lo que cada persona necesita."</p>
+          <p>Mi trabajo nació de la convicción de que el cuerpo sabe lo que necesita. A veces solo necesita que alguien lo escuche con atención y presencia. Por eso cada sesión comienza con una pregunta: ¿qué te duele? ¿qué necesitas?</p>
+          <p>A lo largo de estos años he formado en diversas técnicas corporales de integración — Arun Tacto Consciente, Terapia Cráneo Sacral, Reiki, Quiromasaje y Esencias Triunidad® — y sigo formándome continuamente porque el cuerpo humano siempre tiene algo nuevo que enseñarme.</p>
+          <p>He acompañado a bebés con dificultades de parto, niños con problemas de desarrollo, adultos con dolores crónicos, personas en duelo, embarazadas, deportistas y personas simplemente buscando un espacio de cuidado y calma. Cada uno tiene su historia, y cada sesión es única.</p>
+          <div class="bio-associations">
+            <h4>Formación y asociaciones profesionales</h4>
+            <p>Miembro de FENACO (Federación Nacional de Naturopatas Colegiados de Álava) y otras asociaciones profesionales del sector. Formación continua y actualizada en las distintas técnicas practicadas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section class="valores-section">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:8px;">
+        <p class="section-label" style="display:inline-block;">Mi manera de trabajar</p>
+      </div>
+      <h2 class="section-title" style="text-align:center;">Los valores que<br /><em>guían mi trabajo</em></h2>
+      <div class="divider" style="margin: 16px auto;"></div>
+      <div class="valores-grid">
+        <div class="valor-card">
+          <div class="valor-num">01</div>
+          <h3>Escucha activa</h3>
+          <p>Cada sesión empieza escuchando. Tu cuerpo y tus palabras me dicen lo que necesito saber para acompañarte de la manera más adecuada en ese momento.</p>
+        </div>
+        <div class="valor-card">
+          <div class="valor-num">02</div>
+          <h3>Presencia plena</h3>
+          <p>Durante la sesión estoy completamente presente contigo. Sin prisas, sin protocolos rígidos. Solo tú, yo y lo que el cuerpo necesita expresar y liberar.</p>
+        </div>
+        <div class="valor-card">
+          <div class="valor-num">03</div>
+          <h3>Respeto al proceso</h3>
+          <p>Cada persona tiene su ritmo. No fuerzo, no apresuro. Acompaño el proceso con paciencia y confianza en que el cuerpo siempre sabe hacia dónde ir.</p>
+        </div>
+        <div class="valor-card">
+          <div class="valor-num">04</div>
+          <h3>Visión integral</h3>
+          <p>El cuerpo, la mente y las emociones son una sola cosa. Trabajo desde esa comprensión, sin separar lo físico de lo emocional porque ambos se influyen constantemente.</p>
+        </div>
+        <div class="valor-card">
+          <div class="valor-num">05</div>
+          <h3>Formación continua</h3>
+          <p>Llevo más de 22 años formándome y actualizando mis conocimientos porque mi compromiso con los pacientes me obliga a ofrecer siempre lo mejor.</p>
+        </div>
+        <div class="valor-card">
+          <div class="valor-num">06</div>
+          <h3>Confianza mutua</h3>
+          <p>El trabajo corporal requiere confianza. Mi misión es crear un espacio seguro donde puedas dejarte ir y permitir que tu cuerpo haga su trabajo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section>
+    <div class="container">
+      <p class="section-label">Lo que dicen</p>
+      <h2 class="section-title">Historias de <em>confianza</em></h2>
+      <div class="divider"></div>
+      <div class="testimonials-big">
+        <div class="testimonial-big">
+          <div class="quote">"</div>
+          <div class="stars">★★★★★</div>
+          <p class="text">Todo comenzó hace 22 años cuando decidí regalarme un masaje con Marian Ruiz Castellano. Salía de un proceso de autodestrucción donde comenzaba a conectar con el cuerpo, ella me abrió la puerta al cuerpo sutil, viendo que había algo más. Desde entonces me ha acompañado en procesos de lesiones, duelos, embarazos, recaídas emocionales... Todo un viaje. ¿Sabéis?, mis hijas es el regalo que piden para su cumpleaños, ir a darse un masaje con Marian.</p>
+          <div class="author">Nuria Alonso</div>
+        </div>
+        <div class="testimonial-big">
+          <div class="quote">"</div>
+          <div class="stars">★★★★★</div>
+          <p class="text">Marian es una profesional que conoce muy bien el cuerpo y está en continua formación. A mi hijo pequeño, con un trabajo cráneo sacral, le ayudó con el gateo ya que tenía algunos problemas consecuencia del proceso de parto. Nos ha ayudado a toda la familia, niños y adultos, tanto en lo físico como en lo emocional. Al salir de la consulta la sensación de ligereza y bienestar es increíble. 100% recomendable.</p>
+          <div class="author">Ainara A.A.</div>
+        </div>
+        <div class="testimonial-big">
+          <div class="quote">"</div>
+          <div class="stars">★★★★★</div>
+          <p class="text">Marian es un grandísima profesional con un trato al paciente excepcional. No conozco persona más cualificada que ella en el trabajo corporal. Agradezco siempre su atención personalizada y su buen saber. Enhorabuena por ser como eres y contaré siempre contigo para cuidar de mí mismo.</p>
+          <div class="author">Diego Velasco</div>
+        </div>
+        <div class="testimonial-big">
+          <div class="quote">"</div>
+          <div class="stars">★★★★★</div>
+          <p class="text">Excelente profesional y compañera. Muchos años de experiencia y formación continua, que se siente en la calidad y presencia de cada toque. 100% recomendable. Mientras viví en Vitoria-Gasteiz, las sesiones con Marian fueron parte de mi autocuidado. Gracias Marian, por tanto compartido.</p>
+          <div class="author">Irma Mier</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <p class="section-label" style="color:var(--color-accent-light);">¿Hablamos?</p>
+      <h2 class="section-title">Estaré encantada<br /><em>de escucharte</em></h2>
+      <p>Si tienes alguna pregunta sobre mi trabajo o quieres saber si puedo ayudarte, escríbeme o llámame sin compromiso.</p>
+      <div class="cta-actions">
+        <a href="contacto.html" class="btn btn-primary">Solicitar cita</a>
+        <a href="tel:+34679991164" class="btn btn-outline-white">679 991 164</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo_marinainn_transp.png" alt="Marian Inn" />
+        <p>Técnicas corporales de integración en Vitoria-Gasteiz. Arun, cráneo sacral, reiki y quiromasaje para tu bienestar físico y emocional.</p>
+        <div class="footer-social" style="margin-top:20px;">
+          <a href="https://www.facebook.com/masajesintegrativos/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+          </a>
+          <a href="https://www.instagram.com/marian.ruiz.752861/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" fill="none" stroke-width="1.5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor" fill="none" stroke-width="1.5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Técnicas</h4>
+        <ul>
+          <li><a href="servicios.html">Arun Tacto Consciente</a></li>
+          <li><a href="servicios.html">Terapia Cráneo Sacral</a></li>
+          <li><a href="servicios.html">Quiromasaje</a></li>
+          <li><a href="servicios.html">Reiki</a></li>
+          <li><a href="servicios.html">Esencias Triunidad®</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.12 2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          <a href="tel:+34679991164">+34 679 991 164</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Vitoria-Gasteiz</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          <span>Lun–Vie · 9:00 a 21:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Marian Inn — Marian Ruiz Castellano. Todos los derechos reservados.</span>
+      <span>Vitoria-Gasteiz</span>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+  </script>
+
+</body>
+</html>

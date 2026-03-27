@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dra. Alejandra Genua — AG Estudio Jurídico · Derecho Previsional Buenos Aires</title>
+  <meta name="description" content="Especialistas en Derecho Previsional en Buenos Aires. Jubilaciones, pensiones, reajuste de haberes. Dra. Alejandra Genua, egresada UBA." />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #172973;
+      --color-primary-dark: #0e1c50;
+      --color-primary-light: #213aaa;
+      --color-accent: #c4a245;
+      --color-accent-light: #e0c878;
+      --color-dark: #0a0f1e;
+      --color-text: #2a2e3d;
+      --color-light: #f4f6fb;
+      --color-white: #ffffff;
+      --color-muted: #6b7488;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Montserrat', sans-serif;
+      --transition: 0.3s ease;
+      --shadow: 0 4px 20px rgba(23,41,115,0.1);
+      --shadow-hover: 0 8px 32px rgba(23,41,115,0.18);
+      --radius: 3px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); color: var(--color-text); background: var(--color-white); line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--color-primary-dark);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: box-shadow var(--transition);
+    }
+    header.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.35); }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; height: 72px;
+    }
+    .logo img { height: 44px; width: auto; }
+    nav { display: flex; align-items: center; gap: 36px; }
+    nav a { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.72); transition: color var(--transition); }
+    nav a:hover, nav a.active { color: var(--color-accent-light); }
+    .header-phone { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--color-accent-light); transition: color var(--transition); }
+    .header-phone:hover { color: white; }
+    .header-phone svg { width: 15px; height: 15px; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); margin: 5px 0; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 620px;
+      display: flex; align-items: flex-end; justify-content: flex-start; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('assets/hero_web.jpg');
+      background-size: cover; background-position: center top;
+    }
+    @media (max-width: 768px) { .hero-bg { background-image: url('assets/hero_mobile.jpg'); } }
+    #hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1.2s ease; }
+    #hero-video.fade-out { opacity: 0; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(10,15,30,0.82) 0%, rgba(10,15,30,0.55) 55%, rgba(10,15,30,0.15) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; color: white;
+      padding: 0 24px 100px; max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+    .hero-content-inner { max-width: 580px; }
+    .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--color-accent-light); margin-bottom: 20px; opacity: 0.9; }
+    .hero-title { font-family: var(--font-serif); font-size: clamp(42px, 6vw, 76px); font-weight: 400; line-height: 1.1; margin-bottom: 24px; }
+    .hero-title em { font-style: italic; color: var(--color-accent-light); }
+    .hero-subtitle { font-size: clamp(14px, 1.8vw, 17px); font-weight: 300; line-height: 1.75; opacity: 0.82; margin-bottom: 44px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.4); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent); animation: sp 2s ease-in-out infinite; }
+    @keyframes sp { 0%,100%{opacity:.4} 50%{opacity:.9} }
+
+    /* ── BUTTONS ── */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: var(--radius); font-family: var(--font-sans); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; transition: all var(--transition); cursor: pointer; border: none; }
+    .btn-primary { background: var(--color-accent); color: var(--color-dark); }
+    .btn-primary:hover { background: var(--color-accent-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(196,162,69,0.4); }
+    .btn-outline { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.55); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; transform: translateY(-2px); }
+    .btn-navy { background: var(--color-primary); color: white; }
+    .btn-navy:hover { background: var(--color-primary-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(23,41,115,0.4); }
+    .btn-outline-navy { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .btn-outline-navy:hover { background: var(--color-primary); color: white; transform: translateY(-2px); }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 24px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px; }
+    .section-title { font-family: var(--font-serif); font-size: clamp(30px, 4vw, 50px); font-weight: 400; line-height: 1.2; color: var(--color-dark); margin-bottom: 16px; }
+    .section-title em { font-style: italic; color: var(--color-primary); }
+    .divider { width: 48px; height: 2px; background: linear-gradient(to right, var(--color-accent), transparent); margin: 18px 0; }
+
+    /* ── ABOUT / PERSONAL BRAND ── */
+    .about-section { background: var(--color-dark); padding: 0; overflow: hidden; }
+    .about-grid { display: grid; grid-template-columns: 45% 55%; min-height: 680px; }
+    .about-photo-col {
+      position: relative; overflow: hidden;
+    }
+    .about-photo-col img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+    }
+    .about-photo-col::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 70%, var(--color-dark) 100%);
+    }
+    .about-text-col {
+      padding: 88px 72px 88px 56px;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--color-dark);
+    }
+    .about-text-col .section-label { color: var(--color-accent); }
+    .about-text-col .section-title { color: white; }
+    .about-text-col .section-title em { color: var(--color-accent-light); }
+    .about-text-col .divider { background: linear-gradient(to right, var(--color-accent), transparent); }
+    .about-quote {
+      font-family: var(--font-serif); font-size: 18px; font-style: italic;
+      color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 20px;
+      padding-left: 20px; border-left: 2px solid var(--color-accent);
+    }
+    .about-body { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.6); margin-bottom: 32px; }
+    .credentials-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+    .cred-item { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.75); }
+    .cred-item::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--color-accent); flex-shrink: 0; }
+
+    /* ── SERVICIOS ── */
+    .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 20px; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .service-card {
+      background: white; border: 1px solid rgba(23,41,115,0.08);
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); transition: all var(--transition);
+      position: relative;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .service-card-img { height: 180px; overflow: hidden; }
+    .service-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .service-card:hover .service-card-img img { transform: scale(1.05); }
+    .service-card-body { padding: 24px; }
+    .service-card-body h3 { font-family: var(--font-serif); font-size: 19px; color: var(--color-dark); margin-bottom: 10px; }
+    .service-card-body p { font-size: 13px; color: var(--color-muted); line-height: 1.65; margin-bottom: 16px; }
+    .service-link { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-primary); display: flex; align-items: center; gap: 6px; transition: gap var(--transition); }
+    .service-card:hover .service-link { gap: 10px; }
+
+    /* ── DIFERENCIADORES ── */
+    .why-section { background: var(--color-primary); color: white; }
+    .why-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .why-text .section-title { color: white; }
+    .why-text .section-title em { color: var(--color-accent-light); }
+    .why-text .divider { background: linear-gradient(to right, var(--color-accent-light), transparent); }
+    .why-text p { color: rgba(255,255,255,0.78); font-size: 15px; line-height: 1.8; margin-bottom: 32px; }
+    .why-list { display: flex; flex-direction: column; gap: 20px; }
+    .why-item { display: flex; gap: 16px; align-items: flex-start; }
+    .why-item-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .why-item-icon svg { width: 18px; height: 18px; stroke: var(--color-accent-light); fill: none; stroke-width: 1.6; }
+    .why-item-text h4 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .why-item-text p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+    .why-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .why-stat { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 28px 24px; text-align: center; }
+    .why-stat-val { font-family: var(--font-serif); font-size: 44px; font-weight: 400; color: var(--color-accent-light); line-height: 1; margin-bottom: 8px; }
+    .why-stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+
+    /* ── MAPA ── */
+    .map-section { background: var(--color-light); }
+    .map-inner { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start; }
+    .map-info h3 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; color: var(--color-dark); margin-bottom: 8px; }
+    .map-info .divider { margin: 16px 0 24px; }
+    .map-contact-item { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
+    .map-contact-item svg { width: 18px; height: 18px; stroke: var(--color-accent); fill: none; stroke-width: 1.6; flex-shrink: 0; margin-top: 2px; }
+    .map-contact-item span, .map-contact-item a { font-size: 14px; color: var(--color-text); line-height: 1.5; }
+    .map-contact-item a:hover { color: var(--color-primary); }
+    .map-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 32px; }
+    .map-embed { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-hover); }
+    .map-embed iframe { width: 100%; height: 380px; border: none; display: block; }
+
+    /* ── CTA FINAL ── */
+    .cta-section { background: var(--color-dark); color: white; }
+    .cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .cta-text .section-title { color: white; }
+    .cta-text .section-title em { color: var(--color-accent-light); }
+    .cta-text .divider { background: linear-gradient(to right, var(--color-accent-light), transparent); margin: 16px 0; }
+    .cta-text p { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.8; }
+    .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .cta-form-wrap { background: white; border-radius: var(--radius); padding: 40px 36px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .cta-form h3 { font-family: var(--font-serif); font-size: 22px; color: var(--color-dark); margin-bottom: 4px; }
+    .cta-form > p { font-size: 13px; color: var(--color-muted); margin-bottom: 24px; }
+    .form-field { margin-bottom: 14px; }
+    .form-field label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-text); margin-bottom: 6px; }
+    .form-field input, .form-field select { width: 100%; padding: 11px 14px; border: 1.5px solid rgba(0,0,0,0.1); border-radius: var(--radius); font-family: var(--font-sans); font-size: 13px; color: var(--color-dark); outline: none; transition: border-color var(--transition), box-shadow var(--transition); }
+    .form-field input:focus, .form-field select:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(23,41,115,0.1); }
+    .form-success { display: none; margin-top: 14px; padding: 12px 16px; background: rgba(23,41,115,0.07); color: var(--color-primary); border-radius: var(--radius); font-size: 13px; font-weight: 700; text-align: center; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--color-primary-dark); color: rgba(255,255,255,0.6); padding: 64px 24px 32px; }
+    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 40px; margin-bottom: 16px; }
+    .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 260px; }
+    footer h4 { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: white; margin-bottom: 18px; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 9px; }
+    footer ul a { font-size: 13px; transition: color var(--transition); }
+    footer ul a:hover { color: var(--color-accent-light); }
+    .f-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; align-items: flex-start; }
+    .f-item svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px; stroke: var(--color-accent); fill: none; stroke-width: 1.5; }
+    .footer-social { display: flex; gap: 10px; margin-top: 16px; }
+    .footer-social a { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+    .footer-social a:hover { background: var(--color-accent); border-color: var(--color-accent); }
+    .footer-social svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 10px; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      section { padding: 64px 20px; }
+      .nav-desktop { display: none; }
+      .nav-desktop.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--color-primary-dark); padding: 20px 24px 28px; border-top: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 20px rgba(0,0,0,0.3); gap: 20px; }
+      .nav-toggle { display: block; }
+      .header-phone span { display: none; }
+      .about-grid { grid-template-columns: 1fr; min-height: unset; }
+      .about-photo-col { height: 400px; position: relative; }
+      .about-photo-col::after { background: linear-gradient(to bottom, transparent 60%, var(--color-dark) 100%); }
+      .about-text-col { padding: 48px 24px 64px; }
+      .why-inner { grid-template-columns: 1fr; gap: 48px; }
+      .why-stats { margin-top: 32px; }
+      .map-inner { grid-template-columns: 1fr; gap: 40px; }
+      .services-header { flex-direction: column; align-items: flex-start; }
+      .services-grid { grid-template-columns: 1fr; }
+      .cta-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-content { padding: 0 20px 80px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .why-stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/logo_avgtexto_blanco.png" alt="AG Estudio Jurídico" />
+      </a>
+      <nav class="nav-desktop" id="nav-menu">
+        <a href="index.html" class="active">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a href="tel:+541143827901" class="header-phone">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.69A2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        <span>+54 11 4382-7901</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <video id="hero-video" autoplay muted playsinline preload="auto"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-content-inner">
+        <p class="hero-eyebrow">Expertos en Derecho Previsional · Buenos Aires</p>
+        <h1 class="hero-title">Dra. Alejandra<br /><em>Genua</em></h1>
+        <p class="hero-subtitle">En el estudio jurídico de la Dra. Alejandra Genua encontrarás la experiencia y calidez humana que necesitás en esta etapa de tu vida.</p>
+        <div class="hero-actions">
+          <a href="#contacto" class="btn btn-primary">Consultar ahora</a>
+          <a href="servicios.html" class="btn btn-outline">Ver servicios</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div><span>Conocenos</span></div>
+  </section>
+
+  <!-- SOBRE ALEJANDRA -->
+  <section class="about-section">
+    <div class="about-grid">
+      <div class="about-photo-col">
+        <img src="assets/nosotros.jpg" alt="Dra. Alejandra Genua" />
+      </div>
+      <div class="about-text-col">
+        <p class="section-label">Dra. Alejandra Genua</p>
+        <h2 class="section-title">Experiencia y excelencia<br /><em>a tu lado</em></h2>
+        <div class="divider"></div>
+        <p class="about-quote">"La formación y especialización permanente garantiza la excelencia en el resultado final."</p>
+        <p class="about-body">Egresada de Abogacía de la Universidad de Buenos Aires (UBA), especialista en Seguridad Social. Sabemos que los trámites previsionales no son sencillos. Por eso ponemos todo nuestro conocimiento a tu disposición para que tu caso sea resuelto de manera ágil y sencilla.</p>
+        <div class="credentials-list">
+          <div class="cred-item">Egresada de la Universidad de Buenos Aires (UBA)</div>
+          <div class="cred-item">Especialista en Seguridad Social</div>
+          <div class="cred-item">Integrante de la Comisión de Seguridad Social del CPACF</div>
+          <div class="cred-item">Asesora de empresas y estudios contables</div>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="nosotros.html" class="btn btn-primary">Conocer más</a>
+          <a href="#contacto" class="btn btn-outline">Consulta gratuita</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section>
+    <div class="container">
+      <div class="services-header">
+        <div>
+          <p class="section-label">Áreas de práctica</p>
+          <h2 class="section-title">Nuestros<br /><em>servicios</em></h2>
+          <div class="divider"></div>
+        </div>
+        <a href="servicios.html" class="btn btn-navy">Ver todos los servicios</a>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-card-img"><img src="https://www.agestudiojuridico.com.ar/wp-content/uploads/2020/03/img_servicios_jubilacionnormal.jpg" alt="Jubilación" loading="lazy" /></div>
+          <div class="service-card-body">
+            <h3>Jubilación</h3>
+            <p>Asesoramiento integral para acceder a la jubilación ordinaria cumpliendo requisitos de edad y aportes, incluyendo moratorias vigentes.</p>
+            <a href="servicios.html" class="service-link">Más información →</a>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-img"><img src="https://www.agestudiojuridico.com.ar/wp-content/uploads/2020/03/img_servicios_pension.jpg" alt="Pensión" loading="lazy" /></div>
+          <div class="service-card-body">
+            <h3>Pensión</h3>
+            <p>Gestión del beneficio de pensión para cónyuge o conviviente, con o sin jubilación previa del causante.</p>
+            <a href="servicios.html" class="service-link">Más información →</a>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-img"><img src="https://www.agestudiojuridico.com.ar/wp-content/uploads/2020/03/img_servicios_retiroinvalidez.jpg" alt="Retiro por Invalidez" loading="lazy" /></div>
+          <div class="service-card-body">
+            <h3>Retiro por Invalidez</h3>
+            <p>Para trabajadores con discapacidad física o intelectual que acrediten una disminución del 66% de su capacidad laboral.</p>
+            <a href="servicios.html" class="service-link">Más información →</a>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-img"><img src="https://www.agestudiojuridico.com.ar/wp-content/uploads/2020/03/img_servicios_reajuste.jpg" alt="Reajuste de Haberes" loading="lazy" /></div>
+          <div class="service-card-body">
+            <h3>Reajuste de Haberes</h3>
+            <p>Reclamo por reajuste de jubilación o pensión basado en jurisprudencia (Fallos "Badaro" y "Elliff") con retroactividad.</p>
+            <a href="servicios.html" class="service-link">Más información →</a>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-img"><img src="https://www.agestudiojuridico.com.ar/wp-content/uploads/2020/03/img_servicios_jubilacionminusvalia.jpg" alt="Jubilación por Minusvalía" loading="lazy" /></div>
+          <div class="service-card-body">
+            <h3>Jubilación por Minusvalía</h3>
+            <p>Para trabajadores que acrediten disminución física o psíquica del 33%, con requisitos de edad y servicios reducidos.</p>
+            <a href="servicios.html" class="service-link">Más información →</a>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-img"><img src="https://www.agestudiojuridico.com.ar/wp-content/uploads/2020/03/img_servicios_asesoriaempresas.jpg" alt="Asesoría a Empresas" loading="lazy" /></div>
+          <div class="service-card-body">
+            <h3>Asesoría a Empresas</h3>
+            <p>Consultoría previsional y laboral para empresas y estudios contables. Gestión integral de plantillas de empleados.</p>
+            <a href="servicios.html" class="service-link">Más información →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ ELEGIRNOS -->
+  <section class="why-section">
+    <div class="container">
+      <div class="why-inner">
+        <div class="why-text">
+          <p class="section-label" style="color:var(--color-accent-light);">Por qué elegirnos</p>
+          <h2 class="section-title">Especialización y<br /><em>compromiso</em></h2>
+          <div class="divider"></div>
+          <p>Somos expertos en Derecho Previsional. Nuestra dedicación exclusiva a esta área nos permite ofrecerte la solución más eficiente para cada caso.</p>
+          <div class="why-list">
+            <div class="why-item">
+              <div class="why-item-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <div class="why-item-text"><h4>Especialización exclusiva</h4><p>Dedicados 100% al Derecho Previsional. No somos generalistas, somos expertos en jubilaciones y pensiones.</p></div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+              <div class="why-item-text"><h4>Contención humana</h4><p>Te acompañamos en cada etapa del proceso con la calidez y cercanía que este momento de vida merece.</p></div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+              <div class="why-item-text"><h4>Gestión ágil</h4><p>Ponemos todo nuestro conocimiento para que tu caso sea resuelto de manera ágil y eficiente.</p></div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="why-item-text"><h4>Formación permanente</h4><p>Actualización constante en jurisprudencia y normativa previsional para garantizar la excelencia.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="why-stats">
+          <div class="why-stat"><div class="why-stat-val">8</div><div class="why-stat-label">Áreas de práctica</div></div>
+          <div class="why-stat"><div class="why-stat-val">UBA</div><div class="why-stat-label">Universidad de origen</div></div>
+          <div class="why-stat"><div class="why-stat-val">100%</div><div class="why-stat-label">Especialización previsional</div></div>
+          <div class="why-stat"><div class="why-stat-val">CABA</div><div class="why-stat-label">Buenos Aires</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UBICACIÓN -->
+  <section class="map-section">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:56px;">
+        <p class="section-label" style="display:inline-block;">Dónde encontrarnos</p>
+        <h2 class="section-title" style="margin-top:8px;">Nuestro <em>estudio</em></h2>
+        <div class="divider" style="margin:14px auto;"></div>
+      </div>
+      <div class="map-inner">
+        <div>
+          <h3>AG Estudio Jurídico</h3>
+          <div class="divider"></div>
+          <div class="map-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Pres. Luis Sáenz Peña 20, 3°G<br />C1110AAB · Buenos Aires, Argentina</span>
+          </div>
+          <div class="map-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.69A2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            <div><a href="tel:+541143827901">+54 11 4382-7901</a><br /><a href="tel:+5491154556401">+54 9 11 5455-6401</a></div>
+          </div>
+          <div class="map-contact-item">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:alejandra@agestudiojuridico.com.ar">alejandra@agestudiojuridico.com.ar</a>
+          </div>
+          <div class="map-actions">
+            <a href="#contacto" class="btn btn-navy">Solicitar consulta</a>
+            <a href="https://wa.me/5491154556401" target="_blank" rel="noopener" class="btn btn-outline-navy">WhatsApp</a>
+          </div>
+        </div>
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.773!2d-58.383!3d-34.608!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccab3e8a5d06f%3A0x0!2sPres.+Luis+S%C3%A1enz+Pe%C3%B1a+20%2C+Buenos+Aires%2C+Argentina!5e0!3m2!1ses!2sar!4v1"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación AG Estudio Jurídico">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + FORMULARIO -->
+  <section class="cta-section" id="contacto">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <p class="section-label" style="color:var(--color-accent-light);">Consultanos</p>
+          <h2 class="section-title">¿Necesitás<br /><em>asesoramiento?</em></h2>
+          <div class="divider"></div>
+          <p>Contamos con experiencia y especialización para resolver tu caso previsional. La primera consulta es gratuita.</p>
+          <div class="cta-actions">
+            <a href="tel:+541143827901" class="btn btn-primary">+54 11 4382-7901</a>
+            <a href="https://wa.me/5491154556401" target="_blank" rel="noopener" class="btn btn-outline">WhatsApp</a>
+          </div>
+          <p style="margin-top:20px; font-size:12px; opacity:0.5;">Pres. Luis Sáenz Peña 20, 3°G · Buenos Aires</p>
+        </div>
+        <div class="cta-form-wrap">
+          <form class="cta-form" onsubmit="handleForm(event)">
+            <h3>Consulta gratuita</h3>
+            <p>Completá el formulario y te contactamos</p>
+            <div class="form-field">
+              <label for="f-name">Nombre completo</label>
+              <input type="text" id="f-name" name="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-field">
+              <label for="f-email">Email</label>
+              <input type="email" id="f-email" name="email" placeholder="tu@email.com" required />
+            </div>
+            <div class="form-field">
+              <label for="f-tel">Teléfono / WhatsApp</label>
+              <input type="tel" id="f-tel" name="telefono" placeholder="+54 11 ..." />
+            </div>
+            <div class="form-field">
+              <label for="f-servicio">Consulta sobre</label>
+              <select id="f-servicio" name="servicio">
+                <option value="">Seleccioná un servicio</option>
+                <option>Jubilación</option>
+                <option>Jubilación por Minusvalía</option>
+                <option>Pensión</option>
+                <option>Retiro por Invalidez</option>
+                <option>Jubilación para Extranjeros</option>
+                <option>Regímenes Diferenciales</option>
+                <option>Reajuste de Haberes</option>
+                <option>Asesoría a Empresas</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-navy" style="width:100%; justify-content:center; margin-top:6px;">Enviar consulta</button>
+            <div class="form-success" id="form-success">✓ Consulta recibida. Te contactamos a la brevedad.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo_avgtexto_blanco.png" alt="AG Estudio Jurídico" />
+        <p>Especialistas en Derecho Previsional en Buenos Aires. Jubilaciones, pensiones, reajuste de haberes y asesoría previsional empresarial.</p>
+        <div class="footer-social" style="margin-top:18px;">
+          <a href="https://www.instagram.com/ag.estudiojuridico/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="14" height="14"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" fill="none" stroke-width="1.5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor" fill="none" stroke-width="1.5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/alejandragenua" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="14" height="14"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="servicios.html">Jubilación</a></li>
+          <li><a href="servicios.html">Pensión</a></li>
+          <li><a href="servicios.html">Retiro por Invalidez</a></li>
+          <li><a href="servicios.html">Reajuste de Haberes</a></li>
+          <li><a href="servicios.html">Asesoría a Empresas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <div class="f-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.12 2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg><div><a href="tel:+541143827901">+54 11 4382-7901</a><br /><a href="tel:+5491154556401">+54 9 11 5455-6401</a></div></div>
+        <div class="f-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:alejandra@agestudiojuridico.com.ar">alejandra@agestudiojuridico.com.ar</a></div>
+        <div class="f-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Sáenz Peña 20, 3°G<br />Buenos Aires, Argentina</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 AG Estudio Jurídico · Dra. Alejandra Genua · Buenos Aires</span>
+      <span>agestudiojuridico.com.ar</span>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+    const heroVideo = document.getElementById('hero-video');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    heroVideo.src = isMobile ? 'assets/hero_mobile_video.mp4' : 'assets/hero_web_video.mp4';
+    heroVideo.addEventListener('ended', () => {
+      heroVideo.classList.add('fade-out');
+      heroVideo.addEventListener('transitionend', () => heroVideo.remove(), { once: true });
+    });
+    function handleForm(e) {
+      e.preventDefault();
+      document.getElementById('form-success').style.display = 'block';
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>

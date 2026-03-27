@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IACM — Implante Autólogo de Células Madres · Córdoba, Argentina</title>
+  <meta name="description" content="Tratamientos con Células Madres en Argentina y Latinoamérica. Implante Autólogo de Células Madres para Necrosis Ósea y Artrosis. Pioneros desde 1996." />
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #07C5C0;
+      --color-primary-dark: #059490;
+      --color-primary-light: #4dd8d4;
+      --color-primary-xlight: #e6fafa;
+      --color-dark: #0b1f3a;
+      --color-dark-mid: #132840;
+      --color-text: #2d3748;
+      --color-muted: #718096;
+      --color-light: #f7fdfd;
+      --color-white: #ffffff;
+      --color-border: #e2e8f0;
+      --font: 'Inter', system-ui, sans-serif;
+      --transition: 0.3s ease;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 4px 20px rgba(7,197,192,0.1), 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-hover: 0 12px 40px rgba(7,197,192,0.18), 0 4px 16px rgba(0,0,0,0.1);
+      --radius: 8px;
+      --radius-lg: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--color-text); background: var(--color-white); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+    header.scrolled {
+      background: rgba(8,15,30,0.88); backdrop-filter: blur(14px);
+      border-bottom-color: rgba(255,255,255,0.07);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between; height: 72px;
+    }
+    .logo img { height: 44px; width: auto; }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.75); transition: color var(--transition); }
+    nav a:hover { color: var(--color-primary-light); }
+    .header-cta {
+      background: var(--color-primary); color: white;
+      padding: 10px 22px; border-radius: 6px;
+      font-size: 13px; font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .header-cta:hover { background: var(--color-primary-dark); transform: translateY(-1px); }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); margin: 5px 0; transition: all var(--transition); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 640px;
+      display: flex; align-items: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('assets/hero_web.jpg');
+      background-size: cover; background-position: center;
+    }
+    @media (max-width: 768px) { .hero-bg { background-image: url('assets/hero_mobile.jpg'); } }
+    #hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1.4s ease; }
+    #hero-video.fade-out { opacity: 0; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(110deg, rgba(7,20,50,0.82) 0%, rgba(7,20,50,0.55) 55%, rgba(7,197,192,0.18) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; color: white;
+      padding: 0 28px 80px; max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(7,197,192,0.18); border: 1px solid rgba(7,197,192,0.4);
+      color: var(--color-primary-light); padding: 6px 14px; border-radius: 100px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--color-primary-light); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:.5; transform:scale(1)} 50%{opacity:1; transform:scale(1.3)} }
+    .hero-title { font-size: clamp(40px, 5.5vw, 72px); font-weight: 700; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+    .hero-title span { color: var(--color-primary-light); }
+    .hero-subtitle { font-size: clamp(15px, 1.8vw, 18px); font-weight: 300; line-height: 1.75; opacity: 0.8; max-width: 520px; margin-bottom: 40px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ── BUTTONS ── */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 6px; font-family: var(--font); font-size: 13px; font-weight: 600; transition: all var(--transition); cursor: pointer; border: none; }
+    .btn-primary { background: var(--color-primary); color: white; }
+    .btn-primary:hover { background: var(--color-primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(7,197,192,0.4); }
+    .btn-outline-white { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.45); }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: white; transform: translateY(-2px); }
+    .btn-dark { background: var(--color-dark); color: white; }
+    .btn-dark:hover { background: var(--color-dark-mid); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(11,31,58,0.3); }
+    .btn-outline { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .btn-outline:hover { background: var(--color-primary); color: white; transform: translateY(-2px); }
+
+    /* ── LAYOUT ── */
+    section { padding: 96px 28px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 12px; }
+    .section-tag::before { content: ''; width: 20px; height: 2px; background: var(--color-primary); border-radius: 2px; }
+    .section-title { font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; line-height: 1.2; color: var(--color-dark); letter-spacing: -0.02em; }
+    .section-title span { color: var(--color-primary); }
+    .section-sub { font-size: 16px; color: var(--color-muted); line-height: 1.75; margin-top: 14px; max-width: 560px; }
+
+    /* ── STATS ── */
+    .stats-section { background: var(--color-dark); padding: 56px 28px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; max-width: 1200px; margin: 0 auto; }
+    .stat-item { text-align: center; padding: 28px 16px; border-right: 1px solid rgba(255,255,255,0.07); }
+    .stat-item:last-child { border-right: none; }
+    .stat-val { font-size: 42px; font-weight: 700; color: var(--color-primary); line-height: 1; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .stat-label { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; }
+
+    /* ── TRATAMIENTOS ── */
+    .tratamientos-section { background: var(--color-light); }
+    .tratamientos-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 56px; }
+    .tratamientos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .trat-card {
+      background: white; border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+      transition: all var(--transition); position: relative; overflow: hidden;
+    }
+    .trat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(to right, var(--color-primary), var(--color-primary-light));
+      transform: scaleX(0); transition: transform 0.4s ease; transform-origin: left;
+    }
+    .trat-card:hover { border-color: var(--color-primary-light); box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+    .trat-card:hover::before { transform: scaleX(1); }
+    .trat-icon { width: 48px; height: 48px; background: var(--color-primary-xlight); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .trat-icon svg { width: 22px; height: 22px; stroke: var(--color-primary); fill: none; stroke-width: 1.8; }
+    .trat-card h3 { font-size: 16px; font-weight: 700; color: var(--color-dark); margin-bottom: 10px; line-height: 1.35; }
+    .trat-card p { font-size: 13px; color: var(--color-muted); line-height: 1.75; }
+
+    /* ── PROCEDIMIENTO ── */
+    .proceso-section { background: white; }
+    .proceso-header { text-align: center; margin-bottom: 64px; }
+    .proceso-header .section-sub { margin: 14px auto 0; }
+    .proceso-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; position: relative; }
+    .proceso-steps::before {
+      content: ''; position: absolute; top: 32px; left: calc(16.66% + 16px); right: calc(16.66% + 16px);
+      height: 1px; background: linear-gradient(to right, var(--color-primary), var(--color-primary-light), var(--color-primary));
+    }
+    .paso {
+      background: var(--color-light); border-radius: var(--radius-lg); padding: 36px 28px;
+      border: 1px solid var(--color-border); text-align: center;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .paso:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+    .paso-num {
+      width: 64px; height: 64px; background: var(--color-primary); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 700; color: white;
+      margin: 0 auto 22px; position: relative; z-index: 1;
+      box-shadow: 0 0 0 8px white, 0 0 0 9px var(--color-border);
+    }
+    .paso h3 { font-size: 17px; font-weight: 700; color: var(--color-dark); margin-bottom: 12px; }
+    .paso p { font-size: 13px; color: var(--color-muted); line-height: 1.8; }
+
+    /* ── EQUIPO ── */
+    .equipo-section { background: var(--color-dark); }
+    .equipo-header { text-align: center; margin-bottom: 56px; }
+    .equipo-header .section-tag { justify-content: center; }
+    .equipo-header .section-title { color: white; }
+    .equipo-header .section-sub { color: rgba(255,255,255,0.55); margin: 14px auto 0; }
+    .equipo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .doctor-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg); overflow: hidden;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+    .doctor-card:hover { background: rgba(7,197,192,0.07); border-color: rgba(7,197,192,0.3); transform: translateY(-4px); }
+    .doctor-img {
+      height: 280px; overflow: hidden; background: var(--color-dark-mid);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .doctor-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .doctor-body { padding: 28px 26px; }
+    .doctor-role { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 6px; }
+    .doctor-name { font-size: 20px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .doctor-specialty { font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 16px; }
+    .doctor-bio { font-size: 12.5px; color: rgba(255,255,255,0.55); line-height: 1.75; }
+    .doctor-cred { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 500; }
+    .doctor-cred::before { content: ''; width: 4px; height: 4px; background: var(--color-primary); border-radius: 50%; flex-shrink: 0; }
+
+    /* ── TESTIMONIOS ── */
+    .testimonios-section { background: var(--color-light); }
+    .testimonios-header { text-align: center; margin-bottom: 56px; }
+    .testimonios-header .section-sub { margin: 14px auto 0; }
+    .testimonios-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
+    .testimonio-card {
+      background: white; border-radius: var(--radius-lg); overflow: hidden;
+      border: 1px solid var(--color-border); box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .testimonio-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+
+    /* Before/After slider */
+    .ba-slider {
+      position: relative; height: 260px; overflow: hidden; cursor: ew-resize;
+      user-select: none; -webkit-user-select: none; touch-action: pan-y;
+    }
+    .ba-after {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; display: block; pointer-events: none;
+    }
+    .ba-before {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      clip-path: inset(0 50% 0 0);
+    }
+    .ba-before img {
+      width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;
+    }
+    .ba-divider {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      transform: translateX(-50%); width: 3px;
+      background: white; pointer-events: none; z-index: 3;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+    .ba-handle-circle {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px; height: 40px; background: white; border-radius: 50%;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+    }
+    .ba-handle-circle::before, .ba-handle-circle::after {
+      content: '';
+      border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+      flex-shrink: 0;
+    }
+    .ba-handle-circle::before { border-right: 6px solid var(--color-primary); }
+    .ba-handle-circle::after  { border-left:  6px solid var(--color-primary); }
+    .ba-label {
+      position: absolute; bottom: 10px; z-index: 4;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: white; background: rgba(0,0,0,0.45); padding: 3px 8px; border-radius: 4px;
+      pointer-events: none;
+    }
+    .ba-label-left  { left: 10px; }
+    .ba-label-right { right: 10px; }
+
+    .testimonio-body { padding: 20px 22px 24px; }
+    .testimonio-condition { display: inline-block; background: var(--color-primary-xlight); color: var(--color-primary-dark); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; margin-bottom: 12px; }
+    .testimonio-text { font-size: 13px; color: var(--color-text); line-height: 1.75; font-style: italic; margin-bottom: 16px; }
+    .testimonio-text::before { content: '"'; }
+    .testimonio-text::after { content: '"'; }
+    .testimonio-footer { display: flex; align-items: center; justify-content: space-between; }
+    .testimonio-name { font-size: 14px; font-weight: 700; color: var(--color-dark); }
+    .testimonio-age { font-size: 12px; color: var(--color-muted); }
+
+    /* ── NUESTRO ESTABLECIMIENTO ── */
+    .establecimiento-section { background: var(--color-dark); }
+    .establecimiento-inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: center; }
+    .establecimiento-logo {
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg); padding: 56px 40px;
+    }
+    .establecimiento-logo img { width: 100%; max-width: 260px; height: auto; }
+    .establecimiento-text .section-tag { color: var(--color-primary); }
+    .establecimiento-text .section-title { color: white; }
+    .establecimiento-intro { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.8; margin: 20px 0 28px; }
+    .establecimiento-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .establecimiento-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.55;
+    }
+    .establecimiento-list li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--color-primary); flex-shrink: 0; margin-top: 6px;
+    }
+
+    /* ── ASOCIACIONES ── */
+    .asociaciones-section { background: var(--color-light); padding: 64px 28px; }
+    .asociaciones-inner { max-width: 1200px; margin: 0 auto; }
+    .asociaciones-title { text-align: center; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 36px; }
+    .asociaciones-logos { display: flex; align-items: center; justify-content: center; gap: 64px; flex-wrap: wrap; }
+    .asociaciones-logos a { opacity: 0.45; filter: grayscale(1); transition: opacity var(--transition), filter var(--transition); }
+    .asociaciones-logos a:hover { opacity: 0.9; filter: grayscale(0); }
+    .asociaciones-logos img { height: 52px; width: auto; }
+
+    /* ── CONTACTO ── */
+    .contacto-section { background: var(--color-dark); }
+    .contacto-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contacto-text .section-tag { color: var(--color-primary); }
+    .contacto-text .section-title { color: white; }
+    .contacto-text .section-title span { color: var(--color-primary-light); }
+    .contacto-text .section-sub { color: rgba(255,255,255,0.55); }
+    .contact-items { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .contact-item { display: flex; gap: 14px; align-items: flex-start; }
+    .contact-item-icon { width: 40px; height: 40px; background: rgba(7,197,192,0.12); border: 1px solid rgba(7,197,192,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .contact-item-icon svg { width: 16px; height: 16px; stroke: var(--color-primary); fill: none; stroke-width: 1.8; }
+    .contact-item-text { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+    .contact-item-text a:hover { color: var(--color-primary-light); }
+    .contact-item-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); margin-bottom: 3px; }
+    .contacto-form-wrap { background: white; border-radius: var(--radius-lg); padding: 40px; box-shadow: 0 24px 64px rgba(0,0,0,0.3); }
+    .contacto-form h3 { font-size: 22px; font-weight: 700; color: var(--color-dark); margin-bottom: 4px; }
+    .contacto-form > p { font-size: 13px; color: var(--color-muted); margin-bottom: 24px; }
+    .form-field { margin-bottom: 14px; }
+    .form-field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text); margin-bottom: 6px; }
+    .form-field input, .form-field textarea {
+      width: 100%; padding: 11px 14px; border: 1.5px solid var(--color-border);
+      border-radius: 6px; font-family: var(--font); font-size: 13px; color: var(--color-dark);
+      outline: none; transition: border-color var(--transition), box-shadow var(--transition);
+      background: white;
+    }
+    .form-field input:focus, .form-field textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(7,197,192,0.12); }
+    .form-field textarea { height: 100px; resize: none; }
+    .form-success { display: none; margin-top: 12px; padding: 12px 16px; background: var(--color-primary-xlight); color: var(--color-primary-dark); border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; }
+    .map-embed { border-radius: var(--radius); overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.25); margin-top: 32px; }
+    .map-embed iframe { width: 100%; height: 220px; border: none; display: block; }
+
+    /* ── FOOTER ── */
+    footer { background: #060f1e; color: rgba(255,255,255,0.4); padding: 56px 28px 28px; }
+    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 38px; margin-bottom: 14px; }
+    .footer-brand p { font-size: 13px; line-height: 1.75; max-width: 260px; }
+    footer h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: white; margin-bottom: 18px; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 9px; }
+    footer ul a { font-size: 13px; transition: color var(--transition); }
+    footer ul a:hover { color: var(--color-primary); }
+    .f-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; align-items: flex-start; }
+    .f-item svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px; stroke: var(--color-primary); fill: none; stroke-width: 1.5; }
+    .f-item a:hover { color: var(--color-primary); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 10px; }
+
+    /* ── WHATSAPP FLOAT ── */
+    .whatsapp-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 99;
+      width: 54px; height: 54px; background: #25d366; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(37,211,102,0.55); }
+    .whatsapp-float svg { width: 28px; height: 28px; fill: white; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .stat-item:nth-child(3) { border-right: none; }
+      .stat-item:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.07); }
+      .tratamientos-grid { grid-template-columns: repeat(2, 1fr); }
+      .equipo-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonios-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      section { padding: 72px 20px; }
+      .nav-desktop { display: none; }
+      .nav-desktop.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 72px; left: 0; right: 0;
+        background: rgba(8,15,30,0.96); backdrop-filter: blur(14px);
+        padding: 20px 24px 28px;
+        border-top: 1px solid rgba(255,255,255,0.07);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3); gap: 20px;
+      }
+      .nav-desktop.open .header-cta { display: none; }
+      .header-cta { display: none; }
+      .nav-toggle { display: block; }
+      .hero-content { padding: 0 20px 80px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+      .tratamientos-header { grid-template-columns: 1fr; gap: 20px; }
+      .tratamientos-grid { grid-template-columns: 1fr; }
+      .proceso-steps { grid-template-columns: 1fr; }
+      .proceso-steps::before { display: none; }
+      .equipo-grid { grid-template-columns: 1fr; }
+      .testimonios-grid { grid-template-columns: 1fr; max-width: 100%; }
+      .establecimiento-inner { grid-template-columns: 1fr; gap: 40px; }
+      .establecimiento-logo { padding: 36px 28px; }
+      .establecimiento-logo img { max-width: 180px; }
+      .contacto-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/iacmlogo.svg" alt="IACM — Implante Autólogo de Células Madres" />
+      </a>
+      <nav class="nav-desktop" id="nav-menu">
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#contacto" class="header-cta">Consultar</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:0;">
+    <div class="hero-bg"></div>
+    <video id="hero-video" autoplay muted playsinline preload="auto"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Pioneros desde 1996 en Argentina y Latinoamérica</div>
+      <h1 class="hero-title">Tratamiento con<br /><span>Células Madres</span></h1>
+      <p class="hero-subtitle">En 1996 ideamos la técnica IACM — Implante Autólogo de Células Madres — siendo pioneros en el tratamiento de necrosis ósea y artrosis en Argentina y Latinoamérica.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn btn-primary">Consultar tratamiento</a>
+        <a href="#tratamientos" class="btn btn-outline-white">Ver tratamientos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-val">25</div>
+        <div class="stat-label">Años de experiencia</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">4.500</div>
+        <div class="stat-label">Pacientes tratados</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">2.680</div>
+        <div class="stat-label">Cirugías de cadera</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">1.695</div>
+        <div class="stat-label">Cirugías de rodilla</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">250</div>
+        <div class="stat-label">Otras articulaciones</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">95%</div>
+        <div class="stat-label">Porcentaje de éxito</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRATAMIENTOS -->
+  <section class="tratamientos-section" id="tratamientos">
+    <div class="container">
+      <div class="tratamientos-header">
+        <div>
+          <p class="section-tag">Áreas de tratamiento</p>
+          <h2 class="section-title">Lesiones que<br /><span>regeneramos</span></h2>
+        </div>
+        <div>
+          <p style="font-size:15px; color:var(--color-muted); line-height:1.8;">Aplicamos técnicas mínimamente invasivas bajo estrictos protocolos médicos, utilizando células madres extraídas del propio paciente — sin necesidad de donantes.</p>
+          <div style="margin-top:20px;"><a href="#contacto" class="btn btn-primary">Consultar mi caso</a></div>
+        </div>
+      </div>
+      <div class="tratamientos-grid">
+        <div class="trat-card">
+          <div class="trat-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3>Necrosis Cadera y su Reconstrucción</h3>
+          <p>Se identifica la lesión con RX y se procede a realizar el injerto de células madres en la cabeza del fémur afectado bajo anestesia raquídea.</p>
+        </div>
+        <div class="trat-card">
+          <div class="trat-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3>Osteocondritis de Rodillas</h3>
+          <p>Introducción de cánulas huecas bajo guía de RX hasta la lesión, procediendo a la colocación de células madres con anestesia raquídea.</p>
+        </div>
+        <div class="trat-card">
+          <div class="trat-icon">
+            <svg viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          </div>
+          <h3>Osteocondritis de Tobillos</h3>
+          <p>Procedimiento similar al de rodillas. Cánulas bajo guía RX y colocación precisa de células madres en la articulación afectada.</p>
+        </div>
+        <div class="trat-card">
+          <div class="trat-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>
+          </div>
+          <h3>Enf. Legg Perthes en Niños</h3>
+          <p>Bajo anestesia general, se colocan cánulas bajo guía de RX y se injertan las células madres. Procedimiento adaptado especialmente para pacientes pediátricos.</p>
+        </div>
+        <div class="trat-card">
+          <div class="trat-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"/></svg>
+          </div>
+          <h3>Necrosis Escafoides de Muñecas</h3>
+          <p>Se identifica con RX la lesión y con cánulas de diámetro reducido se realiza el injerto de células madres con alta precisión.</p>
+        </div>
+        <div class="trat-card">
+          <div class="trat-icon">
+            <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3>Osteocondritis Codo, Hombros y Pequeñas Articulaciones</h3>
+          <p>De forma estándar, se colocan cánulas bajo RX y se procede a la colocación de células madres, adaptando el abordaje a cada articulación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCEDIMIENTO -->
+  <section class="proceso-section">
+    <div class="container">
+      <div class="proceso-header">
+        <p class="section-tag" style="justify-content:center;">Cómo funciona</p>
+        <h2 class="section-title">Procedimiento médico</h2>
+        <p class="section-sub">Un proceso mínimamente invasivo, autólogo y sin donantes, bajo estrictos protocolos médicos.</p>
+      </div>
+      <div class="proceso-steps">
+        <div class="paso">
+          <div class="paso-num">1</div>
+          <h3>Confirmación de diagnóstico</h3>
+          <p>En la consulta, a través de examen físico y estudios complementarios, se confirma la patología a tratar y se programa el procedimiento.</p>
+        </div>
+        <div class="paso">
+          <div class="paso-num">2</div>
+          <h3>Recolección e Intervención</h3>
+          <p>En quirófano, bajo anestesia raquídea, se extrae la médula ósea del propio paciente. Por cánulas huecas, se introduce en la articulación afectada.</p>
+        </div>
+        <div class="paso">
+          <div class="paso-num">3</div>
+          <h3>Seguimiento y Postoperatorio</h3>
+          <p>Internación de 48 hs para antibioticoterapia y controles. Al alta, el paciente egresa caminando con andador y recibe instructivos domiciliarios.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section class="equipo-section" id="equipo">
+    <div class="container">
+      <div class="equipo-header">
+        <p class="section-tag">Equipo médico</p>
+        <h2 class="section-title">Los profesionales<br /><span>del IACM</span></h2>
+        <p class="section-sub">Formación de excelencia, experiencia comprobada y dedicación a cada paciente.</p>
+      </div>
+      <div class="equipo-grid">
+
+        <!-- Dr. Santiago Ibáñez -->
+        <div class="doctor-card">
+          <div class="doctor-img">
+            <img src="assets/dr ibañez.jpg" alt="Dr. Santiago L. Ibáñez" />
+          </div>
+          <div class="doctor-body">
+            <p class="doctor-role">Traumatólogo y Ortopedista</p>
+            <h3 class="doctor-name">Dr. Santiago L. Ibáñez</h3>
+            <p class="doctor-specialty">MP 17703 · ME 5100</p>
+            <p class="doctor-bio">Facultad de Medicina UCC, 1984. Ex Jefe de Residentes Hospital Córdoba. Ex Jefe de Servicio Policlínico Policial. Fellow Hospital Universitario Saint-Étienne, Francia.</p>
+            <p class="doctor-cred">AAOT desde 1985</p>
+          </div>
+        </div>
+
+        <!-- Dra. Analía Ibáñez -->
+        <div class="doctor-card">
+          <div class="doctor-img">
+            <img src="assets/dra ibañez.jpg" alt="Dra. Analía H. Ibáñez" />
+          </div>
+          <div class="doctor-body">
+            <p class="doctor-role">Traumatóloga y Ortopedista</p>
+            <h3 class="doctor-name">Dra. Analía H. Ibáñez</h3>
+            <p class="doctor-specialty">MP 272779 · ME 11974</p>
+            <p class="doctor-bio">Facultad de Medicina UCC, 2000. Residencia en Ortopedia Hospital Córdoba 2001–2006. Fellow Patología Articular, Clínica Centro, Madrid.</p>
+            <p class="doctor-cred">AAOT desde 2002</p>
+          </div>
+        </div>
+
+        <!-- Bioq. Milagros Ibáñez -->
+        <div class="doctor-card">
+          <div class="doctor-img">
+            <img src="assets/dra milagros.jpg" alt="Bioq. Milagros I. Ibáñez" />
+          </div>
+          <div class="doctor-body">
+            <p class="doctor-role">Bioquímica</p>
+            <h3 class="doctor-name">Bioq. Milagros I. Ibáñez</h3>
+            <p class="doctor-specialty">Facultad de Bioquímica · UNC</p>
+            <p class="doctor-bio">Egresada UNC, 2018. Doctorado CONICET (en curso) en Ciencias Químicas. Investigación en Ciencias Químicas, Facultad de Ciencias Químicas, UNC.</p>
+            <p class="doctor-cred">Investigadora CONICET</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="testimonios-section" id="testimonios">
+    <div class="container">
+      <div class="testimonios-header">
+        <p class="section-tag" style="justify-content:center;">Resultados reales</p>
+        <h2 class="section-title">Testimonios de <span>nuestros pacientes</span></h2>
+        <p class="section-sub">Deslizá sobre la imagen para ver el antes y después de cada tratamiento.</p>
+      </div>
+      <div class="testimonios-grid">
+
+        <!-- Alfonso García -->
+        <div class="testimonio-card">
+          <div class="ba-slider">
+            <img class="ba-after" src="assets/despues1.jpg" alt="Alfonso García — después" />
+            <div class="ba-before"><img src="assets/antes1.jpg" alt="Alfonso García — antes" /></div>
+            <div class="ba-divider"><div class="ba-handle-circle"></div></div>
+            <span class="ba-label ba-label-left">Antes</span>
+            <span class="ba-label ba-label-right">Después</span>
+          </div>
+          <div class="testimonio-body">
+            <span class="testimonio-condition">Necrosis cadera derecha</span>
+            <p class="testimonio-text">Consulté por dolores e impotencia funcional luego de un accidente en moto. Solo me proponían una prótesis. Me injertaron células madre y logré recuperar mi vida deportiva normal, sin dolores.</p>
+            <div class="testimonio-footer">
+              <div><p class="testimonio-name">Alfonso García</p><p class="testimonio-age">21 años · 8 años postoperatorio</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lucas Zenón -->
+        <div class="testimonio-card">
+          <div class="ba-slider">
+            <img class="ba-after" src="assets/despues2.jpg" alt="Lucas Zenón — después" />
+            <div class="ba-before"><img src="assets/antes2.jpg" alt="Lucas Zenón — antes" /></div>
+            <div class="ba-divider"><div class="ba-handle-circle"></div></div>
+            <span class="ba-label ba-label-left">Antes</span>
+            <span class="ba-label ba-label-right">Después</span>
+          </div>
+          <div class="testimonio-body">
+            <span class="testimonio-condition">Osteocondritis rodilla izquierda</span>
+            <p class="testimonio-text">Concurrí para evitar colocarme una prótesis, lo cual logré obteniendo un resultado excelente. Mi recuperación fue total.</p>
+            <div class="testimonio-footer">
+              <div><p class="testimonio-name">Lucas Zenón</p><p class="testimonio-age">48 años · 4 años postoperatorio</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alexis Cabrales -->
+        <div class="testimonio-card">
+          <div class="ba-slider">
+            <img class="ba-after" src="assets/despues3.jpg" alt="Alexis Cabrales — después" />
+            <div class="ba-before"><img src="assets/antes3.jpg" alt="Alexis Cabrales — antes" /></div>
+            <div class="ba-divider"><div class="ba-handle-circle"></div></div>
+            <span class="ba-label ba-label-left">Antes</span>
+            <span class="ba-label ba-label-right">Después</span>
+          </div>
+          <div class="testimonio-body">
+            <span class="testimonio-condition">Enf. Legg Perthes cadera derecha</span>
+            <p class="testimonio-text">Llevé a mi hijo recomendado para el tratamiento. La seriedad demostrada excedió mis expectativas. Mi hijo se recuperó y juega al fútbol.</p>
+            <div class="testimonio-footer">
+              <div><p class="testimonio-name">Alexis Cabrales</p><p class="testimonio-age">Padre del paciente · 6 años postoperatorio</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gastón Alfaro -->
+        <div class="testimonio-card">
+          <div class="ba-slider">
+            <img class="ba-after" src="assets/despues4.jpg" alt="Gastón Alfaro — después" />
+            <div class="ba-before"><img src="assets/antes4.jpg" alt="Gastón Alfaro — antes" /></div>
+            <div class="ba-divider"><div class="ba-handle-circle"></div></div>
+            <span class="ba-label ba-label-left">Antes</span>
+            <span class="ba-label ba-label-right">Después</span>
+          </div>
+          <div class="testimonio-body">
+            <span class="testimonio-condition">Osteocondritis tobillo</span>
+            <p class="testimonio-text">Nadie me podía solucionar mi problema. Caminaba con muletas. Luego de mi tratamiento con células madre, recuperé mi tobillo y camino normal sin dolor.</p>
+            <div class="testimonio-footer">
+              <div><p class="testimonio-name">Gastón Alfaro</p><p class="testimonio-age">35 años · 2 años postoperatorio</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NUESTRO ESTABLECIMIENTO -->
+  <section class="establecimiento-section">
+    <div class="container">
+      <div class="establecimiento-inner">
+        <div class="establecimiento-logo">
+          <img src="assets/iacmlogo.svg" alt="IACM — Implante Autólogo de Células Madres" />
+        </div>
+        <div class="establecimiento-text">
+          <p class="section-tag">Nuestro establecimiento</p>
+          <h2 class="section-title">Centro Traumatológico<br /><span>del IACM</span></h2>
+          <p class="establecimiento-intro">Todos nuestros procedimientos quirúrgicos se llevan a cabo en una institución privada localizada en la Ciudad de Córdoba, Argentina.</p>
+          <ul class="establecimiento-list">
+            <li>Institución privada de prestigio</li>
+            <li>Profesionales médicos altamente calificados a nivel nacional e internacional</li>
+            <li>Excelencia médica y atención altamente personalizada</li>
+            <li>Habitaciones VIP con atención exclusiva y permanente los 365 días del año</li>
+            <li>Más de 20 especialidades médicas</li>
+            <li>Unidad de terapia intensiva</li>
+            <li>Diagnóstico por imágenes: radiología, tomografía, resonancia magnética nuclear, cámara gamma</li>
+            <li>Centro de investigación y escuela de residentes médicos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASOCIACIONES -->
+  <div class="asociaciones-section">
+    <div class="asociaciones-inner">
+      <p class="asociaciones-title">Asociaciones globales</p>
+      <div class="asociaciones-logos">
+        <a href="https://aaot.org.ar" target="_blank" rel="noopener">
+          <img src="https://iacm-celulasmadres.com/wp-content/uploads/2022/02/AAOT.png" alt="Asociación Argentina de Ortopedia y Traumatología" />
+        </a>
+        <a href="https://solcema.com/" target="_blank" rel="noopener">
+          <img src="https://iacm-celulasmadres.com/wp-content/uploads/2022/03/solcema.png" alt="Sociedad Latinoamericana de Células Madres" />
+        </a>
+        <a href="https://www.isscr.org" target="_blank" rel="noopener">
+          <img src="https://iacm-celulasmadres.com/wp-content/uploads/2022/02/ISSCR.png" alt="International Society for Stem Cell Research" />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACTO -->
+  <section class="contacto-section" id="contacto">
+    <div class="container">
+      <div class="contacto-inner">
+        <div class="contacto-text">
+          <p class="section-tag">Contacto</p>
+          <h2 class="section-title">¿Le interesa conocer<br />más sobre nuestros<br /><span>tratamientos?</span></h2>
+          <p class="section-sub">Esperamos su consulta. Nuestro equipo médico lo orientará sobre el tratamiento más adecuado para su caso.</p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <p class="contact-item-label">Dirección</p>
+                <p class="contact-item-text">La Rioja 879 2°C — Edificio Blue Pen<br />(5000EVQ) Córdoba, Argentina</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.12 2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
+              <div>
+                <p class="contact-item-label">Teléfono</p>
+                <p class="contact-item-text">
+                  <a href="tel:+543514236829">+54 351 423-6829</a><br />
+                  <a href="https://wa.me/5493515582268?text=Hola%20Me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n" target="_blank" rel="noopener">+54 351 558-2268 (WhatsApp)</a>
+                </p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <p class="contact-item-label">Email</p>
+                <p class="contact-item-text"><a href="mailto:contacto@iacm-celulasmadres.com">contacto@iacm-celulasmadres.com</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="map-embed">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3404.0!2d-64.1888!3d-31.4201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a28b6e1e4b4b%3A0x0!2sLa+Rioja+879%2C+C%C3%B3rdoba%2C+Argentina!5e0!3m2!1ses!2sar!4v1"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación IACM Córdoba">
+            </iframe>
+          </div>
+        </div>
+        <div class="contacto-form-wrap">
+          <form class="contacto-form" onsubmit="handleForm(event)">
+            <h3>Consultar tratamiento</h3>
+            <p>Le respondemos a la brevedad</p>
+            <div class="form-field">
+              <label for="f-name">Nombre completo</label>
+              <input type="text" id="f-name" name="nombre" placeholder="Su nombre" required />
+            </div>
+            <div class="form-field">
+              <label for="f-email">Correo electrónico</label>
+              <input type="email" id="f-email" name="email" placeholder="su@email.com" required />
+            </div>
+            <div class="form-field">
+              <label for="f-tel">Teléfono / WhatsApp</label>
+              <input type="tel" id="f-tel" name="telefono" placeholder="+54 ..." />
+            </div>
+            <div class="form-field">
+              <label for="f-msg">¿Cuál es su consulta?</label>
+              <textarea id="f-msg" name="mensaje" placeholder="Describa brevemente su caso o consulta" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:6px; padding:14px;">Enviar consulta</button>
+            <div class="form-success" id="form-success">✓ Consulta recibida. Le contactaremos a la brevedad.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/iacmlogo.svg" alt="IACM" />
+        <p>Pioneros en el Implante Autólogo de Células Madres desde 1996. Córdoba, Argentina.</p>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#tratamientos">Tratamientos</a></li>
+          <li><a href="#equipo">Equipo médico</a></li>
+          <li><a href="#testimonios">Testimonios</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Tratamientos</h4>
+        <ul>
+          <li><a href="#tratamientos">Necrosis de cadera</a></li>
+          <li><a href="#tratamientos">Osteocondritis de rodilla</a></li>
+          <li><a href="#tratamientos">Osteocondritis tobillo</a></li>
+          <li><a href="#tratamientos">Enf. Legg Perthes</a></li>
+          <li><a href="#tratamientos">Necrosis escafoides</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <div class="f-item">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>La Rioja 879 2°C<br />Córdoba, Argentina</span>
+        </div>
+        <div class="f-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.12 2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          <a href="tel:+543514236829">+54 351 423-6829</a>
+        </div>
+        <div class="f-item">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:contacto@iacm-celulasmadres.com">contacto@iacm-celulasmadres.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2000–2025 IACM — Implante Autólogo de Células Madres · Córdoba, Argentina</span>
+      <a href="https://iacm-celulasmadres.com">iacm-celulasmadres.com</a>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a href="https://wa.me/5493515582268?text=Hola%20Me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n" target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
+
+    // Mobile nav
+    const toggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+    navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+    // Hero video
+    const heroVideo = document.getElementById('hero-video');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    heroVideo.src = isMobile ? 'assets/hero_mobile_video.mp4' : 'assets/hero_web_video.mp4';
+    heroVideo.addEventListener('ended', () => {
+      heroVideo.classList.add('fade-out');
+      heroVideo.addEventListener('transitionend', () => heroVideo.remove(), { once: true });
+    });
+
+    // Before/After sliders
+    document.querySelectorAll('.ba-slider').forEach(slider => {
+      const before   = slider.querySelector('.ba-before');
+      const divider  = slider.querySelector('.ba-divider');
+
+      function setPos(pct) {
+        pct = Math.max(2, Math.min(98, pct));
+        before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+        divider.style.left    = pct + '%';
+      }
+
+      function fromEvent(e) {
+        const rect = slider.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        setPos((x / rect.width) * 100);
+      }
+
+      let dragging = false;
+      slider.addEventListener('mousedown',  e => { dragging = true; fromEvent(e); });
+      window.addEventListener('mouseup',    ()  => { dragging = false; });
+      slider.addEventListener('mousemove',  e => { if (dragging) fromEvent(e); });
+      slider.addEventListener('mouseleave', ()  => { dragging = false; });
+
+      // Touch support
+      slider.addEventListener('touchstart', e => { dragging = true; fromEvent(e); }, { passive: true });
+      window.addEventListener('touchend',   ()  => { dragging = false; });
+      slider.addEventListener('touchmove',  e => { if (dragging) fromEvent(e); }, { passive: true });
+    });
+
+    // Form
+    function handleForm(e) {
+      e.preventDefault();
+      document.getElementById('form-success').style.display = 'block';
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>

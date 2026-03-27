@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Servicios — Centro de Estética Abril Gijón</title>
+  <meta name="description" content="Tratamientos faciales, corporales, capilares y rituales en Centro de Estética Abril Gijón. INDIBA, ácido hialurónico, peeling, masajes y mucho más." />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #8e1f7a; --color-primary-dark: #5a1050; --color-primary-light: #b83da0;
+      --color-accent: #c9a0b8; --color-accent-light: #f0d8ea;
+      --color-dark: #1a0f1a; --color-text: #3a2a38; --color-light: #fdf6fb;
+      --color-white: #ffffff; --color-muted: #9a7d95;
+      --font-serif: 'Playfair Display', Georgia, serif; --font-sans: 'Nunito', sans-serif;
+      --transition: 0.3s ease; --shadow: 0 4px 20px rgba(142,31,122,0.1);
+      --shadow-hover: 0 8px 32px rgba(142,31,122,0.18); --radius: 6px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); color: var(--color-text); background: var(--color-white); line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--color-primary-dark); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo img { height: 48px; }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.75); transition: color var(--transition); }
+    nav a:hover, nav a.active { color: var(--color-accent-light); }
+    .header-phone { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--color-accent-light); }
+    .header-phone svg { width: 16px; height: 16px; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); margin: 5px 0; }
+
+    .page-hero { background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary)); padding: 140px 24px 80px; text-align: center; color: white; }
+    .page-hero-label { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-accent-light); margin-bottom: 16px; font-weight: 600; }
+    .page-hero h1 { font-family: var(--font-serif); font-size: clamp(38px, 5vw, 60px); font-weight: 400; margin-bottom: 16px; }
+    .page-hero h1 em { font-style: italic; color: var(--color-accent-light); }
+    .page-hero p { font-size: 16px; opacity: 0.8; max-width: 540px; margin: 0 auto; font-weight: 300; }
+
+    section { padding: 80px 24px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 14px; }
+    .section-title { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); font-weight: 400; line-height: 1.2; color: var(--color-dark); margin-bottom: 16px; }
+    .section-title em { font-style: italic; color: var(--color-primary); }
+    .divider { width: 48px; height: 2px; background: linear-gradient(to right, var(--color-primary), var(--color-accent)); margin: 16px 0 40px; }
+
+    .cat-section { margin-bottom: 72px; }
+    .cat-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid rgba(142,31,122,0.1); }
+    .cat-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cat-icon svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 1.5; }
+    .cat-header h2 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; color: var(--color-dark); }
+    .services-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .service-item {
+      background: var(--color-light); border-radius: var(--radius);
+      padding: 24px 22px; border-left: 3px solid transparent;
+      transition: all var(--transition);
+    }
+    .service-item:hover { background: white; border-left-color: var(--color-primary); box-shadow: var(--shadow); transform: translateX(4px); }
+    .service-item h3 { font-family: var(--font-serif); font-size: 17px; color: var(--color-dark); margin-bottom: 6px; }
+    .service-item p { font-size: 13px; color: var(--color-muted); line-height: 1.6; }
+
+    .highlight-service {
+      background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+      border-radius: var(--radius); padding: 48px; color: white;
+      margin-bottom: 72px; position: relative; overflow: hidden;
+    }
+    .highlight-service::after { content: ''; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+    .highlight-service-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; position: relative; z-index: 1; }
+    .highlight-service h2 { font-family: var(--font-serif); font-size: 36px; font-weight: 400; margin-bottom: 16px; }
+    .highlight-service h2 em { font-style: italic; color: var(--color-accent-light); }
+    .highlight-service p { opacity: 0.85; font-size: 15px; line-height: 1.8; margin-bottom: 28px; }
+    .highlight-service ul { list-style: none; }
+    .highlight-service ul li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 14px; display: flex; gap: 8px; }
+    .highlight-service ul li::before { content: '✦'; color: var(--color-accent-light); font-size: 10px; margin-top: 4px; flex-shrink: 0; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 40px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: all var(--transition); border: none; cursor: pointer; }
+    .btn-white { background: white; color: var(--color-primary); }
+    .btn-white:hover { background: var(--color-accent-light); transform: translateY(-2px); }
+    .btn-primary { background: var(--color-primary); color: white; }
+    .btn-primary:hover { background: var(--color-primary-light); transform: translateY(-2px); }
+
+    .cta-strip { background: var(--color-light); border-radius: var(--radius); padding: 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .cta-strip h3 { font-family: var(--font-serif); font-size: 28px; color: var(--color-dark); }
+    .cta-strip p { font-size: 14px; color: var(--color-muted); margin-top: 4px; }
+    .cta-strip-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    footer { background: var(--color-dark); color: rgba(255,255,255,0.65); padding: 64px 24px 32px; }
+    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 44px; margin-bottom: 16px; }
+    .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 260px; }
+    footer h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: white; margin-bottom: 18px; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 9px; }
+    footer ul a { font-size: 13px; transition: color var(--transition); }
+    footer ul a:hover { color: var(--color-accent-light); }
+    .f-contact-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; align-items: flex-start; }
+    .f-contact-item svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; stroke: var(--color-accent); fill: none; stroke-width: 1.5; }
+    .footer-social { display: flex; gap: 10px; margin-top: 16px; }
+    .footer-social a { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+    .footer-social a:hover { background: var(--color-primary); border-color: var(--color-primary); }
+    .footer-social svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 10px; }
+
+    @media (max-width: 768px) {
+      section { padding: 56px 20px; }
+      .nav-desktop { display: none; }
+      .nav-desktop.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--color-primary-dark); padding: 20px 24px 28px; border-top: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 20px rgba(0,0,0,0.3); gap: 20px; }
+      .nav-toggle { display: block; }
+      .header-phone span { display: none; }
+      .highlight-service-inner { grid-template-columns: 1fr; gap: 32px; }
+      .cta-strip { flex-direction: column; align-items: flex-start; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><img src="assets/logo_abril.png" alt="Estética Abril" /></a>
+      <nav class="nav-desktop" id="nav-menu">
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html" class="active">Tratamientos</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+      <a href="tel:+34985391267" class="header-phone">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.69A2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        <span>985 39 12 67</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <p class="page-hero-label">Todos los tratamientos</p>
+    <h1>Nuestros <em>servicios</em></h1>
+    <p>Desde tratamientos faciales de vanguardia hasta rituales de bienestar. Todo con las mejores marcas y tecnología.</p>
+  </div>
+
+  <section>
+    <div class="container">
+
+      <!-- INDIBA DESTACADO -->
+      <div class="highlight-service">
+        <div class="highlight-service-inner">
+          <div>
+            <p style="font-size:11px; font-weight:700; letter-spacing:0.3em; text-transform:uppercase; color:var(--color-accent-light); margin-bottom:12px;">Tratamiento estrella</p>
+            <h2>INDIBA — <em>Radiofrecuencia avanzada</em></h2>
+            <p>INDIBA es la tecnología de radiofrecuencia más avanzada del mercado. Disponible en versión facial y corporal, estimula la regeneración celular, activa el colágeno y mejora visiblemente la calidad y firmeza de la piel.</p>
+            <a href="index.html#contacto" class="btn btn-white">Reservar sesión</a>
+          </div>
+          <div>
+            <ul>
+              <li>INDIBA Facial — rejuvenecimiento y reafirmación</li>
+              <li>INDIBA Corporal — reductora y drenante</li>
+              <li>INDIBA Menopausia — adaptado a cambios hormonales</li>
+              <li>INDIBA Detox — para cuerpo hinchado y pesado</li>
+              <li>INDIBA Pre y postcirugía</li>
+              <li>INDIBA Capilar — salud del cuero cabelludo</li>
+              <li>INDIBA Brazos, Glúteos y Senos</li>
+              <li>Bienestar espalda con INDIBA</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- FACIALES -->
+      <div class="cat-section">
+        <div class="cat-header">
+          <div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg></div>
+          <h2>Tratamientos Faciales</h2>
+        </div>
+        <div class="services-list">
+          <div class="service-item"><h3>Ácido Hialurónico</h3><p>Hidratación profunda y relleno de arrugas para una piel visiblemente más joven y luminosa.</p></div>
+          <div class="service-item"><h3>Immaculate Skin Bioretinol</h3><p>Renovación celular con bioretinol para mejorar textura, manchas y signos de envejecimiento.</p></div>
+          <div class="service-item"><h3>Indiba de Luxe</h3><p>Versión premium del tratamiento INDIBA para resultados de máxima profundidad y eficacia.</p></div>
+          <div class="service-item"><h3>Eye Perfect</h3><p>Tratamiento específico para el contorno de ojos. Reduce ojeras, bolsas y arrugas periorbitales.</p></div>
+          <div class="service-item"><h3>Maderoterapia Facial</h3><p>Masaje facial con instrumentos de madera para drenar, reafirmar y mejorar el óvalo facial.</p></div>
+          <div class="service-item"><h3>Skin Reset Prebióticos</h3><p>Restablece el microbioma cutáneo para pieles sensibles, irritadas o con desequilibrios.</p></div>
+          <div class="service-item"><h3>Biotecnológico DNA Massmad</h3><p>Tecnología de última generación con activos reparadores del ADN celular.</p></div>
+          <div class="service-item"><h3>Especial Abril</h3><p>Tratamiento exclusivo del centro, diseñado por Cecilia Palomo para resultados personalizados.</p></div>
+          <div class="service-item"><h3>Veggie Confort</h3><p>Tratamiento 100% vegetal para pieles sensibles que necesitan calma, hidratación y equilibrio.</p></div>
+          <div class="service-item"><h3>Ocean Miracle</h3><p>Activos marinos de alta concentración para regenerar, nutrir e iluminar la piel.</p></div>
+          <div class="service-item"><h3>Q10 Rescue</h3><p>Antioxidante potente para combatir el envejecimiento prematuro y recuperar la vitalidad de la piel.</p></div>
+          <div class="service-item"><h3>Con Oro — Skin Sensations</h3><p>Tratamiento de lujo con oro coloidal para una piel luminosa, firme y radiante.</p></div>
+          <div class="service-item"><h3>Advanced Nácar Treatment</h3><p>El poder del nácar para iluminar, unificar y aportar luminosidad extraordinaria al rostro.</p></div>
+          <div class="service-item"><h3>Enzimático</h3><p>Exfoliación enzimática suave y profunda, ideal para todo tipo de piel.</p></div>
+          <div class="service-item"><h3>Peeling Químico</h3><p>Renovación celular profunda para manchas, cicatrices, poros y textura irregular.</p></div>
+          <div class="service-item"><h3>Infinity</h3><p>Tratamiento de resultados progresivos para una piel cada vez más joven y sana.</p></div>
+          <div class="service-item"><h3>Bio Lifting con guantes de plata</h3><p>Lifting natural con acción antimicrobiana para reafirmar y revitalizar la piel.</p></div>
+          <div class="service-item"><h3>RGnerin</h3><p>Regeneración celular avanzada para pieles maduras o dañadas.</p></div>
+          <div class="service-item"><h3>Purifying — Limpieza facial</h3><p>Limpieza profunda del cutis para eliminar impurezas, puntos negros y exceso de sebo.</p></div>
+          <div class="service-item"><h3>Microneedling</h3><p>Microagujas para estimular el colágeno y mejorar cicatrices, poros y marcas de acné.</p></div>
+          <div class="service-item"><h3>Belleza Exprés</h3><p>Tratamiento rápido y eficaz para cuando el tiempo es limitado pero los resultados son prioritarios.</p></div>
+          <div class="service-item"><h3>Indiba Facial + Cuello y Escote</h3><p>INDIBA aplicado a zonas de especial atención: cuello y escote, para un efecto lifting integral.</p></div>
+        </div>
+      </div>
+
+      <!-- CORPORALES -->
+      <div class="cat-section">
+        <div class="cat-header">
+          <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 013 3v1a3 3 0 01-6 0V5a3 3 0 013-3z"/><path d="M6 8h12l-1 13H7z"/></svg></div>
+          <h2>Tratamientos Corporales</h2>
+        </div>
+        <div class="services-list">
+          <div class="service-item"><h3>Indiba Menopausia</h3><p>Adaptado a los cambios hormonales de la menopausia: reafirma, hidrata y mejora la calidad de la piel.</p></div>
+          <div class="service-item"><h3>Indiba Detox</h3><p>Para personas que se sienten hinchadas y con el cuerpo pesado. Drenante, depurativa y revitalizante.</p></div>
+          <div class="service-item"><h3>Bienestar Integral con Indiba</h3><p>Protocolo completo de bienestar y equilibrio corporal con tecnología INDIBA.</p></div>
+          <div class="service-item"><h3>Indiba Pre y Postcirugía</h3><p>Prepara el cuerpo antes de la intervención y acelera la recuperación postoperatoria.</p></div>
+          <div class="service-item"><h3>Maternidad y Postparto</h3><p>Tratamientos seguros y adaptados durante el embarazo y la recuperación postparto.</p></div>
+          <div class="service-item"><h3>Piernas Cansadas</h3><p>Drenaje linfático y radiofrecuencia para aliviar la pesadez, mejorar la circulación y reducir la hinchazón.</p></div>
+          <div class="service-item"><h3>Bienestar Espalda</h3><p>Tratamiento específico para la espalda: tensiones, contracturas y dolor muscular.</p></div>
+          <div class="service-item"><h3>Ondas Electromagnéticas — Sculptural Shape</h3><p>Modelado corporal con tecnología de ondas para esculpir y tonificar. Pack x4 sesiones.</p></div>
+          <div class="service-item"><h3>Indiba Brazos</h3><p>Reafirma y mejora la flacidez de los brazos con tecnología INDIBA de radiofrecuencia.</p></div>
+          <div class="service-item"><h3>Indiba Glúteos</h3><p>Tonificación y reafirmación de glúteos con resultados visibles desde las primeras sesiones.</p></div>
+          <div class="service-item"><h3>Indiba Senos</h3><p>Reafirmación y mejora de la firmeza del escote y senos con radiofrecuencia profunda.</p></div>
+          <div class="service-item"><h3>Maderoterapia Corporal</h3><p>Modelado y drenaje corporal con técnicas de maderoterapia para reducir medidas y celulitis.</p></div>
+          <div class="service-item"><h3>Masaje con Cañas de Bambú</h3><p>Masaje profundo y relajante con cañas de bambú que activan la circulación y drenan toxinas.</p></div>
+          <div class="service-item"><h3>Drenaje Linfático</h3><p>Masaje manual especializado para activar el sistema linfático y reducir la retención de líquidos.</p></div>
+        </div>
+      </div>
+
+      <!-- CAPILARES -->
+      <div class="cat-section">
+        <div class="cat-header">
+          <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 12s1.5-2 4-2 4 2 4 2"/></svg></div>
+          <h2>Tratamientos Capilares</h2>
+        </div>
+        <div class="services-list">
+          <div class="service-item"><h3>Indiba Capilar</h3><p>Estimula el cuero cabelludo y los folículos pilosos para mejorar la densidad y frenar la caída del cabello.</p></div>
+          <div class="service-item"><h3>Microneedling Capilar</h3><p>Microagujas aplicadas en el cuero cabelludo para activar la regeneración capilar y estimular el crecimiento.</p></div>
+          <div class="service-item"><h3>Diagnóstico Capilar con Cámara</h3><p>Análisis profesional del cuero cabelludo y el cabello con cámara especializada para un diagnóstico preciso.</p></div>
+          <div class="service-item"><h3>Masaje Cráneo Facial</h3><p>Masaje relajante y estimulante del cuero cabelludo y la musculatura facial para aliviar tensiones.</p></div>
+        </div>
+      </div>
+
+      <!-- RITUALES -->
+      <div class="cat-section">
+        <div class="cat-header">
+          <div class="cat-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <h2>Rituales de Bienestar</h2>
+        </div>
+        <div class="services-list">
+          <div class="service-item"><h3>Ritual Calma</h3><p>Una experiencia de calma profunda. Combina técnicas de masaje y activos calmantes para resetear cuerpo y mente.</p></div>
+          <div class="service-item"><h3>Ritual Reina de Egipto</h3><p>Tratamiento de lujo inspirado en los rituales de belleza egipcios. Piel luminosa, suave y perfumada.</p></div>
+          <div class="service-item"><h3>Ritual Oasis de Relajación</h3><p>Viaje sensorial completo para desconectar del estrés y recuperar el equilibrio interior.</p></div>
+          <div class="service-item"><h3>Ritual de la Alegría</h3><p>Tratamiento vibrante y energizante con aromas y texturas que despiertan la vitalidad y el buen humor.</p></div>
+          <div class="service-item"><h3>Ritual Coffe Sesión</h3><p>El poder del café en un ritual exfoliante, reafirmante y energizante para una piel renovada.</p></div>
+        </div>
+      </div>
+
+      <!-- CTA STRIP -->
+      <div class="cta-strip">
+        <div>
+          <h3>¿No sabes qué tratamiento necesitas?</h3>
+          <p>Primera evaluación facial o corporal completamente gratuita. Te orientamos sin compromiso.</p>
+        </div>
+        <div class="cta-strip-actions">
+          <a href="index.html#contacto" class="btn btn-primary">Reservar evaluación gratuita</a>
+          <a href="tel:+34985391267" class="btn" style="background:var(--color-light); color:var(--color-primary);">985 39 12 67</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo_abril.png" alt="Estética Abril" />
+        <p>Centro de estética en Gijón especializado en INDIBA, tratamientos faciales, corporales, capilares y rituales.</p>
+        <div class="footer-social" style="margin-top:16px;">
+          <a href="https://www.facebook.com/esteticaabril" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" fill="none" stroke-width="1.5"/></svg></a>
+          <a href="https://www.instagram.com/centroesteticaabril/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" fill="none" stroke-width="1.5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor" fill="none" stroke-width="1.5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a href="https://www.tiktok.com/@centrodeesteticaabril" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5" stroke="currentColor" fill="none" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+      <div><h4>Navegación</h4><ul><li><a href="index.html">Inicio</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="nosotros.html">Nosotros</a></li><li><a href="index.html#contacto">Contacto</a></li></ul></div>
+      <div><h4>Tratamientos</h4><ul><li><a href="servicios.html">INDIBA Facial</a></li><li><a href="servicios.html">INDIBA Corporal</a></li><li><a href="servicios.html">Capilares</a></li><li><a href="servicios.html">Rituales</a></li><li><a href="servicios.html">Especial Hombre</a></li></ul></div>
+      <div>
+        <h4>Contacto</h4>
+        <div class="f-contact-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.12 2 2 0 012 .97h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg><div><a href="tel:+34985391267">985 39 12 67</a><br/><a href="tel:+34661948404">661 94 84 04</a></div></div>
+        <div class="f-contact-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@esteticaabril.es">info@esteticaabril.es</a></div>
+        <div class="f-contact-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>C/ Filósofo José Gaos, 2 · Gijón</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Centro de Estética Abril · Cecilia Palomo · Gijón</span><span>esteticaabril.es</span></div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+  </script>
+</body>
+</html>
